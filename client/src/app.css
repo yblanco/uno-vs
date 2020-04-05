@@ -1,0 +1,17 @@
+.app {
+  min-height: 100vh;
+}
+
+.app.home {
+  background: url(/bg-home.png) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.app.home .login img {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+figure {
+  margin: 0 !important;
+}

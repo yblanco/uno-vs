@@ -1,0 +1,19 @@
+{
+  "locale": "en-us",
+  "login": {
+    "sign_in": "Login with Facebook",
+    "as_guest": "Continue as a guest"
+  },
+  "footer": {
+    "terms": "Terms and conditions",
+    "how_to": "How to play?",
+    "right_reserverd": "Rights Reserved"
+  },
+  "header": {
+    "language": "Language"
+  },
+  "plays": {
+    "new_game": "New",
+    "join_game":"Join"
+  }
+}

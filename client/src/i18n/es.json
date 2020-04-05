@@ -1,0 +1,19 @@
+{
+  "locale": "es-la",
+  "login": {
+    "sign_in": "Conectarse con Facebook",
+    "as_guest": "Continuar como invitado"
+  },
+  "footer": {
+    "terms": "Términos y condiciones",
+    "how_to": "¿Cómo Jugar?",
+    "right_reserverd": "Derechos Reservados"
+  },
+  "header": {
+    "language": "Idioma"
+  },
+  "plays": {
+    "new_game":"Nuevo",
+    "join_game":"Unirte"
+  }
+}

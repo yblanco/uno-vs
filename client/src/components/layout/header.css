@@ -1,0 +1,28 @@
+.columns.header {
+  margin: 0;
+  margin-top: 0.25em;
+  margin-right: 0.25em;
+}
+
+
+.columns.header > .column {
+  padding: 0;
+}
+
+.lang__control {
+  background: transparent !important;
+  border-color: white !important;
+}
+
+.lang__indicator-separator{
+  background: white !important;
+}
+
+.lang__indicator {
+  color: white !important;
+}
+
+.lang__control .columns .column {
+  color: white;
+  font-weight: bold;
+}

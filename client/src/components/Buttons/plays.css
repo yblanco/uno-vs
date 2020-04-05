@@ -1,0 +1,11 @@
+.plays.card {
+  background: #0042ff;
+}
+
+.plays.card:hover {
+  background: #ff9000;
+}
+
+.plays .card-content {
+  padding: 0em;
+}

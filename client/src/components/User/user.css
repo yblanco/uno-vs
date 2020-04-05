@@ -1,0 +1,30 @@
+.box.user .media-content {
+  padding-left: 1em;
+  overflow-x: unset;
+}
+
+.box.user .media-content span.setting figure {
+  display: inline-block;
+  margin-top: 0.1em;
+}
+
+.box.user  .tag {
+  margin-left: 0.25em;
+  margin-top: 1em;
+}
+
+.box.user  .tag span {
+  padding-left: 0.45em !important;
+}
+
+
+.box.user .columns, .box.user .columns .column {
+  padding: 0;
+  margin: 0;
+}
+
+
+.box.user .columns .column figure{
+  margin-left: auto;
+  margin-right: auto;
+}

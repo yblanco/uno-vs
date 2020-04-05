@@ -1,0 +1,69 @@
+html, body, #root, #root > .container{
+  height: 100vh;
+}
+
+html, body, #root{
+  margin: 0;
+  padding: 0
+}
+
+#root > div > .container > .content {
+  padding: 1em;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.pointer, .not-allowed {
+  user-select: none;
+}
+
+button {
+  width: 100%;
+}
+
+.divider {
+  padding: 0.1em;
+}
+
+.notfound-img {
+  width: 55%;
+  margin: auto;
+  margin-top: 5em;
+}
+
+.borderBottom {
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+.content ul {
+  list-style: none
+}
+
+.transparent {
+  color: transparent;
+  background: transparent !important;
+}
+
+.inline-img {
+  display: inline-block;
+  margin: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+a {
+  color: white;
+  text-decoration: underline !important;
+}
+
+.box, .notification, .panel-heading, .input, .tag {
+  border-radius: 0 !important;
+}
