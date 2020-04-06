@@ -20,7 +20,7 @@ services:
     build:
       context: server
     environment:
-      - PORT=3001
+      - PORT=80
       - DBHOST=mongo
       - DBPORT=27017
       - DBUSER=$DBUSER
@@ -29,8 +29,6 @@ services:
       - DAY_LOG=$DAY_LOG
       - SECRET_REQUEST=$SECRET_REQUEST
       - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
-    expose:
-      - "3001"
     networks:
       - nginx-network
     depends_on:
