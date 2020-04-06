@@ -9,6 +9,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
     expose:
       - "27017"
+    ports:
+      - "35000:27017"
     volumes:
       - uno-data:/data/db
     networks:
