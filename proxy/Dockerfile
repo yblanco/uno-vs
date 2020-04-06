@@ -4,6 +4,8 @@ RUN mkdir /etc/nginx/conf.d/sites-available
 RUN mkdir /etc/nginx/conf.d/sites-enabled
 
 COPY sites-available /etc/nginx/conf.d/sites-available
+COPY security /etc/nginx
+
 
 RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/sites-available
 

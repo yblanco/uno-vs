@@ -7,8 +7,6 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$DBUSER
       - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
-    ports:
-      - "3003:27017"
     expose:
       - "27017"
     volumes:
@@ -42,6 +40,8 @@ services:
       args:
         - HOST_SERVER=$HOST_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
+    volumes:
+      - /srv/ssl/client/verify:/var/www/.well-known/acme-challenge/
     networks:
       - nginx-network
     depends_on:
