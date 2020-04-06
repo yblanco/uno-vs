@@ -49,6 +49,12 @@ services:
     depends_on:
       - server
     restart: always
+  proxy:
+    build:
+      context: proxy
+    ports:
+      - 80:80
+      - 443:443
 
 volumes:
   uno-data:
