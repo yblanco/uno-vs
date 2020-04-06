@@ -2,6 +2,8 @@ FROM ubuntu:bionic as openssl
 
 WORKDIR /app
 
+RUN apt-get install -y openssl
+
 RUN openssl dhparam -out dhparam.pem 4096
 
 FROM nginx:1.17.9
