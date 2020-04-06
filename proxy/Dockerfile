@@ -14,4 +14,4 @@ RUN ls -s /etc/nginx/conf.d/sites-available/server.conf /etc/nginx/conf.d/sites-
 RUN sed -i 's\include /etc/nginx/conf.d/\include /etc/nginx/conf.d/sites-enabled/\g' /etc/nginx/nginx.conf
 
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx-debug", "-g", "daemon off;"]
