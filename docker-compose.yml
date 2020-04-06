@@ -11,6 +11,8 @@ services:
       - "27017"
     volumes:
       - uno-data:/data/db
+    networks:
+      - back-network
     restart: always
 
 # SERVER
@@ -31,6 +33,7 @@ services:
       - /srv/ssl/api/verify:/app/public/.well-known/acme-challenge/
     networks:
       - nginx-network
+      - back-network
     depends_on:
       - mongo
     restart: always
@@ -70,3 +73,4 @@ volumes:
 
 networks:
   nginx-network:
+  back-network:
