@@ -16,7 +16,7 @@ services:
     restart: always
 
 # SERVER
-  server:
+  api:
     build:
       context: server
     environment:
