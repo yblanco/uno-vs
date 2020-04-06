@@ -55,6 +55,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    volumes:
+      - /srv/ssl/client/cert:/etc/ssl/client
     networks:
       - nginx-network
     depends_on:
