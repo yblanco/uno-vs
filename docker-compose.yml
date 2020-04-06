@@ -8,7 +8,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=$DBUSER
       - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
     ports:
-      - "27017:27017"
+      - "3003:27017"
     expose:
       - "27017"
     volumes:
@@ -45,7 +45,7 @@ services:
         - HOST_SERVER=$HOST_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - server
     restart: always
