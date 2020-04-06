@@ -1,4 +1,12 @@
+FROM debian:bullseye-slim as openssl
+
+WORKDIR /app
+
+RUN openssl dhparam -out dhparam.pem 4096
+
 FROM nginx:1.17.9
+
+COPY --from=openssl /app/dhparam.pem /etc/nginx
 
 RUN mkdir /etc/nginx/conf.d/sites-available
 RUN mkdir /etc/nginx/conf.d/sites-enabled
@@ -14,7 +22,5 @@ RUN cp /etc/nginx/conf.d/sites-available/client.conf /etc/nginx/conf.d/sites-ena
 RUN cp /etc/nginx/conf.d/sites-available/api.conf /etc/nginx/conf.d/sites-enabled/
 
 RUN sed -i 's\include /etc/nginx/conf.d/\include /etc/nginx/conf.d/sites-enabled/\g' /etc/nginx/nginx.conf
-
-RUN openssl dhparam -out /etc/nginx/dhparam.pem 4096
 
 CMD ["nginx", "-g", "daemon off;"]
