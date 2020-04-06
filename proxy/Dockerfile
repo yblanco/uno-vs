@@ -12,9 +12,6 @@ FROM nginx:1.17.9
 
 COPY --from=openssl /app/dhparam.pem /etc/nginx/dhparams.pem
 
-RUN chmod 755 /etc/nginx/dhparams.pem
-RUN ls -la /etc/nginx
-
 RUN mkdir /etc/nginx/conf.d/sites-available
 RUN mkdir /etc/nginx/conf.d/sites-enabled
 
