@@ -15,5 +15,12 @@
   "plays": {
     "new_game":"Nuevo",
     "join_game":"Unirte"
+  },
+  "ranking": {
+    "friends": "Amigos",
+    "global": "Global"
+  },
+  "index": {
+    "coming_soon": "Proximamente"
   }
 }

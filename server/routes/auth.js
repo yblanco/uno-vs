@@ -9,8 +9,8 @@ router.route('/app_id')
 router.route('/sign')
   .post(controller.sign);
 
-  router.route('/check')
-    .post(controller.check);
+router.route('/check')
+  .post(controller.check);
 
 
 module.exports = router;

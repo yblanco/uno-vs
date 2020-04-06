@@ -11,14 +11,24 @@ const logger = require('./libs/logger');
 
 const routes = require('./routes');
 const models = require('./models');
+const JWT = require('./libs/jwt');
+
+const authMiddleware = require('./middlewares/auth.middleware');
+
 
 
 const app = express();
 
 app.use((req, res, next) => {
+  const { environments = {} } = constants;
+  const { secret_request:secret = false } = environments;
+  if(secret === false) {
+    throw new Error('Server not configured');
+  }
   req.constants = constants;
   req.logger = logger;
   req.models = models.mongoose.models;
+  req.jwt = new JWT(secret);
   res.response = (success, data) => res.json({ success, data });
   next();
 });
@@ -34,6 +44,8 @@ app.use(morgan((tokens, req, res) => [
   tokens.res(req, res, 'content-length'), '-',
   tokens['response-time'](req, res), 'ms',
 ].join(' '), { stream: logger.stream }));
+
+app.use(authMiddleware);
 
 app.use('/', routes);
 

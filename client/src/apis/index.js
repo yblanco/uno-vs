@@ -1,11 +1,14 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
+import { SERVER, SECRET_REQUEST } from '../constants/env.constant';
 
 export default class {
-  constructor(host = '') {
+  constructor(path = '') {
     this.info = '';
-    this.host = host;
+    this.host = `${SERVER}/${path}`;
     this.axios = axios.create({
-      baseURL: host,
+      baseURL: this.host,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -44,5 +47,22 @@ export default class {
       throw new Error(data);
     }
     return data;
+  }
+
+  responseAuth($route, method = 'get', info = {}) {
+    return this.call($route, method, { info })
+      .then(response => new Promise((resolve, reject) => {
+        jwt.verify(response, SECRET_REQUEST, (err, decoded) => {
+          if(err) {
+            reject(err);
+          } else {
+            resolve({ ...decoded, encoded: response})
+          }
+        });
+      }));
+  }
+
+  requestAuth($route, method = 'get', data = {}) {
+    return this.responseAuth($route, method,  jwt.sign(data, SECRET_REQUEST, { expiresIn: '3m' }));
   }
 }

@@ -12,12 +12,21 @@ export const app = {
 export const auth = {
   app_id: false,
   login: false,
-  user: false,
+  authenticated: false,
   check: false,
+}
+
+export const user = {
+  friends: [],
+  rank: {
+    global: [],
+    friends: [],
+  }
 }
 
 export default {
   snackbar,
   app,
   auth,
+  user
 };

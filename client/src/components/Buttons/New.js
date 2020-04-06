@@ -1,10 +1,8 @@
 import React  from 'react';
-import { Columns } from 'react-bulma-components';
-
 import Plays from './Plays';
 
-export default ({ t }) => {
+export default ({ t, onClick }) => {
   return (
-    <Plays type="new" />
+    <Plays type="new" onClick={onClick} />
   );
 };

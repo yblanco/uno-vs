@@ -21,7 +21,7 @@ import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang } from './actions/app.action';
 
-import { getAppId, checkUser } from './actions/auth.action';
+import { getAppId, checkUser, loggedOut } from './actions/auth.action';
 
 
 import en from './i18n/en.json';
@@ -35,7 +35,7 @@ const App = () => {
   const { state, dispatch } = useContext(Store);
   const { snackbar, app, auth } = state;
   const { ready, lang } = app;
-  const { user } = auth;
+  const { authenticated } = auth;
 
   const { location } = window;
   const { search = "", pathname = "/" } = location;
@@ -52,7 +52,6 @@ const App = () => {
   }, [dispatch, language]);
 
   useEffect(() => {
-    console.log(lang)
   }, [dispatch, language, lang]);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const App = () => {
     }
   }, [dispatch, ready])
 
-  if(user !== false && isHome) {
+  if(authenticated !== false && isHome) {
     return (<Redirect to={routes.getLink(redirect)} />);
   }
 
@@ -70,10 +69,15 @@ const App = () => {
     <div className="app home">
       <TranslatorProvider translations={translations}>
         <Snackbar info={snackbar} hideSnackbar={() => hideSnackbar(dispatch)} />
-        <Header home={isHome} lang={lang} setLang={(value) => setLang(dispatch, value)} />
+        <Header
+          auth={authenticated}
+          lang={lang}
+          setLang={(value) => setLang(dispatch, value)}
+          loggedOut={() => loggedOut(dispatch) }
+        />
         <Container fluid>
           {
-            user === false
+            authenticated === false
             ? <Home />
             : <Routes />
           }

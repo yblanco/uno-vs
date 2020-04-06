@@ -1,13 +1,13 @@
 import React from 'react';
 import { Columns } from 'react-bulma-components';
 
-import { Link } from 'react-router-dom';
-
 import { translate } from "react-translate";
 
 import FacebookLogin from 'react-facebook-login';
 
-import routes from '../../routes';
+// import { Link } from 'react-router-dom';
+//
+// import routes from '../../routes';
 
 export default translate('login')(({ t, id, disabled=false, onLogin=()=>{} }) => {
   return (
@@ -28,9 +28,9 @@ export default translate('login')(({ t, id, disabled=false, onLogin=()=>{} }) =>
         }
       </Columns.Column>
       <Columns.Column size={12} className="has-text-centered">
-        <Link to={routes.getLink()}>
+        <span className='not-allowed has-text-grey-light'>
           {t('as_guest')}
-        </Link>
+        </span>
       </Columns.Column>
     </Columns>
   );

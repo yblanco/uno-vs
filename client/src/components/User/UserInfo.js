@@ -1,35 +1,24 @@
 import React  from 'react';
-import { Box, Media, Image, Content, Columns } from 'react-bulma-components';
+import { Box, Media } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
-import UserStats from './UserStats';
-
-import settings from './settings.png';
+import UserImage from './UserImage';
+import UserInfoContent from './UserInfoContent';
 
 import './user.css';
 
-export default translate('user')(({ t, user }) => {
+export default translate('user')(({ t, user, position = false, auth = 0 }) => {
+  const isUser = auth === user.id;
+  const classNameBackground = isUser ? 'has-background-dark' : 'has-background-black-ter';
   return (
-    <Box className='user has-background-dark '>
+    <Box className={`user ${classNameBackground}`}>
       <Media>
         <Media.Item renderAs='figure' position='left'>
-          <Image size={64} alt={user.name} src={user.picture} rounded className='profile-pic'  />
+          <UserImage user={user} />
         </Media.Item>
         <Media.Item>
-          <Content >
-            <Columns className='is-mobile is-vcentered'>
-              <Columns.Column size={10} className='has-text-white has-text-weight-bold'>
-                {user.name}
-              </Columns.Column>
-              <Columns.Column size={2} className='pointer'>
-                <Image size={24} alt='setting' src={settings} className='is-text-centered'/>
-              </Columns.Column>
-            </Columns>
-            <UserStats text={user.level} type='level' pad={2} />
-            <UserStats text={user.money} type='money' pad={4}/>
-            <UserStats text={user.diamonds} type='diamonds' pad={3}/>
-          </Content>
+          <UserInfoContent user={user} position={position} />
         </Media.Item>
       </Media>
     </Box>

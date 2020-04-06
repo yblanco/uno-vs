@@ -7,11 +7,11 @@ export default (state = auth, action = {}) => {
       return {
         ...state, app_id: action.data,
       };
-    case authAction.set_user:
+    case authAction.set_authenticated:
       return {
-        ...state, login: true, user: action.data,
+        ...state, login: true, authenticated: action.data,
       }
-    case authAction.checked_user:
+    case authAction.checked_authenticated:
       return { ...state, check: true }
     default:
       return state;

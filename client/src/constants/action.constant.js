@@ -10,6 +10,10 @@ export const appAction = {
 
 export const authAction = {
   set_app_id: 'auth-set_app_id',
-  set_user: 'auth-set_user',
-  checked_user: 'auth-checked_user',
+  set_authenticated: 'auth-set_authenticated',
+  checked_authenticated: 'auth-checked_authenticated',
+}
+
+export const userAction = {
+  get_rank: 'user-get_rank'
 }

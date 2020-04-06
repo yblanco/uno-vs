@@ -21,7 +21,7 @@ const removeLogged = () => {
 const login = (dispatch, response) => {
   const { name } = response;
   setLogged(response);
-  dispatch(dispatchAction(authAction.set_user, response));
+  dispatch(dispatchAction(authAction.set_authenticated, response));
   showSnackbarSuccess(dispatch, name);
 }
 
@@ -30,7 +30,7 @@ export const getAppId = (dispatch) => {
     .then(response => {
       const { id } = response;
       dispatch(dispatchAction(authAction.set_app_id, id));
-      dispatch(dispatchAction(authAction.checked_user));
+      dispatch(dispatchAction(authAction.checked_authenticated));
       setReady(dispatch);
     })
     .catch(err => {
@@ -45,6 +45,7 @@ export const authUser = (dispatch, data) => {
     })
     .catch(err => {
       showSnackbarError(dispatch, err);
+      showSnackbarError(dispatch, err);
     });
 }
 
@@ -55,6 +56,12 @@ export const checkUser = (dispatch, logged) => {
     })
     .catch(err => {
       removeLogged();
-      dispatch(dispatchAction(authAction.checked_user));
+      dispatch(dispatchAction(authAction.checked_authenticated));
+      showSnackbarError(dispatch, err);
     })
+}
+
+export const loggedOut = (dispatch) => {
+  removeLogged();
+  dispatch(dispatchAction(authAction.set_authenticated, false));
 }

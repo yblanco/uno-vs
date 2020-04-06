@@ -20,10 +20,10 @@ const plays = {
   },
 }
 
-export default translate('plays')(({ t, type }) => {
+export default translate('plays')(({ t, type, onClick }) => {
   const { [type]:play } = plays;
   return (
-    <Card className='pointer plays'>
+    <Card className='pointer plays' onClick={onClick}>
      <Card.Image size="square" src={play.icon} alt={type} />
      <Card.Content className="has-text-centered has-text-weight-bold has-text-white">
       {t(play.label)}
