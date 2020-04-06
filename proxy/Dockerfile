@@ -15,5 +15,6 @@ RUN cp /etc/nginx/conf.d/sites-available/api.conf /etc/nginx/conf.d/sites-enable
 
 RUN sed -i 's\include /etc/nginx/conf.d/\include /etc/nginx/conf.d/sites-enabled/\g' /etc/nginx/nginx.conf
 
+RUN openssl dhparam -out /etc/nginx/dhparam.pem 4096
 
 CMD ["nginx", "-g", "daemon off;"]
