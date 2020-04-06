@@ -47,7 +47,7 @@ services:
     networks:
       - nginx-network
     depends_on:
-      - server
+      - api
     restart: always
 
 # PROXY
