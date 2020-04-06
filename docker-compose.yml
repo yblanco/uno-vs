@@ -39,6 +39,7 @@ services:
 
 # CLIENT
   client:
+    hostname: client
     build:
       context: client
       args:
