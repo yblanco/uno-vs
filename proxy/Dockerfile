@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim as openssl
+FROM ubuntu:bionic as openssl
 
 WORKDIR /app
 
