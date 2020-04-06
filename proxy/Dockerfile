@@ -15,7 +15,7 @@ COPY --from=openssl /app/dhparam.pem /etc/nginx/dhparams.pem
 RUN mkdir /etc/nginx/conf.d/sites-available
 RUN mkdir /etc/nginx/conf.d/sites-enabled
 
-RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/sites-available
+#RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/sites-available
 COPY sites-available /etc/nginx/conf.d/sites-available
 COPY security /etc/nginx
 
