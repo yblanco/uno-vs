@@ -21,8 +21,11 @@ module.exports = {
     let success = false;
     try{
       const { models, jwt, decode } = req;
-      const { name, email, picture, id } = decode;
-      const { url = false } = picture.data;
+      const { name, email, picture = {}, id, status = false } = decode;
+      const { url = false } = picture.data || {};
+      if(status != false) {
+        throw new Error('Unathorized from facebook')
+      }
       await models.users.sign(name, email, url, id)
         .then(user => {
           console.log(user)
