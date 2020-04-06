@@ -4,11 +4,13 @@ services:
 # DATABASE
   mongo:
     image: mongo:4.0-xenial
-    expose:
-      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$DBUSER
       - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
+    port:
+      - "27017:27017"
+    expose:
+      - "27017"
     volumes:
       - uno-data:/data/db
     restart: always
@@ -44,10 +46,10 @@ services:
         - HOST_SERVER=$HOST_SERVER
         - PORT_SERVER=$PORT_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
-    depends_on:
-      - server
     ports:
       - "80:80"
+    depends_on:
+      - server
     restart: always
 
 volumes:
