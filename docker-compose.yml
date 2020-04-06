@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+# DATABASE
+  mongo:
+    image: mongo:4.0-xenial
+    expose:
+      - "27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DBUSER
+      - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
+    volumes:
+      - uno-data:/data/db
+    restart: always
+
+# SERVER
+  server:
+    build:
+      context: server
+    environment:
+      - PORT=3001
+      - DBHOST=mongo
+      - DBPORT=27017
+      - DBUSER=$DBUSER
+      - DBPASS=$DBPASS
+      - DEBUG=$DEBUG
+      - DAY_LOG=$DAY_LOG
+      - SECRET_REQUEST=$SECRET_REQUEST
+      - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
+    depends_on:
+      - mongo
+    ports:
+      - "3001:3001"
+    restart: always
+
+# CLIENT
+  client:
+    build:
+      context: client
+      args:
+        - HOST_PROTOCOL=$HOST_PROTOCOL
+        - HOST_SERVER=$HOST_SERVER
+        - PORT_SERVER=$PORT_SERVER
+        - SECRET_REQUEST=$SECRET_REQUEST
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    restart: always
+
+volumes:
+  uno-data:
