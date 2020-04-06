@@ -42,9 +42,7 @@ services:
     build:
       context: client
       args:
-        - HOST_PROTOCOL=$HOST_PROTOCOL
         - HOST_SERVER=$HOST_SERVER
-        - PORT_SERVER=$PORT_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
     ports:
       - "80:80"
