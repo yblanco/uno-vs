@@ -31,6 +31,8 @@ services:
       - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
     expose:
       - "3001"
+    networks:
+      - nginx-network
     depends_on:
       - mongo
     restart: always
@@ -42,15 +44,26 @@ services:
       args:
         - HOST_SERVER=$HOST_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
+    networks:
+      - nginx-network
     depends_on:
       - server
     restart: always
+
+# PROXY
   proxy:
     build:
       context: proxy
     ports:
       - 80:80
       - 443:443
+    networks:
+      - nginx-network
+    depends_on:
+      - client
 
 volumes:
   uno-data:
+
+networks:
+  nginx-network:
