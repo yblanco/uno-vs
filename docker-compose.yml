@@ -29,8 +29,6 @@ services:
       - DAY_LOG=$DAY_LOG
       - SECRET_REQUEST=$SECRET_REQUEST
       - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
-    ports:
-      - "3001:3001"
     expose:
       - "3001"
     depends_on:
@@ -39,14 +37,11 @@ services:
 
 # CLIENT
   client:
-    hostname: client
     build:
       context: client
       args:
         - HOST_SERVER=$HOST_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
-    ports:
-      - "3000:80"
     depends_on:
       - server
     restart: always
