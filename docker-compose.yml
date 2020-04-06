@@ -27,10 +27,12 @@ services:
       - DAY_LOG=$DAY_LOG
       - SECRET_REQUEST=$SECRET_REQUEST
       - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
-    depends_on:
-      - mongo
     ports:
       - "3001:3001"
+    expose:
+      - "3001"
+    depends_on:
+      - mongo
     restart: always
 
 # CLIENT
@@ -45,7 +47,7 @@ services:
     depends_on:
       - server
     ports:
-      - "3000:3000"
+      - "80:80"
     restart: always
 
 volumes:
