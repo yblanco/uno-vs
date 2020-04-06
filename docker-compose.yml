@@ -7,7 +7,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$DBUSER
       - MONGO_INITDB_ROOT_PASSWORD=$DBPASS
-    port:
+    ports:
       - "27017:27017"
     expose:
       - "27017"
