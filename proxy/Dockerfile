@@ -1,3 +1,3 @@
-FROM node:12.16.1-stretch as node
+FROM nginx:1.17.9
 
 CMD ["nginx", "-g", "daemon off;"]
