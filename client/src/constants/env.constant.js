@@ -6,4 +6,4 @@ export const SECRET_REQUEST = process.env.REACT_APP_SECRET_REQUEST || 'mysecret'
 
 export const KEY_STORAGE = 'logged';
 
-export const SERVER = `${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}`;
+export const SERVER = `${SERVER_PROTOCOL}://${SERVER_HOST}${SERVER_PORT === 'none' ? '' : `:${SERVER_PORT}`}`;
