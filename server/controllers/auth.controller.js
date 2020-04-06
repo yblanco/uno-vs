@@ -28,7 +28,6 @@ module.exports = {
       }
       await models.users.sign(name, email, url, id)
         .then(user => {
-          console.log(user)
           response = jwt.encodeUser(user);
           success = true;
         });
