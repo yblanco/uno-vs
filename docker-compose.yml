@@ -61,6 +61,7 @@ services:
       args:
         - HOST_SERVER=$HOST_SERVER
         - SECRET_REQUEST=$SECRET_REQUEST
+        - WEBSOCKET_SERVER=$WEBSOCKET_SERVER
     volumes:
       - /srv/ssl/client/verify:/var/www/.well-known/acme-challenge/
     networks:
