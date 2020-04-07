@@ -50,7 +50,7 @@ export default translate('login')(({ t, facebook, google, lang, disabled=false, 
           (
             <GoogleLogin
               clientId={google}
-              buttonText={t('sign_in_facebook')}
+              buttonText={t('sign_in_google')}
               onSuccess={loginGoogle}
               onFailure={() => onError(t('google_error'))}
               disabled={disabled}
