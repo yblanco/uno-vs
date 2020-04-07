@@ -17,6 +17,19 @@ services:
       - back-network
     restart: always
 
+# WEBSOCKET
+  websocket:
+    build:
+      context: websocket
+    environment:
+      - PORT=80
+    volumes:
+      - /srv/ssl/websocket/verify:/app/public/.well-known/acme-challenge/
+    networks:
+      - nginx-network
+    restart: always
+
+
 # SERVER
   api:
     build:
@@ -54,6 +67,7 @@ services:
       - nginx-network
     depends_on:
       - api
+      - websocket
     restart: always
 
 # PROXY
@@ -66,6 +80,7 @@ services:
     volumes:
       - /srv/ssl/client/cert:/etc/ssl/client
       - /srv/ssl/api/cert:/etc/ssl/api
+      #- /srv/ssl/websocket/cert:/etc/ssl/websocket
     networks:
       - nginx-network
     depends_on:
