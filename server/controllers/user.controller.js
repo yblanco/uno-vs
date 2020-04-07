@@ -4,14 +4,14 @@ module.exports = {
     let success = false;
     try{
       const { constants = {}, body, models, jwt, decode  } = req;
-      const { mail } = decode;
+      const { id } = decode;
       await models.users.rank()
         .then(rank => {
-          const isUserRanked = rank.filter(item => item.mail === mail).length > 0;
+          const isUserRanked = rank.filter(item => item.id === id).length > 0;
           if(isUserRanked){
             return rank;
           }
-          return models.users.userRank(mail)
+          return models.users.userRank(id)
             .then(position => {
               const userRank = {
                 ...decode,

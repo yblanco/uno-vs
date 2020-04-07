@@ -39,8 +39,8 @@ module.exports = {
     let success = false;
     try{
       const {  body, models, jwt, decode  } = req;
-      const { mail } = decode;
-      await models.users.get(mail)
+      const { id } = decode;
+      await models.users.get(id)
         .then(user => {
           response = jwt.encodeUser(user);
           success = true;

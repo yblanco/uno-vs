@@ -10,17 +10,14 @@ const schema = new Schema({
   mail: {
     type: String,
     required: true,
+    default: 'no_mail',
   },
   picture: {
     type: String,
     required: true,
   },
-  login_id:  {
-    type: Number,
-    required: true,
-  },
-  id: {
-    type: Number,
+  id:  {
+    type: String,
     required: true,
   },
   ip: {
@@ -65,9 +62,9 @@ const schema = new Schema({
 
 schema.statics.queryUserStatus = () => ({ status: true,});
 
-schema.statics.queryUser = function queryUser(mail) {
+schema.statics.queryUser = function queryUser(id) {
   const query = this.queryUserStatus();
-  return { ...query, mail };
+  return { ...query, id };
 }
 
 schema.statics.queryRank = () => ({
@@ -84,37 +81,20 @@ schema.statics.convertUsers = (user) => {
   return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip };
 }
 
-schema.statics.exist = function exist(id) {
-  return this.findOne({ id })
-    .then(user => {
-      if(user === null) {
-        return false
-      }
-      return true;
-    })
-}
 
-schema.statics.add = function add(name, mail, picture, loginId, from, ip) {
-  const date = new Date().getTime();
-  const random = String(Math.random()).split('.').pop();
-  const id = parseInt(`${date}${random}`.substring(0, 16), 10);
+schema.statics.add = function add(name, mail, picture, id, from, ip) {
   const data = {
-    name, mail, picture, id, login_id: loginId, ip, from
+    name, mail, picture, id, ip, from
   };
-  return this.exist(id)
-    .then(exist => {
-      if(exist) {
-        return this.add(name, mail, picture, loginId);
-      }
-      return this.create(data)
-        .then(user => {
-          return this.get(data.mail);
-        })
+  return this.create(data)
+    .then(user => {
+      const { id: identificator } = user;
+      return this.get(identificator);
     });
 };
 
-schema.statics.get = function get(mail, photo = false) {
-  return this.findOne(this.queryUser(mail))
+schema.statics.get = function get(id, photo = false) {
+  return this.findOne(this.queryUser(id))
     .then((user) => {
       const response = this.convertUsers(user);
       const { picture } = response;
@@ -124,10 +104,9 @@ schema.statics.get = function get(mail, photo = false) {
       if(photo !== false && photo !== picture) {
         user.picture = photo;
         return user.save()
-          .then(() => {
-            return response;
-          });
-      } return response
+          .then(() => response);
+      }
+      return response
     });
 };
 
@@ -135,12 +114,13 @@ schema.statics.countUser = function countUser() {
   return this.countDocuments();
 }
 
-schema.statics.sign = function sign(name, email, picture, facebookId, from, ip) {
-  return this.get(email, picture)
+schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
+  const id = `${from}_${appId}`;
+  return this.get(id, picture)
     .catch(err => {
       const { message } = err;
       if(message === 'User doesnt exist') {
-        return this.add(name, email, picture, facebookId, from, ip);
+        return this.add(name, email, picture, id, from, ip);
       }
       throw err;
     })
@@ -161,9 +141,9 @@ schema.statics.rank = function rank() {
   .then(ranks => (ranks.map(this.convertUsers)))
 }
 
-schema.statics.userRank = function rank(mail) {
+schema.statics.userRank = function rank(id) {
   return this.aggregate([
-    { $match: this.queryUser(mail)},
+    { $match: this.queryUser(id)},
     { $addFields: this.queryRank() },
   ]).then(userRank => {
     const user = userRank.pop() || {};

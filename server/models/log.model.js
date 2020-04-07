@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   ip: {
