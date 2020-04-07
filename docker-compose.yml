@@ -80,7 +80,7 @@ services:
     volumes:
       - /srv/ssl/client/cert:/etc/ssl/client
       - /srv/ssl/api/cert:/etc/ssl/api
-      #- /srv/ssl/websocket/cert:/etc/ssl/websocket
+      - /srv/ssl/websocket/cert:/etc/ssl/websocket
     networks:
       - nginx-network
     depends_on:
