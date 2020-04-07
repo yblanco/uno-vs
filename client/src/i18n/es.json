@@ -1,8 +1,11 @@
 {
   "locale": "es-la",
   "login": {
-    "sign_in": "Conectarse con Facebook",
-    "as_guest": "Continuar como invitado"
+    "sign_in_facebook": "Conectarse con Facebook",
+    "sign_in_google": "Conectarse con Google",
+    "as_guest": "Continuar como invitado",
+    "facebook_error": "No se pudo contactar con Facebook",
+    "google_error": "No se pudo contactar con Google"
   },
   "footer": {
     "terms": "Términos y condiciones",

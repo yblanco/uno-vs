@@ -5,7 +5,7 @@ export default (state = auth, action = {}) => {
   switch (action.type) {
     case authAction.set_app_id:
       return {
-        ...state, app_id: action.data,
+        ...state, facebook_id: action.data.facebook, google_id: action.data.google,
       };
     case authAction.set_authenticated:
       return {

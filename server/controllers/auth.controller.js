@@ -5,11 +5,13 @@ module.exports = {
     try{
       const { constants = {}, jwt } = req;
       const { environments = {} } = constants;
-      const { facebook_app_id:id = false } = environments;
-      if(id === false) {
+      const { facebook_app_id:facebook = false, google_app_id:google = false } = environments;
+      if(facebook === false) {
         throw new Error('Facebook configuration is missing');
+      } else if(google === false) {
+        throw new Error('Google configuration is missing');
       }
-      response = jwt.encodeRequest({ id });
+      response = jwt.encodeRequest({ google, facebook });
       success = true;
     } catch(err) {
       return next(err);
@@ -21,13 +23,8 @@ module.exports = {
     let success = false;
     try{
       const { models, jwt, decode, clientIp } = req;
-      const { name, email, picture = {}, id, status = false } = decode;
-      const { url = false } = picture.data || {};
-      if(status != false) {
-        throw new Error('Unathorized from facebook')
-      }
-      req.logger.info(JSON.stringify(decode));
-      await models.users.sign(name, email, url, id, 'facebook', clientIp)
+      const { name, email, picture, id, from } = decode;
+      await models.users.sign(name, email, picture, id, from, clientIp)
         .then(user => {
           response = jwt.encodeUser(user);
           success = true;

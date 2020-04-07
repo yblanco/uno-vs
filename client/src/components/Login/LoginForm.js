@@ -4,25 +4,56 @@ import { Columns } from 'react-bulma-components';
 import { translate } from "react-translate";
 
 import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+
 
 // import { Link } from 'react-router-dom';
 //
 // import routes from '../../routes';
 
-export default translate('login')(({ t, id, disabled=false, onLogin=()=>{} }) => {
+export default translate('login')(({ t, facebook, google, lang, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
+  const mapFields = (name, email, picture, id, from) => ({ name, email, picture, id, from });
+  const loginFacebook = (response) => {
+    const { status = false, name, email, picture, id } = response;
+    const { url = false } = picture.data || {};
+    if(status === false) {
+      onLogin(mapFields(name, email, url, id, 'facebook'));
+    } else {
+      onError(t('facebook_error'));
+    }
+  }
+  const loginGoogle = (response) => {
+    const { profileObj = {} } = response;
+    const { name, email, imageUrl, googleId } = profileObj;
+    onLogin(mapFields(name, email, imageUrl, googleId, 'google'));
+  }
   return (
     <Columns centered>
       <Columns.Column size={12}>
         {
-          id !== false &&
+          facebook !== false &&
           (
             <FacebookLogin
-              appId={id}
+              appId={facebook}
               fields="name,email,picture"
-              callback={onLogin}
-              language="es"
-              textButton={t('sign_in')}
+              callback={loginFacebook}
+              language={lang}
+              textButton={t('sign_in_facebook')}
               isDisabled={disabled}
+            />
+          )
+        }
+      </Columns.Column>
+      <Columns.Column>
+        {
+          google !== false &&
+          (
+            <GoogleLogin
+              clientId={google}
+              buttonText={t('sign_in_facebook')}
+              onSuccess={loginGoogle}
+              onFailure={() => onError(t('google_error'))}
+              disabled={disabled}
             />
           )
         }

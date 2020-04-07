@@ -10,7 +10,8 @@ export const app = {
 }
 
 export const auth = {
-  app_id: false,
+  facebook_id: false,
+  google_id: false,
   login: false,
   authenticated: false,
   check: false,

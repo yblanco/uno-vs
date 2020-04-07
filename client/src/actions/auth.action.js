@@ -28,8 +28,7 @@ const login = (dispatch, response) => {
 export const getAppId = (dispatch) => {
   authRest.getAppId()
     .then(response => {
-      const { id } = response;
-      dispatch(dispatchAction(authAction.set_app_id, id));
+      dispatch(dispatchAction(authAction.set_app_id, response));
       dispatch(dispatchAction(authAction.checked_authenticated));
       setReady(dispatch);
     })

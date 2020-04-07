@@ -15,7 +15,7 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  facebook_id:  {
+  login_id:  {
     type: Number,
     required: true,
   },
@@ -94,17 +94,17 @@ schema.statics.exist = function exist(id) {
     })
 }
 
-schema.statics.add = function add(name, mail, picture, facebookId, from, ip) {
+schema.statics.add = function add(name, mail, picture, loginId, from, ip) {
   const date = new Date().getTime();
   const random = String(Math.random()).split('.').pop();
   const id = parseInt(`${date}${random}`.substring(0, 16), 10);
   const data = {
-    name, mail, picture, id, facebook_id: facebookId, ip, from
+    name, mail, picture, id, login_id: loginId, ip, from
   };
   return this.exist(id)
     .then(exist => {
       if(exist) {
-        return this.add(name, mail, picture, facebookId);
+        return this.add(name, mail, picture, loginId);
       }
       return this.create(data)
         .then(user => {
