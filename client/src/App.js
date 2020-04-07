@@ -43,7 +43,7 @@ const App = () => {
   const params = new URLSearchParams(search);
   const language = params.get('lang') || 'en';
   const { [lang]:translations } = translate;
-  const redirect = params.get('redirect') || 'index';
+  const redirect = params.get('redirect') || '/index';
 
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const App = () => {
   }, [dispatch, ready])
 
   if(authenticated !== false && isHome) {
-    return (<Redirect to={routes.getLink(redirect)} />);
+    return (<Redirect to={{ pathname: redirect }} />);
   }
 
   return (
