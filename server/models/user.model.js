@@ -23,6 +23,14 @@ const schema = new Schema({
     type: Number,
     required: true,
   },
+  ip: {
+    type: String,
+    required: true,
+  },
+  from: {
+    type: String,
+    required: true,
+  },
   level: {
     type: Number,
     required: true,
@@ -72,8 +80,8 @@ schema.statics.queryRank = () => ({
 });
 
 schema.statics.convertUsers = (user) => {
-  const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position } = user || {};
-  return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position };
+  const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip } = user || {};
+  return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip };
 }
 
 schema.statics.exist = function exist(id) {
@@ -86,12 +94,12 @@ schema.statics.exist = function exist(id) {
     })
 }
 
-schema.statics.add = function add(name, mail, picture, facebookId) {
+schema.statics.add = function add(name, mail, picture, facebookId, from, ip) {
   const date = new Date().getTime();
   const random = String(Math.random()).split('.').pop();
   const id = parseInt(`${date}${random}`.substring(0, 16), 10);
   const data = {
-    name, mail, picture, id, facebook_id: facebookId,
+    name, mail, picture, id, facebook_id: facebookId, ip, from
   };
   return this.exist(id)
     .then(exist => {
@@ -127,15 +135,20 @@ schema.statics.countUser = function countUser() {
   return this.countDocuments();
 }
 
-schema.statics.sign = function sign(name, email, picture, facebookId) {
+schema.statics.sign = function sign(name, email, picture, facebookId, from, ip) {
   return this.get(email, picture)
     .catch(err => {
       const { message } = err;
       if(message === 'User doesnt exist') {
-        return this.add(name, email, picture, facebookId);
+        return this.add(name, email, picture, facebookId, from, ip);
       }
       throw err;
     })
+    .then(user => {
+      const { id, ip } = user;
+      return this.model('logs').logIn(id, ip)
+        .then(() => user)
+    });
 }
 
 schema.statics.rank = function rank() {

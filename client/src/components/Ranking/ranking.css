@@ -20,9 +20,14 @@
     max-height: 20vh;
   }
 }
+
+@media (min-width: 600px) {
+  .rank-view .columns.ranking-list  {
+    max-height: 50vh;
+  }
+}
 .rank-view .columns.ranking-list  {
   overflow-y: scroll;
-  max-height: 50vh;
 }
 
 .rank-view .columns.ranking-list::-webkit-scrollbar {

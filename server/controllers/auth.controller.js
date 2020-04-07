@@ -20,13 +20,14 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const { models, jwt, decode } = req;
+      const { models, jwt, decode, clientIp } = req;
       const { name, email, picture = {}, id, status = false } = decode;
       const { url = false } = picture.data || {};
       if(status != false) {
         throw new Error('Unathorized from facebook')
       }
-      await models.users.sign(name, email, url, id)
+      req.logger.info(JSON.stringify(decode));
+      await models.users.sign(name, email, url, id, 'facebook', clientIp)
         .then(user => {
           response = jwt.encodeUser(user);
           success = true;

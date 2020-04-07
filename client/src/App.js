@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { TranslatorProvider } from 'react-translate';
 
 import { Store } from './reducers';
-import routes, { Routes } from './routes';
+import { Routes } from './routes';
 
 import { KEY_STORAGE } from './constants/env.constant';
 

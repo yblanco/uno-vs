@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const requestIp = require('request-ip');
 
 const constants = require('./constants');
 const logger = require('./libs/logger');
@@ -16,6 +17,7 @@ const JWT = require('./libs/jwt');
 const authMiddleware = require('./middlewares/auth.middleware');
 
 const app = express();
+
 
 app.use((req, res, next) => {
   const { environments = {} } = constants;
@@ -30,6 +32,7 @@ app.use((req, res, next) => {
   res.response = (success, data) => res.json({ success, data });
   next();
 });
+app.use(requestIp.mw())
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
