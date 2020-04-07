@@ -18,7 +18,7 @@ export default translate('user')(({ t, user, position = false, auth = 0 }) => {
           <UserImage user={user} />
         </Media.Item>
         <Media.Item>
-          <UserInfoContent user={user} position={position} />
+          <UserInfoContent user={user} position={position} connected={user.online === true || isUser} />
         </Media.Item>
       </Media>
     </Box>

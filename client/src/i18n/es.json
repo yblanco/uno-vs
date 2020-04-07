@@ -25,5 +25,10 @@
   },
   "index": {
     "coming_soon": "Proximamente"
+  },
+  "user": {
+    "me": "Yo",
+    "online": "Conectado",
+    "offline": "Desconectado"
   }
 }

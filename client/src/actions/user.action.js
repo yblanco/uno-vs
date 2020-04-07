@@ -16,3 +16,8 @@ export const getRanking = (dispatch, user) => {
       showSnackbarError(dispatch, err);
     })
 }
+
+
+export const onLineUser = (dispatch, id) => {
+  dispatch(dispatchAction(userAction.on_user, id))
+}

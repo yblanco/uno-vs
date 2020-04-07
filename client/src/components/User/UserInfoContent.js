@@ -1,13 +1,15 @@
 import React  from 'react';
 import {  Content, Columns } from 'react-bulma-components';
 
+import { translate } from 'react-translate';
+
 import UserStats from './UserStats';
 
 import RankPosition from '../Ranking/RankPosition';
 
 import './user.css';
 
-export default ({ t, user, position = false }) => {
+export default translate('user')(({ t, user, position = false, connected = false }) => {
   const showPosition = position !== false;
   const size = showPosition ? 10 : 12;
   const stats = [
@@ -15,11 +17,16 @@ export default ({ t, user, position = false }) => {
     { name: 'money', pad: 4 },
     { name:'diamonds', pad: 2 }
   ];
+  const status = connected ? 'online' : 'offline'
   return (
     <Content>
       <Columns className='is-mobile is-vcentered'>
         <Columns.Column size={size} className='has-text-white has-text-weight-bold'>
           {user.name}
+          {' '}
+          <span className={`status-user is-size-7 has-text-success	${status}`}>
+            { t(status)}
+          </span>
         </Columns.Column>
         {
           showPosition && (
@@ -37,4 +44,4 @@ export default ({ t, user, position = false }) => {
       }
     </Content>
   );
-};
+});

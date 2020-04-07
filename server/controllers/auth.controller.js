@@ -22,13 +22,16 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const { models, jwt, decode, clientIp } = req;
+      const { models, jwt, decode, clientIp, socket } = req;
+      const { emitEvent, events } = socket;
+      const { users } = models;
       const { name, email, picture, id, from } = decode;
-      await models.users.sign(name, email, picture, id, from, clientIp)
-        .then(user => {
-          response = jwt.encodeUser(user);
-          success = true;
-        });
+      await users.sign(name, email, picture, id, from, clientIp)
+        .then(user => (emitEvent(events.on_connect, user.id)
+          .then(() => {
+            response = jwt.encodeUser(user);
+            success = true;
+          })));
     } catch(err) {
       return next(err);
     }
@@ -38,13 +41,15 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const {  body, models, jwt, decode  } = req;
+      const {  body, models, jwt, decode, socket } = req;
+      const { emitEvent, events } = socket;
       const { id } = decode;
       await models.users.get(id)
-        .then(user => {
-          response = jwt.encodeUser(user);
-          success = true;
-        });
+        .then(user => (emitEvent(events.on_connect, user.id)
+          .then(() => {
+            response = jwt.encodeUser(user);
+            success = true;
+          })));
     } catch(err) {
       return next(err);
     }

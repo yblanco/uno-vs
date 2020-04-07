@@ -28,3 +28,13 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.status-user {
+  text-transform: uppercase;
+  font-size: 0.6em !important;
+}
+
+.status-user.offline {
+  opacity: 0.5;
+  color: grey !important;
+}

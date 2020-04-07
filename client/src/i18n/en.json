@@ -2,7 +2,7 @@
   "locale": "en-us",
   "login": {
     "sign_in_facebook": "Login with Facebook",
-    "sign_in_google": "Login with Google",        
+    "sign_in_google": "Login with Google",
     "as_guest": "Continue as a guest",
     "facebook_error": "Could not contact Facebook",
     "google_error": "Could not contact Google"
@@ -25,5 +25,10 @@
   },
   "index": {
     "coming_soon": "Coming soon"
+  },
+  "user": {
+    "me": "Me",
+    "online": "Online",
+    "offline": "OffLine"
   }
 }

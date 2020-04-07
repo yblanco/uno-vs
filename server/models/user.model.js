@@ -115,7 +115,7 @@ schema.statics.countUser = function countUser() {
 }
 
 schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
-  const id = `${from}_${appId}`;
+  const id = `${from}_${appId}_${name.replace(/[^a-z0-9_]/gi, '').split(' ').join('-')}`;
   return this.get(id, picture)
     .catch(err => {
       const { message } = err;

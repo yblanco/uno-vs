@@ -8,6 +8,7 @@ module.exports = {
   secret_request: process.env.SECRET_REQUEST ||  'mysecret',
   facebook_app_id: process.env.FACEBOOK_APP_ID,
   google_app_id: process.env.GOOGLE_APP_ID,
+  websocket: process.env.WEBSOCKET_SERVER || 'websocket',
   db: {
     host: process.env.DBHOST || 'localhost',
     port: process.env.DBPORT || '27017',

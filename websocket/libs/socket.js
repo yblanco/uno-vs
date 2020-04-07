@@ -6,9 +6,9 @@ const socket = {};
 
 io.on('connection', (connect) => {
   const address = connect.handshake;
-  logger.notice(`Connected from ${address.address}} [Referer: ${address.headers.origin}]`);
+  logger.notice(`Connected from ${address.address} [Referer: ${address.headers.origin}]`);
   connect.on('disconnect', () => {
-    logger.notice(`Disconnected from ${address.address}} [Referer: ${address.headers.origin}]`);
+    logger.notice(`Disconnected from ${address.address} [Referer: ${address.headers.origin}]`);
   });
 });
 

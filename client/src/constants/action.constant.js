@@ -15,5 +15,6 @@ export const authAction = {
 }
 
 export const userAction = {
-  get_rank: 'user-get_rank'
+  get_rank: 'user-get_rank',
+  on_user: 'user-on_user',
 }
