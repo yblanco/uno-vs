@@ -19,7 +19,7 @@ import Home from './pages/Home';
 
 import { hideSnackbar } from './actions/snackbar.action';
 
-import { setLang } from './actions/app.action';
+import { setLang, getLangStorage } from './actions/app.action';
 
 import { getAppId, checkUser, loggedOut } from './actions/auth.action';
 
@@ -47,8 +47,9 @@ const App = () => {
 
 
   useEffect(() => {
+    const langStorage = getLangStorage() || language;
     getAppId(dispatch);
-    setLang(dispatch, language);
+    setLang(dispatch, langStorage);
   }, [dispatch, language]);
 
   useEffect(() => {

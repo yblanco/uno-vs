@@ -2,7 +2,7 @@ import { authAction } from '../constants/action.constant';
 import dispatchAction from './action';
 import authRest from '../apis/auth.api';
 
-import { setReady } from './app.action';
+import { setReady, removeLangStorage } from './app.action';
 import { showSnackbarError, showSnackbarSuccess } from './snackbar.action';
 
 import { KEY_STORAGE } from '../constants/env.constant';
@@ -16,6 +16,7 @@ const setLogged = (response) => {
 
 const removeLogged = () => {
   localStorage.removeItem(KEY_STORAGE);
+  removeLangStorage();
 }
 
 const login = (dispatch, response) => {
