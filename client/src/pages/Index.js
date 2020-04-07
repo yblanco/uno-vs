@@ -35,18 +35,30 @@ export default translate('index')(({ t }) => {
 
   return (
     <Content>
-      <Columns className='is-mobile'>
+      <Columns className='is-mobile is-flex-desktop-only'>
         <Columns.Column size={12}>
           <UserInfo user={authenticated} auth={id} />
         </Columns.Column>
         <Columns.Column size={12} className='has-background-white	divider'/>
-        <Columns.Column size={6}>
+        <Columns.Column
+          mobile={{ size: 6 }}
+          tablet={{ size: 6 }}
+          desktop={{ size: 3 }}
+        >
           <New onClick={onClick} />
         </Columns.Column>
-        <Columns.Column size={6}>
+        <Columns.Column
+          mobile={{ size: 6 }}
+          tablet={{ size: 6 }}
+          desktop={{ size: 3 }}
+        >
           <Join onClick={onClick} />
         </Columns.Column>
-        <Columns.Column size={12}>
+        <Columns.Column
+          mobile={{ size: 12 }}
+          tablet={{ size: 12 }}
+          desktop={{ size: 6 }}
+        >
           <Ranking all={all} friends={friends} auth={id} />
         </Columns.Column>
       </Columns>

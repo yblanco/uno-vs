@@ -1,8 +1,5 @@
-
-@media (max-width: 600px) {
-  html, body {
-    overflow: hidden;
-  }
+html, body {
+  overflow: hidden;
 }
 
 html, body, #root, #root > .container{

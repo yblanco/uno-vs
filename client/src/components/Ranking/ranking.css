@@ -15,10 +15,14 @@
   border-radius: 1em !important;
   box-sizing: border-box;
 }
-
+@media (max-width: 600px) {
+  .rank-view .columns.ranking-list  {
+    max-height: 20vh;
+  }
+}
 .rank-view .columns.ranking-list  {
-  max-height: 10em;
   overflow-y: scroll;
+  max-height: 50vh;
 }
 
 .rank-view .columns.ranking-list::-webkit-scrollbar {
@@ -41,7 +45,6 @@
   padding-bottom: 0.1em;
   padding-top: 0.1em;
 }
-
 
 .rank-position.gold {
   background: #FFD700;
