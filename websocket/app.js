@@ -24,7 +24,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser())
+app.use(cookieParser());
+
+app.use('/', express.static(__dirname + '/public'));
 
 app.use(morgan((tokens, req, res) => [
   tokens.method(req, res),
