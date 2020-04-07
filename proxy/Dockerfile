@@ -23,6 +23,7 @@ RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/sites-available
 RUN cp /etc/nginx/conf.d/sites-available/default.conf /etc/nginx/conf.d/sites-enabled/
 RUN cp /etc/nginx/conf.d/sites-available/client.conf /etc/nginx/conf.d/sites-enabled/
 RUN cp /etc/nginx/conf.d/sites-available/api.conf /etc/nginx/conf.d/sites-enabled/
+RUN cp /etc/nginx/conf.d/sites-available/websocket.conf /etc/nginx/conf.d/sites-enabled/
 
 RUN sed -i 's\include /etc/nginx/conf.d/\include /etc/nginx/conf.d/sites-enabled/\g' /etc/nginx/nginx.conf
 
