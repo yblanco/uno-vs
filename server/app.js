@@ -23,21 +23,6 @@ const app = express();
 -app.set('trust proxy', true)
 
 app.use((req, res, next) => {
-  logger.notice("##############")
-  logger.notice("##############")
-  logger.notice("##############")
-
-  logger.notice(JSON.stringify(req.headers));
-  logger.notice("##############")
-  logger.notice("##############")
-
-  logger.notice(req.ip)
-  logger.notice(req.clientIp)
-
-  logger.notice("##############")
-  logger.notice("##############")
-  logger.notice("##############")
-
   const { environments = {} } = constants;
   const { secret_request:secret = false } = environments;
   if(secret === false) {
@@ -69,6 +54,24 @@ app.use(morgan((tokens, req, res) => [
 ].join(' '), { stream: logger.stream }));
 
 app.use(authMiddleware);
+
+app.use((req, res, next) => {
+  logger.notice("##############")
+  logger.notice("##############")
+  logger.notice("##############")
+
+
+
+  logger.notice(req.ip)
+  logger.notice("##############")
+  logger.notice("##############")
+  logger.notice(req.clientIp)
+
+  logger.notice("##############")
+  logger.notice("##############")
+  logger.notice("##############")
+  next()
+})
 
 app.use('/', routes);
 
