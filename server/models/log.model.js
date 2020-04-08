@@ -24,8 +24,7 @@ const schema = new Schema({
 
 });
 
-schema.statics.logIn = function logIn(user) {
-  const { id, ip } = user;
+schema.statics.logIn = function logIn(id, ip) {
   return this.create({ id, ip });
 }
 

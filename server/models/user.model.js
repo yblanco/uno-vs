@@ -129,7 +129,7 @@ schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
       throw err;
     })
     .then(user => this.updateUser(user.id, true, picture)
-      .then((userLogIn) => this.model('logs').logIn(userLogIn)
+      .then((userLogIn) => this.model('logs').logIn(user.id, ip)
         .then(() => userLogIn)));
 }
 
