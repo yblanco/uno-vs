@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import { TranslatorProvider } from 'react-translate';
 
-import events, { connect, disconnect } from './socket';
+import events, { connect, disconnect, listener } from './socket';
 
 import { Store } from './reducers';
 import { Routes } from './routes';
@@ -21,9 +21,9 @@ import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang, getLangStorage } from './actions/app.action';
 
-import { getAppId, checkUser, loggedOut, clientDisconnect } from './actions/auth.action';
+import { getAppId, checkUser, loggedOut } from './actions/auth.action';
 
-import { onLineUser, offLineUser } from './actions/user.action';
+import { changeStateUser } from './actions/user.action';
 
 import en from './i18n/en.json';
 import es from './i18n/es.json';
@@ -46,16 +46,21 @@ const App = () => {
   const { [lang]:translations } = translate;
   const redirect = params.get('redirect') || '/index';
 
-
   useEffect(() => {
-    const onConnect = (data) => onLineUser(dispatch, data);
-    const offConnect = (data) => offLineUser(dispatch, data);
-    connect(events.on_connect, onConnect);
-    connect(events.on_disconnect, offConnect);
+    const changeState = (data) => changeStateUser(dispatch, data);
+    const onConnect = (message) => console.log("CONNECT",message);
+    const onDisconnect = (message) => console.log("DISCONNECT",message);
+    const onReconect = (message) => console.log("RECONNECT",message);
+
+    connect(events.change_state, changeState);
+    connect(events.connected, onConnect);
+    connect(events.disconnected, onDisconnect);
+    connect(events.reconnecting, onReconect);
     return () => {
-      clientDisconnect(dispatch);
-      disconnect(events.on_connect, onConnect);
-      disconnect(events.on_disconnect, offConnect);
+      disconnect(events.change_state, changeState);
+      disconnect(events.connected, onConnect);
+      disconnect(events.disconnected, onDisconnect);
+      disconnect(events.reconnecting, onReconect);
     }
   }, [dispatch]);
 
@@ -68,7 +73,7 @@ const App = () => {
 
   useEffect(() => {
     if(ready === true) {
-      checkUser(dispatch);
+      checkUser(dispatch, listener.id);
     }
   }, [dispatch, ready])
 
@@ -84,7 +89,7 @@ const App = () => {
           auth={authenticated}
           lang={lang}
           setLang={(value) => setLang(dispatch, value)}
-          loggedOut={() => loggedOut(dispatch, authenticated) }
+          loggedOut={() => loggedOut(dispatch, listener.id) }
         />
         <Container fluid>
           {

@@ -11,13 +11,13 @@ import GoogleLogin from 'react-google-login';
 //
 // import routes from '../../routes';
 
-export default translate('login')(({ t, facebook, google, lang, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
+export default translate('login')(({ t, facebook, google, lang, socket, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
   const mapFields = (name, email, picture, id, from) => ({ name, email, picture, id, from });
   const loginFacebook = (response) => {
     const { status = false, name, email, picture = {}, id } = response;
     const { url = false } = picture.data || {};
     if(status === false) {
-      onLogin(mapFields(name, email, url, id, 'facebook'));
+      onLogin(mapFields(name, email, url, id, 'facebook'), socket);
     } else {
       onError(t('facebook_error'));
     }
@@ -25,7 +25,7 @@ export default translate('login')(({ t, facebook, google, lang, disabled=false, 
   const loginGoogle = (response) => {
     const { profileObj = {} } = response;
     const { name, email, imageUrl, googleId } = profileObj;
-    onLogin(mapFields(name, email, imageUrl, googleId, 'google'));
+    onLogin(mapFields(name, email, imageUrl, googleId, 'google'), socket);
   }
   return (
     <Columns centered>

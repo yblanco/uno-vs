@@ -18,10 +18,11 @@ export const getRanking = (dispatch, user) => {
 }
 
 
-export const onLineUser = (dispatch, id) => {
-  dispatch(dispatchAction(userAction.on_user, id))
-}
-
-export const offLineUser = (dispatch, id) => {
-  dispatch(dispatchAction(userAction.off_user, id))
+export const changeStateUser = (dispatch, data) => {
+  const { id, online } = data;
+  if (online) {
+    dispatch(dispatchAction(userAction.on_user, id))
+  } else {
+    dispatch(dispatchAction(userAction.off_user, id))
+  }
 }

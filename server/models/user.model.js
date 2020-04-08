@@ -118,7 +118,13 @@ schema.statics.updateUser = function udpateUser(id, online = null, picture = nul
     .then(() => (this.get(id)));
 }
 
-schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
+schema.statics.on = function on(id, ip, socket, picture = false) {
+  return this.updateUser(id, true, picture)
+    .then((userLogIn) => this.model('logs').logIn(userLogIn.id, ip, socket)
+      .then(() => userLogIn));
+}
+
+schema.statics.sign = function sign(name, email, picture, appId, from, ip, socket) {
   const id = `${from}_${appId}_${name.replace(/[^a-z0-9_]/gi, '').split(' ').join('-')}`;
   return this.get(id)
     .catch(err => {
@@ -128,30 +134,22 @@ schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
       }
       throw err;
     })
-    .then(user => this.updateUser(user.id, true, picture)
-      .then((userLogIn) => this.model('logs').logIn(user.id, ip)
-        .then(() => userLogIn)));
+      .then(user => this.on(user.id, ip, socket, picture));
 }
 
-schema.statics.check = function check(id) {
+schema.statics.check = function check(id, ip, socket) {
   return this.get(id)
-    .then(user => this.updateUser(user.id, true))
+    .then(user => this.on(user.id, ip, socket));
 }
 
-schema.statics.logout = function logout(id) {
-  return this.get(id)
-    .catch(err => {
-      const { message } = err;
-      if(message === 'User doesnt exist') {
-        return false;
-      }
-      throw err;
-    })
-    .then(user => (
-      user === false
-      ? { id }
-      : this.updateUser(user.id, false)
-    ));
+schema.statics.logout = function logout(socket) {
+  return this.model('logs').logOut(socket)
+    .then(userState => {
+      const { id, online } = userState;
+      console.log(userState)
+      return this.updateUser(id, online)
+        .then(() => userState);
+    });
 }
 
 schema.statics.countUser = function countUser() {

@@ -6,14 +6,14 @@ const controller = require('../controllers/auth.controller');
 router.route('/app_id')
   .get(controller.app_id);
 
-router.route('/sign')
+router.route('/sign/:socketId')
   .post(controller.sign);
 
-router.route('/check')
+router.route('/check/:socketId')
   .post(controller.check);
 
-router.route('/logout')
-  .post(controller.logout);
+router.route('/logout/:socketId')
+  .get(controller.off);
 
 
 module.exports = router;

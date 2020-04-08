@@ -13,7 +13,7 @@ const logger = require('./libs/logger');
 const routes = require('./routes');
 const models = require('./models');
 const JWT = require('./libs/jwt');
-const websocket = require('./libs/websocket');
+const socket = require('./libs/socket');
 
 
 const authMiddleware = require('./middlewares/auth.middleware');
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   req.logger = logger;
   req.models = models.mongoose.models;
   req.jwt = new JWT(secret);
-  req.socket = websocket;
+  req.socket = socket;
   res.response = (success, data) => res.json({ success, data });
   next();
 });

@@ -5,16 +5,16 @@ class AuthRest extends Rest {
     return this.responseAuth(`app_id?date=${new Date().getTime()}`);
   }
 
-  auth(user) {
-    return this.requestAuth('sign', 'post', user)
+  auth(user, id) {
+    return this.requestAuth(`sign/${id}`, 'post', user)
   }
 
-  checkUser(logged) {
-    return this.responseAuth('check', 'post', logged)
+  checkUser(logged, id) {
+    return this.responseAuth(`check/${id}`, 'post', logged)
   }
 
-  logout(logged) {
-    return this.responseAuth('logout', 'post', logged);
+  logout(id) {
+    return this.responseAuth(`logout/${id}`);
   }
 }
 

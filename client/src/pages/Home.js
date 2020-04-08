@@ -3,6 +3,7 @@ import { Content, Columns } from 'react-bulma-components';
 
 import { translate } from "react-translate";
 
+import { listener } from '../socket';
 
 import { Store } from '../reducers';
 
@@ -21,6 +22,7 @@ export default translate('home')(({ t }) => {
   const { app, auth } = state;
   const { ready, lang } = app;
   const { check, authenticated } = auth;
+  const { id } = listener;
 
   return (
     <Content>
@@ -34,9 +36,10 @@ export default translate('home')(({ t }) => {
             disabled={(!ready && !check) || authenticated !== false}
             facebook={auth.facebook_id}
             google={auth.google_id}
-            onLogin={(response) => authUser(dispatch, response)}
+            onLogin={(data, socketId) => authUser(dispatch, data, socketId)}
             onError={(message) => showSnackbarWarning(dispatch, message)}
             lang={lang}
+            socket={id}
           />
         </Columns.Column>
       </Columns>

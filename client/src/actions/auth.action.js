@@ -39,8 +39,8 @@ export const getAppId = (dispatch) => {
     })
 };
 
-export const authUser = (dispatch, data) => {
-  authRest.auth(data)
+export const authUser = (dispatch, data, id) => {
+  authRest.auth(data, id)
     .then(response => {
       login(dispatch, response);
     })
@@ -50,10 +50,10 @@ export const authUser = (dispatch, data) => {
     });
 }
 
-export const checkUser = (dispatch) => {
+export const checkUser = (dispatch, id) => {
   const logged = getLogged();
   if(logged !== null) {
-    authRest.checkUser(logged)
+    authRest.checkUser(logged, id)
       .then(response => {
         login(dispatch, response);
       })
@@ -65,9 +65,8 @@ export const checkUser = (dispatch) => {
   }
 }
 
-export const loggedOut = (dispatch, user) => {
-  const { encoded } = user;
-  return authRest.logout(encoded)
+export const loggedOut = (dispatch, id) => {
+  return authRest.logout(id)
     .then(() => {
       removeLogged();
       dispatch(dispatchAction(authAction.set_authenticated, false));

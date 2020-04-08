@@ -22,12 +22,13 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const { models, jwt, decode, clientIp, socket } = req;
+      const { models, jwt, decode, clientIp, socket, params } = req;
+      const { socketId } = params;
       const { emitEvent, events } = socket;
       const { users } = models;
       const { name, email, picture, id, from } = decode;
-      await users.sign(name, email, picture, id, from, clientIp)
-        .then(user => (emitEvent(events.on_connect, user.id)
+      await users.sign(name, email, picture, id, from, clientIp, socketId)
+        .then(user => (emitEvent(events.change_state, { id: user.id, online: true })
           .then(() => {
             response = jwt.encodeUser(user);
             success = true;
@@ -41,12 +42,13 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const {  body, models, jwt, decode, socket } = req;
+      const {  body, models, jwt, decode, clientIp, socket, params } = req;
+      const { socketId } = params;
       const { emitEvent, events } = socket;
       const { users } = models;
       const { id } = decode;
-      await users.check(id)
-        .then(user => emitEvent(events.on_connect, user.id)
+      await users.check(id, clientIp, socketId)
+        .then(user => emitEvent(events.change_state, { id: user.id, online: true })
           .then(() => {
             response = jwt.encodeUser(user);
             success = true;
@@ -56,21 +58,20 @@ module.exports = {
     }
     return res.response(success, response);
   },
-  logout: async (req, res, next) => {
+  off: async (req, res, next) => {
     let response = "Unknow Error";
     let success = false;
     try{
-      const {  body, models, jwt, decode, socket } = req;
+      const { models, jwt, socket, params } = req;
+      const { socketId } = params;
       const { emitEvent, events } = socket;
       const { users } = models;
-      const { id } = decode;
-      await users.logout(id)
-        .then(user => {
-          return emitEvent(events.on_disconnect, user.id)
+      await users.logout(socketId)
+        .then(user => emitEvent(events.change_state, user)
           .then(() => {
-            response = jwt.encodeUser(user);
+            response = jwt.encodeUser({ user });
             success = true;
-          })});
+          }));
     } catch(err) {
       return next(err);
     }

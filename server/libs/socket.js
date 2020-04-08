@@ -22,8 +22,7 @@ class Websocket extends Rest {
 };
 
 const events = {
-  on_connect: 'on_connect',
-  on_disconnect: 'on_disconnect',
+  change_state: 'change_state',
 };
 
 const emitEvent = (event, data) => {
