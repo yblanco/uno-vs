@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   logger.notice("##############")
   logger.notice("##############")
 
-  logger.notice(req.ips)
+  logger.notice(req.headers['x-forwarded-for'])
   logger.notice("##############")
   logger.notice("##############")
   logger.notice("##############")
