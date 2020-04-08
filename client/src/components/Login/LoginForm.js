@@ -14,7 +14,7 @@ import GoogleLogin from 'react-google-login';
 export default translate('login')(({ t, facebook, google, lang, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
   const mapFields = (name, email, picture, id, from) => ({ name, email, picture, id, from });
   const loginFacebook = (response) => {
-    const { status = false, name, email, picture, id } = response;
+    const { status = false, name, email, picture = {}, id } = response;
     const { url = false } = picture.data || {};
     if(status === false) {
       onLogin(mapFields(name, email, url, id, 'facebook'));

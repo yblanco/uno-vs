@@ -6,10 +6,10 @@ import { Redirect } from 'react-router-dom';
 
 import { TranslatorProvider } from 'react-translate';
 
+import events, { connect, disconnect } from './socket';
+
 import { Store } from './reducers';
 import { Routes } from './routes';
-
-import { KEY_STORAGE } from './constants/env.constant';
 
 import Snackbar from './components/layout/Snackbar';
 import Footer from './components/layout/Footer';
@@ -21,8 +21,9 @@ import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang, getLangStorage } from './actions/app.action';
 
-import { getAppId, checkUser, loggedOut } from './actions/auth.action';
+import { getAppId, checkUser, loggedOut, clientDisconnect } from './actions/auth.action';
 
+import { onLineUser, offLineUser } from './actions/user.action';
 
 import en from './i18n/en.json';
 import es from './i18n/es.json';
@@ -47,18 +48,27 @@ const App = () => {
 
 
   useEffect(() => {
+    const onConnect = (data) => onLineUser(dispatch, data);
+    const offConnect = (data) => offLineUser(dispatch, data);
+    connect(events.on_connect, onConnect);
+    connect(events.on_disconnect, offConnect);
+    return () => {
+      clientDisconnect(dispatch);
+      disconnect(events.on_connect, onConnect);
+      disconnect(events.on_disconnect, offConnect);
+    }
+  }, [dispatch]);
+
+
+  useEffect(() => {
     const langStorage = getLangStorage() || language;
     getAppId(dispatch);
     setLang(dispatch, langStorage);
   }, [dispatch, language]);
 
   useEffect(() => {
-  }, [dispatch, language, lang]);
-
-  useEffect(() => {
-    const logged = localStorage.getItem(KEY_STORAGE);
-    if(ready === true && logged !== null) {
-      checkUser(dispatch, logged);
+    if(ready === true) {
+      checkUser(dispatch);
     }
   }, [dispatch, ready])
 
@@ -74,7 +84,7 @@ const App = () => {
           auth={authenticated}
           lang={lang}
           setLang={(value) => setLang(dispatch, value)}
-          loggedOut={() => loggedOut(dispatch) }
+          loggedOut={() => loggedOut(dispatch, authenticated) }
         />
         <Container fluid>
           {

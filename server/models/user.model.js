@@ -53,6 +53,11 @@ const schema = new Schema({
     require: true,
     default: Date.now,
   },
+  online: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
   status: {
     type: Boolean,
     required: true,
@@ -77,23 +82,19 @@ schema.statics.queryRank = () => ({
 });
 
 schema.statics.convertUsers = (user) => {
-  const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip } = user || {};
-  return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip };
+  const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online } = user || {};
+  return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online };
 }
-
 
 schema.statics.add = function add(name, mail, picture, id, from, ip) {
   const data = {
     name, mail, picture, id, ip, from
   };
   return this.create(data)
-    .then(user => {
-      const { id: identificator } = user;
-      return this.get(identificator);
-    });
+    .then(user => this.get(user.id));
 };
 
-schema.statics.get = function get(id, photo = false) {
+schema.statics.get = function get(id) {
   return this.findOne(this.queryUser(id))
     .then((user) => {
       const response = this.convertUsers(user);
@@ -101,22 +102,25 @@ schema.statics.get = function get(id, photo = false) {
       if (user === null) {
         throw new Error(`User doesnt exist`);
       }
-      if(photo !== false && photo !== picture) {
-        user.picture = photo;
-        return user.save()
-          .then(() => response);
-      }
       return response
     });
 };
 
-schema.statics.countUser = function countUser() {
-  return this.countDocuments();
+schema.statics.updateUser = function udpateUser(id, online = null, picture = null) {
+  const data = {};
+  if(online !== null) {
+    data.online = online;
+  }
+  if(picture !== null) {
+    data.picture = picture;
+  }
+  return this.updateOne({ id }, data)
+    .then(() => (this.get(id)));
 }
 
 schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
   const id = `${from}_${appId}_${name.replace(/[^a-z0-9_]/gi, '').split(' ').join('-')}`;
-  return this.get(id, picture)
+  return this.get(id)
     .catch(err => {
       const { message } = err;
       if(message === 'User doesnt exist') {
@@ -124,11 +128,29 @@ schema.statics.sign = function sign(name, email, picture, appId, from, ip) {
       }
       throw err;
     })
-    .then(user => {
-      const { id, ip } = user;
-      return this.model('logs').logIn(id, ip)
-        .then(() => user)
-    });
+    .then(user => this.updateUser(user.id, true, picture)
+      .then((userLogIn) => this.model('logs').logIn(userLogIn)
+        .then(() => userLogIn)));
+}
+
+schema.statics.check = function check(id) {
+  return this.get(id)
+    .then(user => this.updateUser(user.id, true))
+}
+
+schema.statics.logout = function logout(id) {
+  return this.get(id)
+    .catch(err => {
+      if(message === 'User doesnt exist') {
+        return { id };
+      }
+      throw err;
+    })
+    .then(user => this.updateUser(user.id, false));
+}
+
+schema.statics.countUser = function countUser() {
+  return this.countDocuments(this.queryUserStatus());
 }
 
 schema.statics.rank = function rank() {

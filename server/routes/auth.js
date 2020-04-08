@@ -12,5 +12,8 @@ router.route('/sign')
 router.route('/check')
   .post(controller.check);
 
+router.route('/logout')
+  .post(controller.logout);
+
 
 module.exports = router;

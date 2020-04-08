@@ -12,6 +12,10 @@ class AuthRest extends Rest {
   checkUser(logged) {
     return this.responseAuth('check', 'post', logged)
   }
+
+  logout(logged) {
+    return this.responseAuth('logout', 'post', logged);
+  }
 }
 
 export default new AuthRest(`auth`);

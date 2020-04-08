@@ -43,13 +43,33 @@ module.exports = {
     try{
       const {  body, models, jwt, decode, socket } = req;
       const { emitEvent, events } = socket;
+      const { users } = models;
       const { id } = decode;
-      await models.users.get(id)
-        .then(user => (emitEvent(events.on_connect, user.id)
+      await users.check(id)
+        .then(user => emitEvent(events.on_connect, user.id)
           .then(() => {
             response = jwt.encodeUser(user);
             success = true;
-          })));
+          }));
+    } catch(err) {
+      return next(err);
+    }
+    return res.response(success, response);
+  },
+  logout: async (req, res, next) => {
+    let response = "Unknow Error";
+    let success = false;
+    try{
+      const {  body, models, jwt, decode, socket } = req;
+      const { emitEvent, events } = socket;
+      const { users } = models;
+      const { id } = decode;
+      await users.logout(id)
+        .then(user => emitEvent(events.on_disconnect, user.id)
+          .then(() => {
+            response = jwt.encodeUser(user);
+            success = true;
+          }));
     } catch(err) {
       return next(err);
     }

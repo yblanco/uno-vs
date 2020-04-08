@@ -21,3 +21,7 @@ export const getRanking = (dispatch, user) => {
 export const onLineUser = (dispatch, id) => {
   dispatch(dispatchAction(userAction.on_user, id))
 }
+
+export const offLineUser = (dispatch, id) => {
+  dispatch(dispatchAction(userAction.off_user, id))
+}

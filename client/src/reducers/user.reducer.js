@@ -1,6 +1,17 @@
 import { userAction } from '../constants/action.constant';
 import { user } from '../constants/states.constant';
 
+const changeUserState = (users, idUser, state = true) => {
+  return users.map(user => {
+    const current = user;
+    const { id } = current;
+    if(id === idUser) {
+      current.online = state;
+    }
+    return current;
+  });
+}
+
 export default (state = user, action = {}) => {
   let users = [];
   switch (action.type) {
@@ -9,13 +20,12 @@ export default (state = user, action = {}) => {
         ...state, rank: { friends: state.rank.friends, global: action.data },
       };
     case userAction.on_user:
-      users = state.rank.global.map(user => {
-        const current = user;
-        if(current.id === action.data) {
-          current.online = true;
-        }
-        return current;
-      });
+      users = changeUserState(state.rank.global, action.data)
+      return {
+        ...state, rank: { friends: state.rank.friends, global: users }
+      }
+    case userAction.off_user:
+      users = changeUserState(state.rank.global, action.data, false);
       return {
         ...state, rank: { friends: state.rank.friends, global: users }
       }
