@@ -4,10 +4,12 @@ module.exports = {
     let success = false;
     try{
       const { constants = {}, body, models, socket, jwt, decode  } = req;
+      const { environments = {} } = constants;
+      const { rank_limit:limit = 1 } = environments;
       const { id } = decode;
       const { emitEvent, events } = socket;
       const { users } = models;
-      await users.rank()
+      await users.rank(limit)
         .then(rank => {
           const isUserRanked = rank.filter(item => item.id === id).length > 0;
           if(isUserRanked){

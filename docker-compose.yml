@@ -45,6 +45,7 @@ services:
       - SECRET_REQUEST=$SECRET_REQUEST
       - FACEBOOK_APP_ID=$FACEBOOK_APP_ID
       - GOOGLE_APP_ID=$GOOGLE_APP_ID
+      - RANK_LIMIT=$RANK_LIMIT
     volumes:
       - /srv/ssl/api/verify:/app/public/.well-known/acme-challenge/
     networks:

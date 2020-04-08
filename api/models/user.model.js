@@ -156,12 +156,12 @@ schema.statics.countUser = function countUser() {
   return this.countDocuments(this.queryUserStatus());
 }
 
-schema.statics.rank = function rank() {
+schema.statics.rank = function rank(limit) {
   return this.aggregate([
     { $match: this.queryUserStatus()},
     { $addFields: this.queryRank() },
     { $sort: { rank: -1, date: 1 } },
-    { $limit: 10 }
+    { $limit: limit }
   ])
   .then(ranks => (ranks.map(this.convertUsers)))
 }
