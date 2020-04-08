@@ -17,13 +17,13 @@
 }
 @media (max-width: 600px) {
   .rank-view .columns.ranking-list  {
-    max-height: 20vh;
+    height: 30vh;
   }
 }
 
 @media (min-width: 600px) {
   .rank-view .columns.ranking-list  {
-    max-height: 50vh;
+    height: 52vh;
   }
 }
 .rank-view .columns.ranking-list  {
@@ -61,4 +61,16 @@
 
 .rank-position.bronze {
   background: #CD7F32;
+}
+
+.rank-view h1 {
+  margin-bottom: 0;
+}
+
+.rank-view .header-rank {
+  padding: 0.5em 0;
+}
+
+.ranking-list.columns {
+  display: block;
 }

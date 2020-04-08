@@ -23,6 +23,10 @@ html, body, #root{
   cursor: not-allowed;
 }
 
+.off {
+  opacity: 0.5;
+}
+
 .pointer, .not-allowed {
   user-select: none;
 }
@@ -33,6 +37,7 @@ button {
 
 .divider {
   padding: 0.1em;
+  margin: 0.25em;
 }
 
 .notfound-img {

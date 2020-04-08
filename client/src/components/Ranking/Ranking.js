@@ -1,50 +1,36 @@
-import React, { useState } from 'react';
-import { Tabs, Content } from 'react-bulma-components';
+import React from 'react';
+import { Image, Content, Columns, Heading } from 'react-bulma-components';
 
-import { translate } from "react-translate";
+import { translate } from 'react-translate';
 
 import RankingList from './RankingList';
 
+import ranking from './ranking.png';
+
 import './ranking.css';
 
-const steps = ['friends', 'global']
-
 export default translate('ranking')(({ t, all, friends, auth }) => {
-  const [active, setActive] = useState(steps[1]);
-  const isFriend = active === steps[0];
-  const list = isFriend ? friends : all;
+  const list = all;
   return (
     <Content className='rank-view'>
-      <Tabs
-        fullwidth={true}
-        align="centered"
-        className="ranking has-background-dark"
-      >
-        {
-          steps.map(step => (
-            <Tabs.Tab
-              key={step}
-              onClick={() => setActive(steps[1])}
-              active={step === active}
-              className={
-                `${
-                    step === active
-                    ? 'has-text-dark has-background-white has-text-weight-bold'
-                    : 'has-text-white'
-                } has-text-centered
-                ${
-                  step === steps[0]
-                  ? 'not-allowed has-text-grey'
-                  : 'pointer'
-                }`
-              }
-              renderAs="div"
-            >
-              {t(step)}
-            </Tabs.Tab>
-          ))
-        }
-      </Tabs>
+      <Columns className='is-mobile is-vcentered has-background-dark header-rank'>
+        <Columns.Column
+          mobile={{ size: 2 }}
+          tablet={{ size: 3 }}
+          desktop={{ size: 2 }}
+        >
+          <Image src={ranking} alt='ranking' />
+        </Columns.Column>
+        <Columns.Column
+          mobile={{ size: 5 }}
+          tablet={{ size: 7 }}
+          desktop={{ size: 10 }}
+        >
+          <Heading size={4} className='has-text-white'>
+            {t('ranking')}
+          </Heading>
+        </Columns.Column>
+      </Columns>
       <RankingList ranks={list} auth={auth} />
     </Content>
   );

@@ -8,7 +8,7 @@ import UserInfoContent from './UserInfoContent';
 
 import './user.css';
 
-export default translate('user')(({ t, user, position = false, auth = 0 }) => {
+export default translate('user')(({ t, user, auth = '' }) => {
   const isUser = auth === user.id;
   const classNameBackground = isUser ? 'has-background-dark' : 'has-background-black-ter';
   return (
@@ -18,7 +18,7 @@ export default translate('user')(({ t, user, position = false, auth = 0 }) => {
           <UserImage user={user} />
         </Media.Item>
         <Media.Item>
-          <UserInfoContent user={user} position={position} connected={user.online === true || isUser} />
+          <UserInfoContent user={user} connected={user.online === true || isUser} />
         </Media.Item>
       </Media>
     </Box>

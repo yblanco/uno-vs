@@ -12,6 +12,8 @@ import { Store } from '../reducers';
 import UserInfo from '../components/User/UserInfo';
 import New from '../components/Buttons/New';
 import Join from '../components/Buttons/Join';
+import Friends from '../components/Buttons/Friends';
+
 import Ranking from '../components/Ranking/Ranking';
 
 import { getRanking } from '../actions/user.action';
@@ -36,24 +38,32 @@ export default translate('index')(({ t }) => {
 
   return (
     <Content>
-      <Columns className='is-mobile is-flex-desktop-only'>
+      <Columns className='is-mobile is-flex-desktop-only is-vcentered'>
         <Columns.Column size={12}>
           <UserInfo user={authenticated} auth={id} />
         </Columns.Column>
         <Columns.Column size={12} className='has-background-white	divider'/>
         <Columns.Column
-          mobile={{ size: 6 }}
-          tablet={{ size: 6 }}
-          desktop={{ size: 3 }}
+          mobile={{ size: 4 }}
+          tablet={{ size: 4 }}
+          desktop={{ size: 2 }}
         >
           <New onClick={onClick} />
         </Columns.Column>
         <Columns.Column
-          mobile={{ size: 6 }}
-          tablet={{ size: 6 }}
-          desktop={{ size: 3 }}
+          mobile={{ size: 4 }}
+          tablet={{ size: 4 }}
+          desktop={{ size: 2 }}
         >
           <Join onClick={onClick} />
+        </Columns.Column>
+        <Columns.Column
+          className="off"
+          mobile={{ size: 4 }}
+          tablet={{ size: 4 }}
+          desktop={{ size: 2 }}
+        >
+          <Friends />
         </Columns.Column>
         <Columns.Column
           mobile={{ size: 12 }}
