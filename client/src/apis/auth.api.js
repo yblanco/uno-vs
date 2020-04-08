@@ -2,7 +2,7 @@ import Rest from './index';
 
 class AuthRest extends Rest {
   getAppId() {
-    return this.responseAuth('app_id');
+    return this.responseAuth(`app_id?date=${new Date().getTime()}`);
   }
 
   auth(user) {
