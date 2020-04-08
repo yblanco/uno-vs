@@ -26,3 +26,7 @@ export const changeStateUser = (dispatch, data) => {
     dispatch(dispatchAction(userAction.off_user, id))
   }
 }
+
+export const updateAllRankUser = (dispatch, ranks) => {
+  dispatch(dispatchAction(userAction.get_rank, ranks));
+}

@@ -1,5 +1,5 @@
 const Rest = require('./rest');
-const { environments } = require('../constants');
+const { environments, events } = require('../constants');
 const { websocket } = environments;
 
 class Websocket extends Rest {
@@ -21,9 +21,7 @@ class Websocket extends Rest {
   }
 };
 
-const events = {
-  change_state: 'change_state',
-};
+
 
 const emitEvent = (event, data) => {
   return new Websocket(events).event(event, data);

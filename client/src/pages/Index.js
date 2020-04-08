@@ -7,6 +7,8 @@ import { translate } from 'react-translate';
 
 // import routes from '../routes';
 
+import events, { connect, disconnect } from '../socket';
+
 import { Store } from '../reducers';
 
 import UserInfo from '../components/User/UserInfo';
@@ -16,7 +18,7 @@ import Friends from '../components/Buttons/Friends';
 
 import Ranking from '../components/Ranking/Ranking';
 
-import { getRanking } from '../actions/user.action';
+import { getRanking, updateAllRankUser } from '../actions/user.action';
 import { showSnackbarWarning } from '../actions/snackbar.action';
 
 
@@ -30,6 +32,16 @@ export default translate('index')(({ t }) => {
 
   const onClick = () => (showSnackbarWarning(dispatch, t('coming_soon')));
 
+  useEffect(() => {
+    const updateAllRank = (data) => updateAllRankUser(dispatch, data);
+
+    connect(events.update_all_rank, updateAllRank);
+
+    return () => {
+      disconnect(events.update_all_rank, updateAllRank);
+
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     getRanking(dispatch, authenticated);

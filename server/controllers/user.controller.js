@@ -3,15 +3,17 @@ module.exports = {
     let response = "Unknow Error";
     let success = false;
     try{
-      const { constants = {}, body, models, jwt, decode  } = req;
+      const { constants = {}, body, models, socket, jwt, decode  } = req;
       const { id } = decode;
-      await models.users.rank()
+      const { emitEvent, events } = socket;
+      const { users } = models;
+      await users.rank()
         .then(rank => {
           const isUserRanked = rank.filter(item => item.id === id).length > 0;
           if(isUserRanked){
             return rank;
           }
-          return models.users.userRank(id)
+          return users.userRank(id)
             .then(position => {
               const userRank = {
                 ...decode,
@@ -22,10 +24,11 @@ module.exports = {
               return rank.concat(userRank);
             })
         })
-        .then(ranks => {
-          response = jwt.encodeRequest({ ranks });
-          success = true;
-        });
+        .then(ranks => emitEvent(events.update_all_rank, ranks)
+          .then(() => {
+            response = jwt.encodeRequest({ ranks });
+            success = true;
+          }));
     } catch(err) {
       return next(err);
     }
