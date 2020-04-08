@@ -22,7 +22,18 @@ const app = express();
 
 app.enable('trust proxy');
 app.use((req, res, next) => {
+  logger.notice("##############")
+  logger.notice("##############")
+  logger.notice("##############")
+
   logger.notice(JSON.stringify(req.headers));
+  logger.notice("##############")
+  logger.notice("##############")
+
+  logger.notice(req.ips)
+  logger.notice("##############")
+  logger.notice("##############")
+  logger.notice("##############")
 
   const { environments = {} } = constants;
   const { secret_request:secret = false } = environments;
