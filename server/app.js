@@ -55,24 +55,6 @@ app.use(morgan((tokens, req, res) => [
 
 app.use(authMiddleware);
 
-app.use((req, res, next) => {
-  logger.notice("##############")
-  logger.notice("##############")
-  logger.notice("##############")
-
-
-
-  logger.notice(req.ip)
-  logger.notice("##############")
-  logger.notice("##############")
-  logger.notice(req.clientIp)
-
-  logger.notice("##############")
-  logger.notice("##############")
-  logger.notice("##############")
-  next()
-})
-
 app.use('/', routes);
 
 // catch 404 and forward to error handler
