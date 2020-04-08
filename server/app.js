@@ -22,6 +22,8 @@ const app = express();
 
 app.enable('trust proxy');
 app.use((req, res, next) => {
+  logger.notice(JSON.stringify(req.headers));
+
   const { environments = {} } = constants;
   const { secret_request:secret = false } = environments;
   if(secret === false) {
