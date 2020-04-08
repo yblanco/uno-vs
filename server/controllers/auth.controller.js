@@ -65,11 +65,12 @@ module.exports = {
       const { users } = models;
       const { id } = decode;
       await users.logout(id)
-        .then(user => emitEvent(events.on_disconnect, user.id)
+        .then(user => {
+          return emitEvent(events.on_disconnect, user.id)
           .then(() => {
             response = jwt.encodeUser(user);
             success = true;
-          }));
+          })});
     } catch(err) {
       return next(err);
     }

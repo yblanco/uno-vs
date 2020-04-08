@@ -141,12 +141,17 @@ schema.statics.check = function check(id) {
 schema.statics.logout = function logout(id) {
   return this.get(id)
     .catch(err => {
+      const { message } = err;
       if(message === 'User doesnt exist') {
-        return { id };
+        return false;
       }
       throw err;
     })
-    .then(user => this.updateUser(user.id, false));
+    .then(user => (
+      user === false
+      ? { id }
+      : this.updateUser(user.id, false)
+    ));
 }
 
 schema.statics.countUser = function countUser() {
