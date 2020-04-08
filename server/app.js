@@ -20,7 +20,8 @@ const authMiddleware = require('./middlewares/auth.middleware');
 
 const app = express();
 
-app.enable('trust proxy');
+-app.set('trust proxy', true)
+
 app.use((req, res, next) => {
   logger.notice("##############")
   logger.notice("##############")
@@ -30,7 +31,9 @@ app.use((req, res, next) => {
   logger.notice("##############")
   logger.notice("##############")
 
-  logger.notice(req.headers['x-forwarded-for'])
+  logger.notice(req.ip)
+  logger.notice(req.clientIp)
+
   logger.notice("##############")
   logger.notice("##############")
   logger.notice("##############")
