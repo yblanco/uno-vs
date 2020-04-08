@@ -17,7 +17,7 @@
 }
 @media (max-width: 600px) {
   .rank-view .columns.ranking-list  {
-    height: 30vh;
+    height: 35vh;
   }
 }
 
@@ -73,4 +73,9 @@
 
 .ranking-list.columns {
   display: block;
+}
+
+.user.me {
+  outline: 0.1em solid rgba(255,255,255,0.5);
+  outline-offset: -0.25rem;
 }
