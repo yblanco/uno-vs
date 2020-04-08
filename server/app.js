@@ -44,6 +44,7 @@ app.use(cookieParser());
 app.use('/', express.static(__dirname + '/public'));
 
 app.use(morgan((tokens, req, res) => [
+  req.clientIp,
   tokens.method(req, res),
   `${req.hostname}${tokens.url(req, res)}`,
   tokens.status(req, res),
