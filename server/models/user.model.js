@@ -158,7 +158,7 @@ schema.statics.rank = function rank() {
     { $match: this.queryUserStatus()},
     { $addFields: this.queryRank() },
     { $sort: { rank: -1, date: 1 } },
-    { $limit: 3 }
+    { $limit: 10 }
   ])
   .then(ranks => (ranks.map(this.convertUsers)))
 }
