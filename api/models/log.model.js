@@ -42,7 +42,6 @@ schema.statics.getOnline = function getOnline(id) {
 schema.statics.isOnline = function isOnline(socket) {
   return this.findOne({ socket })
     .then(log => {
-      console.log("===>", log)
       const { id = '' } = log === null ? {} : log;
       return this.getOnline(id)
         .then(logs => ({ id, online: logs.length > 0 }));

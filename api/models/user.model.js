@@ -118,7 +118,7 @@ schema.statics.updateUser = function udpateUser(id, online = null, picture = nul
     .then(() => (this.get(id)));
 }
 
-schema.statics.on = function on(id, ip, socket, picture = false) {
+schema.statics.on = function on(id, ip, socket, picture = null) {
   return this.updateUser(id, true, picture)
     .then((userLogIn) => this.model('logs').logIn(userLogIn.id, ip, socket)
       .then(() => userLogIn));
@@ -146,7 +146,6 @@ schema.statics.logout = function logout(socket) {
   return this.model('logs').logOut(socket)
     .then(userState => {
       const { id, online } = userState;
-      console.log(userState)
       return this.updateUser(id, online)
         .then(() => userState);
     });
