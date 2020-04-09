@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { noUser } = require('../constants');
 
 const { Schema } = mongoose;
 
@@ -100,7 +101,7 @@ schema.statics.get = function get(id) {
       const response = this.convertUsers(user);
       const { picture } = response;
       if (user === null) {
-        throw new Error(`User doesnt exist`);
+        throw new Error(noUser);
       }
       return response
     });
@@ -129,7 +130,7 @@ schema.statics.sign = function sign(name, email, picture, appId, from, ip, socke
   return this.get(id)
     .catch(err => {
       const { message } = err;
-      if(message === 'User doesnt exist') {
+      if(message === noUser) {
         return this.add(name, email, picture, id, from, ip);
       }
       throw err;
@@ -147,7 +148,13 @@ schema.statics.logout = function logout(socket) {
     .then(userState => {
       const { id, online } = userState;
       return this.updateUser(id, online)
-        .then(() => userState);
+        .then(() => userState)
+        .catch(err => {
+          if(err.message === noUser){
+            return userState
+          }
+          throw err;
+        });
     });
 }
 

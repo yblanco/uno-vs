@@ -8,4 +8,5 @@ module.exports = {
   environments,
   events,
   expires: '3d',
+  noUser: ' User doesnt exist',
 }
