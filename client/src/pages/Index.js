@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'react';
-import { Content, Columns } from 'react-bulma-components';
+import { Columns } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
-// import { Link, Redirect } from 'react-router-dom';
-// import routes from '../routes';
+import { Link } from 'react-router-dom';
+import routes from '../routes';
 
 import events, { connect, disconnect } from '../socket';
 
@@ -48,42 +48,24 @@ export default translate('index')(({ t }) => {
 
 
   return (
-    <Content>
-      <Columns className='is-mobile is-flex-desktop-only is-vcentered'>
-        <Columns.Column size={12}>
-          <UserInfo user={authenticated} auth={id} />
-        </Columns.Column>
-        <Columns.Column size={12} className='has-background-white	divider'/>
-        <Columns.Column
-          mobile={{ size: 4 }}
-          tablet={{ size: 4 }}
-          desktop={{ size: 2 }}
-        >
-          <New onClick={onClick} />
-        </Columns.Column>
-        <Columns.Column
-          mobile={{ size: 4 }}
-          tablet={{ size: 4 }}
-          desktop={{ size: 2 }}
-        >
-          <Join onClick={onClick} />
-        </Columns.Column>
-        <Columns.Column
-          className="off"
-          mobile={{ size: 4 }}
-          tablet={{ size: 4 }}
-          desktop={{ size: 2 }}
-        >
-          <Friends />
-        </Columns.Column>
-        <Columns.Column
-          mobile={{ size: 12 }}
-          tablet={{ size: 12 }}
-          desktop={{ size: 6 }}
-        >
-          <Ranking all={all} friends={friends} auth={id} />
-        </Columns.Column>
-      </Columns>
-    </Content>
+    <Columns className='is-mobile is-flex-desktop-only is-vcentered'>
+      <Columns.Column size={12}>
+        <UserInfo user={authenticated} auth={id} />
+      </Columns.Column>
+      <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+        <Link to={routes.getLink('new_game')}>
+          <New />
+        </Link>
+      </Columns.Column>
+      <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+        <Join onClick={onClick} />
+      </Columns.Column>
+      <Columns.Column className="off" mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+        <Friends />
+      </Columns.Column>
+      <Columns.Column mobile={{ size: 12 }} tablet={{ size: 12 }} desktop={{ size: 6 }} >
+        <Ranking all={all} friends={friends} auth={id} />
+      </Columns.Column>
+    </Columns>
   );
 });

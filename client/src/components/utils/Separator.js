@@ -5,7 +5,7 @@ import './utils.css';
 
 
 export default () => (
-  <Columns.Column className="is-hidden-desktop">
+  <Columns.Column className="is-hidden-desktop" size={12}>
     <div className="separator"/>
   </Columns.Column>
 );

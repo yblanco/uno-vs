@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { Container } from 'react-bulma-components';
+import { Container, Content } from 'react-bulma-components';
 
 import { TranslatorProvider } from 'react-translate';
 
@@ -70,7 +70,9 @@ const App = () => {
           loggedOut={() => loggedOut(dispatch, listener.id) }
         />
         <Container fluid>
-          <Routes auth={authenticated} />
+          <Content>
+            <Routes auth={authenticated} />
+          </Content>
         </Container>
         <Footer home={authenticated === false} />
       </TranslatorProvider>

@@ -27,7 +27,7 @@ const plays = {
   }
 }
 
-export default translate('plays')(({ t, type, onClick }) => {
+export default translate('plays')(({ t, type, onClick = () => {} }) => {
   const { [type]:play } = plays;
   return (
     <Card

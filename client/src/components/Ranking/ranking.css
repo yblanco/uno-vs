@@ -17,7 +17,7 @@
 }
 @media (max-width: 600px) {
   .rank-view .columns.ranking-list  {
-    height: 35vh;
+    height: 30vh;
   }
 }
 

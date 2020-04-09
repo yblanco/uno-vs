@@ -1,0 +1,31 @@
+
+.columns.switch-form .column:first-child{
+  padding-right: 0;
+}
+
+.columns.switch-form .column:last-child{
+  padding-left: 0;
+}
+
+.columns.switch-form .column:not(:first-child):not(:last-child){
+  padding: 0;
+}
+
+.switch div {
+  display: inline-block;
+}
+
+.switch .switch-selector {
+  content: ' ';
+  width: 20%;
+  box-shadow: rgba(0,0,0,0.5) -0.1em 0 0.1em;
+}
+
+.switch .switch-name {
+  width: 80%;
+}
+
+.switch.reverse {
+  display: flex;
+  flex-flow: row-reverse wrap;
+}

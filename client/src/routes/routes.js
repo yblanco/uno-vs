@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 
 import Index from '../pages/Index';
-
+import NewGame from '../pages/NewGame';
 
 const routes = {
   notFound: {
@@ -16,13 +16,17 @@ const routes = {
     link: '/',
     component: Home,
     private: false,
-    home: true,
   },
   index: {
     link: '/index',
     component: Index,
     private: true,
   },
+  new_game: {
+    link: '/new',
+    component: NewGame,
+    private: true,
+  }
 };
 
 export default new Routes(routes);

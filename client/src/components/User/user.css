@@ -1,32 +1,11 @@
 .box.user .media-content {
   padding-left: 1em;
-  overflow-x: unset;
+  overflow-x: hidden;
 }
-
-.box.user .media-content span.setting figure {
-  display: inline-block;
-  margin-top: 0.1em;
-}
-
-.box.user  .tag {
-  margin-left: 0.25em;
-  margin-top: 1em;
-}
-
-.box.user  .tag span {
-  padding-left: 0.45em !important;
-}
-
 
 .box.user .columns, .box.user .columns .column {
   padding: 0;
   margin: 0;
-}
-
-
-.box.user .columns .column figure{
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .status-user {
@@ -36,5 +15,20 @@
 
 .status-user.offline {
   opacity: 0.5;
-  color: grey !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+
+.user article {
+  margin-bottom: 0.25em;
+}
+
+.user-point span {
+  width: 100%;
+}
+
+.user-point.columns .column{
+  margin-left: 0.5em !important;
+  margin-right: 0.5em !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

@@ -1,25 +1,17 @@
 import React  from 'react';
-import { Image, Tag } from 'react-bulma-components';
+import {  Tag } from 'react-bulma-components';
 
-import level from './level.png';
-import diamonds from './diamonds.png';
-import money from './money.png';
+import Icons from '../Icons';
 
 import './user.css';
 
-const stats = {
-  level: { icon: level, color: 'info'},
-  diamonds: { icon: diamonds, color: 'success'},
-  money: { icon: money, color: 'warning'},
-};
-
-export default ({ text, type, pad }) => {
-  const { [type]:stat } = stats;
+export default ({ user, stat }) => {
   return (
-    <Tag className={`user-${type}`} color={stat.color}>
-      <Image size={16} alt={type} src={stat.icon} />
+    <Tag className={`user-${stat.type}`} color={stat.type}>
+      <Icons type={stat.name} />
+      {' '}
       <span className='has-text-weight-bold'>
-        {String(text).padStart(pad, 0)}
+        {String(user[stat.name]).padStart(stat.pad, 0)}
       </span>
     </Tag>
   );

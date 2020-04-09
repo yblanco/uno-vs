@@ -29,5 +29,12 @@
     "me": "Me",
     "online": "Online",
     "offline": "OffLine"
+  },
+  "game": {
+    "new_game": "Create Game",
+    "of": "of",
+    "create": "Create",
+    "world": "Global",
+    "private": "Private"
   }
 }

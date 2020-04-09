@@ -5,6 +5,8 @@ import { translate } from 'react-translate';
 
 import UserImage from './UserImage';
 import UserInfoContent from './UserInfoContent';
+import UserInfoPoints from './UserInfoPoints';
+
 
 import './user.css';
 
@@ -21,6 +23,7 @@ export default translate('user')(({ t, user, auth = '' }) => {
           <UserInfoContent user={user} connected={user.online === true || isUser} />
         </Media.Item>
       </Media>
+      <UserInfoPoints user={user} />
     </Box>
   );
 });

@@ -29,5 +29,12 @@
     "me": "Yo",
     "online": "Conectado",
     "offline": "Desconectado"
+  },
+  "game": {
+    "new_game": "Crear Partida",
+    "of": "de",
+    "create": "Crear",
+    "world": "Global",
+    "private": "Privada"
   }
 }

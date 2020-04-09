@@ -17,4 +17,5 @@ body #root > div > .container {
 
 .is-mobile-footer.columns{
   margin: 0 !important;
+  font-size: 0.75em; 
 }

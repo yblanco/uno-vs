@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { Content, Columns } from 'react-bulma-components';
+import { Columns } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
@@ -43,24 +43,22 @@ export default translate('home')(({ t }) => {
   }, [dispatch, history, location, authenticated])
 
   return (
-    <Content>
-      <Columns centered className='is-vcentered is-mobile'>
-        <Columns.Column desktop={{ size: 6 }} tablet={{ size:8 }} mobile={mobile} >
-          <Logo />
-        </Columns.Column>
-        <Separator />
-        <Columns.Column desktop={{ size: 5, offset: 1 }} tablet={{ size: 4 }} mobile={mobile} >
-          <LoginForm
-            disabled={(!ready && !check) || authenticated !== false}
-            facebook={auth.facebook_id}
-            google={auth.google_id}
-            onLogin={(data, socketId) => authUser(dispatch, data, socketId)}
-            onError={(message) => showSnackbarWarning(dispatch, message)}
-            lang={lang}
-            socket={id}
-          />
-        </Columns.Column>
-      </Columns>
-    </Content>
+    <Columns centered className='is-vcentered is-mobile'>
+      <Columns.Column desktop={{ size: 6 }} tablet={{ size:8 }} mobile={mobile} >
+        <Logo />
+      </Columns.Column>
+      <Separator />
+      <Columns.Column desktop={{ size: 5, offset: 1 }} tablet={{ size: 4 }} mobile={mobile} >
+        <LoginForm
+          disabled={(!ready && !check) || authenticated !== false}
+          facebook={auth.facebook_id}
+          google={auth.google_id}
+          onLogin={(data, socketId) => authUser(dispatch, data, socketId)}
+          onError={(message) => showSnackbarWarning(dispatch, message)}
+          lang={lang}
+          socket={id}
+        />
+      </Columns.Column>
+    </Columns>
   );
 });
