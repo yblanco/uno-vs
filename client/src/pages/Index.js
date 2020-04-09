@@ -4,7 +4,6 @@ import { Content, Columns } from 'react-bulma-components';
 import { translate } from 'react-translate';
 
 // import { Link, Redirect } from 'react-router-dom';
-
 // import routes from '../routes';
 
 import events, { connect, disconnect } from '../socket';
@@ -18,7 +17,7 @@ import Friends from '../components/Buttons/Friends';
 
 import Ranking from '../components/Ranking/Ranking';
 
-import { getRanking, updateAllRankUser } from '../actions/user.action';
+import { getRanking, updateAllRankUser, changeStateUser } from '../actions/user.action';
 import { showSnackbarWarning } from '../actions/snackbar.action';
 
 
@@ -34,12 +33,12 @@ export default translate('index')(({ t }) => {
 
   useEffect(() => {
     const updateAllRank = (data) => updateAllRankUser(dispatch, data);
-
+    const changeState = (data) => changeStateUser(dispatch, data);
     connect(events.update_all_rank, updateAllRank);
-
+    connect(events.change_state, changeState);
     return () => {
       disconnect(events.update_all_rank, updateAllRank);
-
+      disconnect(events.change_state, changeState);
     }
   }, [dispatch]);
 

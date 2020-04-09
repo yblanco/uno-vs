@@ -5,7 +5,7 @@ import { Content } from 'react-bulma-components';
 const NotFound = () => {
   return (
     <Content>
-      HOME
+      
     </Content>
   );
 };

@@ -2,17 +2,8 @@ class Routes {
   constructor(routesBase) {
     this.routes = {};
     Object.keys(routesBase).forEach((item, key) => {
-      const {
-        title, icon, link, component, menu,
-      } = routesBase[item];
-      this.routes[item] = {
-        title,
-        icon,
-        link,
-        component,
-        menu,
-        id: key,
-      };
+      const { link, component, private:isPrivate } = routesBase[item];
+      this.routes[item] = { link, component, id: key, isPrivate };
     });
   }
 

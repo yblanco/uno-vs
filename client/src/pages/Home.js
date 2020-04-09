@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+
 import { Content, Columns } from 'react-bulma-components';
 
-import { translate } from "react-translate";
+import { translate } from 'react-translate';
+
+import { useHistory, useLocation } from 'react-router';
 
 import { listener } from '../socket';
 
@@ -12,21 +15,37 @@ import Separator from '../components/utils/Separator';
 import Logo from '../components/layout/Logo';
 import LoginForm from '../components/Login/LoginForm';
 
-import { authUser } from '../actions/auth.action';
+import { authUser, checkUser } from '../actions/auth.action';
 import { showSnackbarWarning } from '../actions/snackbar.action';
 
-
 export default translate('home')(({ t }) => {
-  const mobile = { size: 12 };
   const { state, dispatch } = useContext(Store);
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
+
   const { app, auth } = state;
   const { ready, lang } = app;
   const { check, authenticated } = auth;
   const { id } = listener;
 
+  const mobile = { size: 12 };
+
+  useEffect(() => {
+    if(ready === true) {
+      checkUser(dispatch, id);
+    }
+  }, [dispatch, ready, id])
+
+  useEffect(() => {
+    if(authenticated !== false ) {
+      history.replace(from);
+    }
+  }, [dispatch, authenticated, from, history])
+
   return (
     <Content>
-      <Columns centered className="is-vcentered is-mobile">
+      <Columns centered className='is-vcentered is-mobile'>
         <Columns.Column desktop={{ size: 6 }} tablet={{ size:8 }} mobile={mobile} >
           <Logo />
         </Columns.Column>

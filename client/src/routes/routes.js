@@ -10,14 +10,18 @@ const routes = {
   notFound: {
     link: '*',
     component: NotFound,
+    private: true,
   },
   home: {
     link: '/',
     component: Home,
+    private: false,
+    home: true,
   },
   index: {
     link: '/index',
     component: Index,
+    private: true,
   },
 };
 
