@@ -1,0 +1,8 @@
+.form-player-number  {
+  width: 100%;
+  border-radius: 1em;
+}
+
+.form-bet.no-active {
+  opacity: 0.5;
+}

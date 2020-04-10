@@ -1,8 +1,8 @@
-export const stats = [
-  { name: 'level', pad: 3, type: 'info' },
-  { name: 'money', pad: 4, type: 'warning' },
-  { name:'diamonds', pad: 2, type: 'success' }
-];
+export const stats = {
+  level: { pad: 3, type: 'info' },
+  money: { pad: 4, type: 'warning' },
+  diamonds: { pad: 2, type: 'success' },
+}
 
 export const maxPlayers = 4;
 export const minBet = 10;

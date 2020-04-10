@@ -11,9 +11,9 @@ export default ({ user }) => {
   return (
     <Columns className='is-mobile  user-point has-background-dark'>
       {
-        stats.map(stat => (
-          <Columns.Column key={stat.name} className='has-text-centered'>
-            <UserStats  key={stat.name} user={user} stat={stat} />
+        Object.keys(stats).map(stat => (
+          <Columns.Column key={stat} className='has-text-centered'>
+            <UserStats user={user} stat={stats[stat]} field={stat} />
           </Columns.Column>
         ))
       }

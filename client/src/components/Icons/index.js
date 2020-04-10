@@ -11,6 +11,9 @@ import back from './back.png';
 import ranking from './ranking.png';
 import logout from './logout.png';
 import cancel from './cancel.png';
+import add from './add.png';
+import less from './less.png';
+
 
 import en from './en.png';
 import es from './es.png';
@@ -26,6 +29,8 @@ const stats = {
   ranking,
   logout,
   cancel,
+  add,
+  less,
   en,
   es,
 };

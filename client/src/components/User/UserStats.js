@@ -3,16 +3,16 @@ import {  Tag } from 'react-bulma-components';
 
 import Icons from '../Icons';
 
+import Numbers from '../utils/Numbers';
+
 import './user.css';
 
-export default ({ user, stat }) => {
+export default ({ user, stat, field }) => {
   return (
     <Tag className={`user-${stat.type}`} color={stat.type}>
-      <Icons type={stat.name} />
+      <Icons type={field} />
       {' '}
-      <span className='has-text-weight-bold'>
-        {String(user[stat.name]).padStart(stat.pad, 0)}
-      </span>
+      <Numbers number={user[field]} pad={stat.pad} />
     </Tag>
   );
 };
