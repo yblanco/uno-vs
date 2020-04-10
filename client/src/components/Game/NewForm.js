@@ -48,27 +48,27 @@ export default translate('game')(({ t, user, onSave = () => {} }) => {
       <Columns.Column size={12}>
         <TitleForm title={t('new_game')} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 3 }}>
+      <Columns.Column mobile={{ size: 3 }} desktop={{ size: 1 }}>
         <Icons type='money' size={64} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 2 }} >
+      <Columns.Column mobile={{ size: 2 }} desktop={{ size: 1 }} >
         <ButtonBet type='less' onClick={onChangeBet} active={less} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 5 }} className='bet-show-column'>
+      <Columns.Column mobile={{ size: 5 }} desktop={{ size: 3 }} className='bet-show-column'>
         <Content className='bet-show has-background-grey-light'>
         <Numbers number={bet} pad={stats.money.pad} />
         </Content>
       </Columns.Column>
-      <Columns.Column mobile={{ size: 2 }} >
+      <Columns.Column mobile={{ size: 2 }} desktop={{ size: 1 }} >
         <ButtonBet type='add' onClick={onChangeBet} active={add} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 3 }}>
+      <Columns.Column mobile={{ size: 3 }} desktop={{ size: 1 }}>
         <Icons type='people' size={64} />
       </Columns.Column>
       {
         Array(maxPlayers).fill('players').slice(0, maxPlayers-1)
           .map((item, index) => (
-            <Columns.Column key={`${item}_${index}`} mobile={{ size: 3 }} >
+            <Columns.Column key={`${item}_${index}`} mobile={{ size: 3 }}  >
               <NumberPlayers number={index + 2} active={players} onClick={setPlayers} />
             </Columns.Column>
           ))

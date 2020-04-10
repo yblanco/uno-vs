@@ -12,7 +12,12 @@ export default ({ user, route = false, onClick = false, icon='back' }) => {
   const click = onClick === false ? () => {} : onClick;
   return (
     <Columns className='is-mobile is-vcentered title-inner'>
-        <Columns.Column size={3} className='pointer' onClick={click}>
+        <Columns.Column
+          mobile={{ size: 3 }}
+          desktop={{ size: 2 }}
+          className='pointer'
+          onClick={click}
+        >
           {
             icon !== false && (
               <Link to={routes.getLink(route)}>
@@ -21,7 +26,10 @@ export default ({ user, route = false, onClick = false, icon='back' }) => {
             )
           }
         </Columns.Column>
-      <Columns.Column size={3} offset={6} className='info'>
+      <Columns.Column
+        mobile={{ size: 3, offset: 6 }}
+        desktop={{ size: 2, offset: 8 }}
+      >
         <UserImage user={user} size={48} />
       </Columns.Column>
       <Columns.Column size={12}>

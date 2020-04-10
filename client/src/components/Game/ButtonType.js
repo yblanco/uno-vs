@@ -23,7 +23,7 @@ export default translate('game')(({ t, type = 'private', active, onClick }) => {
   return (
     <Content onClick={() => onClick(type)}>
       {t(current.text)}
-      <Content className={`btn-type-content has-background-${current.background} ${isActive && 'active'}`}>
+      <Content className={`btn-type-content pointer has-background-${current.background} ${isActive && 'active'}`}>
         <Icons type={type} size={size} />
       </Content>
     </Content>

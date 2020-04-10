@@ -3,7 +3,7 @@
   overflow-x: hidden;
 }
 
-.box.user .columns, .box.user .columns .column {
+.box.user .columns:not(.user-point), .box.user .columns:not(.user-point) > .column {
   padding: 0;
   margin: 0;
 }
@@ -26,9 +26,9 @@
   width: 100%;
 }
 
-.user-point.columns .column{
+/* .user-point.columns .column{
   margin-left: 0.5em !important;
   margin-right: 0.5em !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
-}
+} */

@@ -3,8 +3,13 @@
   line-height: 3em;
 }
 
+.form-player-number.active  {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 .form-bet.no-active {
-  opacity: 0.5;
+  opacity: 0.25;
 }
 
 .bet-show {
@@ -21,6 +26,6 @@
   padding-bottom: 1em;
 }
 
-.btn-type-content:not(.active) {
+.btn-type-content:not(.active), .form-player-number:not(.active) {
   opacity: 0.85;
 }

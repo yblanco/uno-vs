@@ -1,7 +1,8 @@
 import React  from 'react';
 
 export default ({ number, active, onClick }) => {
-  const color = number === active
+  const isActive = number === active;
+  const color = isActive
     ? 'has-text-weight-bold'
     : 'has-text-weight-light';
   let background = 'white';
@@ -23,7 +24,7 @@ export default ({ number, active, onClick }) => {
     <div
       onClick={() => onClick(number)}
       className={
-        `form-player-number has-background-${background} ${color} ${active && 'active pointer'}`
+        `form-player-number has-background-${background} ${color} ${isActive && 'active'} pointer`
       }
     >
       {number}
