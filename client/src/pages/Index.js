@@ -60,7 +60,7 @@ export default translate('index')(({ t }) => {
       <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
         <Join onClick={onClick} />
       </Columns.Column>
-      <Columns.Column className="off" mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+      <Columns.Column className='off' mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
         <Friends />
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }} tablet={{ size: 12 }} desktop={{ size: 6 }} >

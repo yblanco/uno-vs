@@ -7,7 +7,7 @@ h1.title-app-name .breadcrumb {
 }
 
 h1.title-app-name .breadcrumb span:after {
-  content: " » ";
+  content: ' » ';
 }
 
 h1.title-app-name .breadcrumb span:last-child:after {

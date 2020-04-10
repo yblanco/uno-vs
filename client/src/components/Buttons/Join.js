@@ -3,6 +3,6 @@ import Plays from './Plays';
 
 export default ({ t, onClick }) => {
   return (
-    <Plays type="join" onClick={onClick} />
+    <Plays type='join' onClick={onClick} />
   );
 };

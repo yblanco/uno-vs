@@ -7,6 +7,8 @@ module.exports = {
   app: package,
   environments,
   events,
-  expires: '3d',
+  expiresSession: '3d',
+  expiresIn: '3m',
   noUser: ' User doesnt exist',
+  states: ['waiting', 'playing', 'finished', 'canceled']
 }

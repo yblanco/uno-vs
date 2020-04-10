@@ -1,31 +1,23 @@
 import React from 'react';
-import { Image, Columns } from 'react-bulma-components';
+import { Columns } from 'react-bulma-components';
 
-
-import en from './langs/en.png';
-import es from './langs/es.png';
+import Icons from '../Icons';
 
 const langs = {
-  en: {
-    flag: en,
-    name: 'English',
-  },
-  es: {
-    flag: es,
-    name: 'Español',
-  }
+  en: 'English',
+  es: 'Español',
 }
 
 
 const Header = ({ lang }) => {
-  const item = langs[lang];
+  const { [lang]:item } = langs;
   return (
-    <Columns className="is-mobile is-vcentered">
+    <Columns className='is-mobile is-vcentered'>
       <Columns.Column size={3}>
-        <Image src={item.flag} alt={item.name} size={24} />
+        <Icons type={lang} size={24} />
       </Columns.Column>
-      <Columns.Column size={9} className="has-text-centered">
-        {item.name}
+      <Columns.Column size={9} className='has-text-centered'>
+        {item}
       </Columns.Column>
     </Columns>
   )

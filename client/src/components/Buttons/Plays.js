@@ -1,7 +1,7 @@
 import React  from 'react';
 import { Card } from 'react-bulma-components';
 
-import { translate } from "react-translate";
+import { translate } from 'react-translate';
 
 
 import newGame from './new.png';
@@ -34,10 +34,10 @@ export default translate('plays')(({ t, type, onClick = () => {} }) => {
       className={`${play.class === undefined ? 'pointer' : play.class} plays`}
       onClick={onClick}
     >
-     <Card.Image size="square" src={play.icon} alt={type} />
+     <Card.Image size='square' src={play.icon} alt={type} />
      {
        play.label !== false && (
-         <Card.Content className="has-text-centered has-text-weight-bold has-text-white">
+         <Card.Content className='has-text-centered has-text-weight-bold has-text-white'>
           {t(play.label)}
          </Card.Content>
        )

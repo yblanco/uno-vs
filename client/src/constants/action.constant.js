@@ -19,3 +19,8 @@ export const userAction = {
   on_user: 'user-on_user',
   off_user: 'user-off_user',
 }
+
+export const gameAction = {
+  set_current: 'game-set_current',
+  set_info: 'game-set_info'
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Columns } from 'react-bulma-components';
 
-import { translate } from "react-translate";
+import { translate } from 'react-translate';
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
@@ -11,13 +11,13 @@ import GoogleLogin from 'react-google-login';
 //
 // import routes from '../../routes';
 
-export default translate('login')(({ t, facebook, google, lang, socket, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
+export default translate('login')(({ t, facebook, google, lang, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
   const mapFields = (name, email, picture, id, from) => ({ name, email, picture, id, from });
   const loginFacebook = (response) => {
     const { status = false, name, email, picture = {}, id } = response;
     const { url = false } = picture.data || {};
     if(status === false) {
-      onLogin(mapFields(name, email, url, id, 'facebook'), socket);
+      onLogin(mapFields(name, email, url, id, 'facebook'));
     } else {
       onError(t('facebook_error'));
     }
@@ -25,7 +25,7 @@ export default translate('login')(({ t, facebook, google, lang, socket, disabled
   const loginGoogle = (response) => {
     const { profileObj = {} } = response;
     const { name, email, imageUrl, googleId } = profileObj;
-    onLogin(mapFields(name, email, imageUrl, googleId, 'google'), socket);
+    onLogin(mapFields(name, email, imageUrl, googleId, 'google'));
   }
   return (
     <Columns centered>
@@ -35,7 +35,7 @@ export default translate('login')(({ t, facebook, google, lang, socket, disabled
           (
             <FacebookLogin
               appId={facebook}
-              fields="name,email,picture"
+              fields='name,email,picture'
               callback={loginFacebook}
               language={lang}
               textButton={t('sign_in_facebook')}
@@ -58,7 +58,7 @@ export default translate('login')(({ t, facebook, google, lang, socket, disabled
           )
         }
       </Columns.Column>
-      <Columns.Column size={12} className="has-text-centered">
+      <Columns.Column size={12} className='has-text-centered'>
         <span className='not-allowed has-text-grey-light'>
           {t('as_guest')}
         </span>

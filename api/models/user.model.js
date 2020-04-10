@@ -20,6 +20,7 @@ const schema = new Schema({
   id:  {
     type: String,
     required: true,
+    index: true,
   },
   ip: {
     type: String,
@@ -82,7 +83,7 @@ schema.statics.queryRank = () => ({
   }
 });
 
-schema.statics.convertUsers = (user) => {
+schema.statics.parseResult = (user) => {
   const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online } = user || {};
   return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online };
 }
@@ -98,14 +99,19 @@ schema.statics.add = function add(name, mail, picture, id, from, ip) {
 schema.statics.get = function get(id) {
   return this.findOne(this.queryUser(id))
     .then((user) => {
-      const response = this.convertUsers(user);
+      const response = this.parseResult(user);
       const { picture } = response;
       if (user === null) {
         throw new Error(noUser);
       }
-      return response
-    });
-};
+      return this.model('games').getCurrent(user.id)
+        .then(game => ({ ...response, code: game }));
+      });
+}
+
+schema.statics.getMany = function getMany(ids) {
+  return this.find(this.queryUser(ids));
+}
 
 schema.statics.updateUser = function udpateUser(id, online = null, picture = null) {
   const data = {};
@@ -169,7 +175,7 @@ schema.statics.rank = function rank(limit) {
     { $sort: { rank: -1, date: 1 } },
     { $limit: limit }
   ])
-  .then(ranks => (ranks.map(this.convertUsers)))
+  .then(ranks => (ranks.map(this.parseResult)))
 }
 
 schema.statics.userRank = function rank(id) {

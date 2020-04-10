@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-
-
 const schema = new Schema({
   id: {
     type: String,
@@ -16,6 +14,7 @@ const schema = new Schema({
   socket: {
     type: String,
     required: true,
+    index: true,
   },
   connect: {
     type: Date,

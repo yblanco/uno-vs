@@ -3,6 +3,6 @@ import Plays from './Plays';
 
 export default ({ t, onClick }) => {
   return (
-    <Plays type="new" onClick={onClick} />
+    <Plays type='new' onClick={onClick} />
   );
 };

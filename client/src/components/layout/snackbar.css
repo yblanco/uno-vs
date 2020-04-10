@@ -23,7 +23,7 @@
   animation: fadeout 0.5s;
 }
 
-[data-text=""].notification.snackbar {
+[data-text=''].notification.snackbar {
   opacity: 0;
 }
 

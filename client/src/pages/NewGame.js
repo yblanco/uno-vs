@@ -1,19 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Columns } from 'react-bulma-components';
+import { Redirect } from 'react-router';
 
-import { translate } from 'react-translate';
-
-// import events, { connect, disconnect } from '../socket';
+import routes from '../routes';
 
 import { Store } from '../reducers';
 
-import TitleInner from '../components/TitleInner';
-import NewForm from '../components/NewForm/NewForm';
+import TitleInner from '../components/utils/TitleInner';
+import NewForm from '../components/Game/NewForm';
 
-export default translate('game')(({ t }) => {
-  const { state } = useContext(Store);
-  const { auth } = state;
+import { createGame } from '../actions/game.action';
+
+export default () => {
+  const { state, dispatch } = useContext(Store);
+  const [created, setCreated] = useState(false);
+  const { auth, game } = state;
   const { authenticated } = auth;
+
+  const onSave = (data) => {
+    return createGame(dispatch, data, authenticated)
+      .then(() => {
+        setCreated(true);
+      });
+  }
+
+  if(created) {
+    return <Redirect to={routes.getLink('game')} />
+  }
 
   return (
     <Columns className='is-mobile'>
@@ -21,8 +34,8 @@ export default translate('game')(({ t }) => {
         <TitleInner route='index' user={authenticated} />
       </Columns.Column>
       <Columns.Column>
-        <NewForm user={authenticated} />
+        <NewForm user={authenticated} onSave={onSave} />
       </Columns.Column>
     </Columns>
   );
-});
+};

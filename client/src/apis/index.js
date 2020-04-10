@@ -2,6 +2,8 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 import { SERVER, SECRET_REQUEST } from '../constants/env.constant';
+import { expiresIn } from '../constants/app.constant';
+
 
 export default class {
   constructor(path = '') {
@@ -63,6 +65,6 @@ export default class {
   }
 
   requestAuth($route, method = 'get', data = {}) {
-    return this.responseAuth($route, method,  jwt.sign(data, SECRET_REQUEST, { expiresIn: '3m' }));
+    return this.responseAuth($route, method,  jwt.sign(data, SECRET_REQUEST, { expiresIn }));
   }
 }

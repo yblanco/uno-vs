@@ -4,12 +4,13 @@ import authRest from '../apis/auth.api';
 
 import { setReady } from './app.action';
 import { showSnackbarError, showSnackbarSuccess } from './snackbar.action';
+import { setCode } from './game.action';
 
 import { KEY_STORAGE } from '../constants/env.constant';
 
 const setLogged = (response) => {
-  const { encoded = "" } = response;
-  if(encoded !== "") {
+  const { encoded = '' } = response;
+  if(encoded !== '') {
     localStorage.setItem(KEY_STORAGE, encoded);
   }
 }
@@ -21,9 +22,11 @@ const removeLogged = () => {
 const getLogged = () => (localStorage.getItem(KEY_STORAGE));
 
 const login = (dispatch, response) => {
-  const { name } = response;
-  setLogged(response);
-  dispatch(dispatchAction(authAction.set_authenticated, response));
+  const { name, picture, id, money, diamonds, online, code, encoded, level } = response;
+  const user = { name, picture, id, money, diamonds, online, encoded, level };
+  setLogged(user);
+  setCode(dispatch, code);
+  dispatch(dispatchAction(authAction.set_authenticated, user));
   showSnackbarSuccess(dispatch, name);
 }
 
@@ -60,6 +63,7 @@ export const checkUser = (dispatch, id) => {
       .catch(err => {
         removeLogged();
         dispatch(dispatchAction(authAction.checked_authenticated));
+        setCode(dispatch, false);
         showSnackbarError(dispatch, err);
       })
   }
@@ -70,19 +74,9 @@ export const loggedOut = (dispatch, id) => {
     .then(() => {
       removeLogged();
       dispatch(dispatchAction(authAction.set_authenticated, false));
+      setCode(dispatch, false);
     })
     .catch(err => {
       showSnackbarError(dispatch, err);
     });
-}
-
-export const clientDisconnect = (dispatch, user) => {
-  const encoded = getLogged();
-  return authRest.logout(encoded)
-    .then(() => {
-      removeLogged();
-      dispatch(dispatchAction(authAction.set_authenticated, false));
-      return true;
-    })
-    .catch(err => (true));
 }

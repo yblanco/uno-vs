@@ -7,7 +7,7 @@ export const snackbar = {
 export const app = {
   ready: false,
   lang: 'en',
-}
+};
 
 export const auth = {
   facebook_id: false,
@@ -15,7 +15,7 @@ export const auth = {
   login: false,
   authenticated: false,
   check: false,
-}
+};
 
 export const user = {
   friends: [],
@@ -23,11 +23,17 @@ export const user = {
     global: [],
     friends: [],
   }
-}
+};
+
+export const game = {
+  current: false,
+  info: {},
+};
 
 export default {
   snackbar,
   app,
   auth,
-  user
+  user,
+  game,
 };

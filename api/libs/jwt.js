@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const constants = require('../constants');
-const { expires } = constants;
+const { expiresSession, expiresIn } = constants;
 
 module.exports = class {
   constructor(secret) {
@@ -10,10 +10,10 @@ module.exports = class {
     return jwt.sign(data, this.secret, { expiresIn });
   }
   encodeRequest(data) {
-    return this.encode(data, '1m');
+    return this.encode(data, expiresIn);
   }
   encodeUser(data) {
-    return this.encode(data, expires);
+    return this.encode(data, expiresSession);
   }
   decode(string) {
     return new Promise((resolve, reject) => {

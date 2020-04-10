@@ -32,15 +32,15 @@ const App = () => {
   const { authenticated } = auth;
 
   const { location } = window;
-  const { search = "" } = location;
+  const { search = '' } = location;
   const params = new URLSearchParams(search);
   const language = params.get('lang') || 'en';
   const { [lang]:translations } = translate;
 
   useEffect(() => {
-    const onConnect = (message) => console.log("CONNECT",message);
-    const onDisconnect = (message) => console.log("DISCONNECT",message);
-    const onReconect = (message) => console.log("RECONNECT",message);
+    const onConnect = (message) => console.log('CONNECT',message);
+    const onDisconnect = (message) => console.log('DISCONNECT',message);
+    const onReconect = (message) => console.log('RECONNECT',message);
 
     connect(events.connected, onConnect);
     connect(events.disconnected, onDisconnect);
@@ -60,7 +60,7 @@ const App = () => {
   }, [dispatch, language]);
 
   return (
-    <div className="app home">
+    <div className='app home'>
       <TranslatorProvider translations={translations}>
         <Snackbar info={snackbar} hideSnackbar={() => hideSnackbar(dispatch)} />
         <Header

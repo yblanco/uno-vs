@@ -6,6 +6,8 @@ import { translate } from 'react-translate';
 
 import { useHistory, useLocation } from 'react-router';
 
+import routes from '../routes';
+
 import { listener } from '../socket';
 
 import { Store } from '../reducers';
@@ -22,24 +24,26 @@ export default translate('home')(({ t }) => {
   const history = useHistory();
   const location = useLocation();
   const { state, dispatch } = useContext(Store);
-  const { app, auth } = state;
+  const { app, auth, game } = state;
   const { ready, lang } = app;
   const { check, authenticated } = auth;
-  const { id } = listener;
+  const { current } = game;
+  const { id:socket } = listener;
 
   const mobile = { size: 12 };
 
   useEffect(() => {
     if(ready === true) {
-      checkUser(dispatch, id);
+      checkUser(dispatch, socket);
     }
-  }, [dispatch, ready, id])
+  }, [dispatch, ready, socket])
 
   useEffect(() => {
-    const { from } = location.state || { from: { pathname: "/index" } };
-      if(authenticated !== false) {
-        history.replace(from)
-      }
+    const { from } = location.state || { from: { pathname: routes.getLink('index') } };
+    const redirect = current === false ? from : routes.getLink('game');
+    if(authenticated !== false) {
+      history.replace(redirect)
+    }
   }, [dispatch, history, location, authenticated])
 
   return (
@@ -53,10 +57,9 @@ export default translate('home')(({ t }) => {
           disabled={(!ready && !check) || authenticated !== false}
           facebook={auth.facebook_id}
           google={auth.google_id}
-          onLogin={(data, socketId) => authUser(dispatch, data, socketId)}
+          onLogin={(data) => authUser(dispatch, data, socket)}
           onError={(message) => showSnackbarWarning(dispatch, message)}
           lang={lang}
-          socket={id}
         />
       </Columns.Column>
     </Columns>

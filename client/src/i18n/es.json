@@ -35,6 +35,9 @@
     "of": "de",
     "create": "Crear",
     "world": "Global",
-    "private": "Privada"
+    "private": "Privada",
+    "waiting_one": "Esperando",
+    "waiting": "Esperando jugadores",
+    "start": "Iniciar Juego"
   }
 }

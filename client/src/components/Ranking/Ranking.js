@@ -1,11 +1,10 @@
 import React from 'react';
-import { Image, Content, Columns, Heading } from 'react-bulma-components';
+import {  Content, Columns, Heading } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
 import RankingList from './RankingList';
-
-import ranking from './ranking.png';
+import Icons from '../Icons';
 
 import './ranking.css';
 
@@ -19,7 +18,7 @@ export default translate('ranking')(({ t, all, friends, auth }) => {
           tablet={{ size: 3 }}
           desktop={{ size: 2 }}
         >
-          <Image src={ranking} alt='ranking' />
+          <Icons type='ranking' size={48} />
         </Columns.Column>
         <Columns.Column
           mobile={{ size: 5 }}

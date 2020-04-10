@@ -7,8 +7,13 @@ import money from './money.png';
 import people from './people.png';
 import privateIcon from './private.png';
 import world from './world.png';
+import back from './back.png';
+import ranking from './ranking.png';
+import logout from './logout.png';
+import cancel from './cancel.png';
 
-
+import en from './en.png';
+import es from './es.png';
 
 const stats = {
   level,
@@ -16,7 +21,13 @@ const stats = {
   money,
   people,
   private: privateIcon,
-  world
+  world,
+  back,
+  ranking,
+  logout,
+  cancel,
+  en,
+  es,
 };
 
 export default ({ type, size=16 }) => {
