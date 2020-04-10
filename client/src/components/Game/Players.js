@@ -16,7 +16,7 @@ export default translate('game')(({ t, game }) => {
           <Columns.Column
             key={`${index}_${player.id}`}
             mobile={{ size: 6 }}
-            className='has-text-centered has-text-weight-bold'
+            className={`${user === player.id && 'game-admin'} has-text-centered has-text-weight-bold`}
           >
             <UserImage user={player} />
             {player.name === undefined ? t('waiting_one') : player.name}

@@ -2,7 +2,7 @@ import { gameAction } from '../constants/action.constant';
 import dispatchAction from './action';
 import gameRest from '../apis/game.api';
 
-import { showSnackbarError, showSnackbarSuccess } from './snackbar.action';
+import { showSnackbarError } from './snackbar.action';
 
 
 export const createGame = (dispatch, game, user) => {

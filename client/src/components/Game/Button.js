@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { Button } from 'react-bulma-components';
 import { translate } from 'react-translate';
 

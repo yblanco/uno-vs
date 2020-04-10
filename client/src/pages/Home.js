@@ -44,7 +44,7 @@ export default translate('home')(({ t }) => {
     if(authenticated !== false) {
       history.replace(redirect)
     }
-  }, [dispatch, history, location, authenticated])
+  }, [dispatch, history, location, authenticated, current])
 
   return (
     <Columns centered className='is-vcentered is-mobile'>

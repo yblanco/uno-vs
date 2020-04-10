@@ -13,20 +13,18 @@ import './footer.css';
 
 export default translate('footer')(({ t, home }) => (
   <Content>
-    {home && (
-      <Columns className='is-mobile is-mobile-footer'>
-        <Columns.Column size={6} className='has-text-centered'>
-          <span className='not-allowed has-text-grey-light'>
-            {t('terms')}
-          </span>
-        </Columns.Column>
-        <Columns.Column size={6} className='has-text-centered'>
-          <span className='not-allowed has-text-grey-light'>
-            {t('how_to')}
-          </span>
-        </Columns.Column>
-      </Columns>
-    )}
+    <Columns className='is-mobile is-mobile-footer'>
+      <Columns.Column size={6} className='has-text-centered'>
+        <span className='not-allowed has-text-grey-light'>
+          {t('terms')}
+        </span>
+      </Columns.Column>
+      <Columns.Column size={6} className='has-text-centered'>
+        <span className='not-allowed has-text-grey-light'>
+          {t('how_to')}
+        </span>
+      </Columns.Column>
+    </Columns>
     <Footer className='is-info notification'>
         {t('right_reserverd')}
         {' '}

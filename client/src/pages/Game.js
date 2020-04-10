@@ -19,10 +19,8 @@ export default () => {
   const [existGame, setExistGame] = useState(true);
   const { auth, game } = state;
   const { authenticated } = auth;
-  const { current } = game;
   const { id } = authenticated;
   const { info } = game;
-  const { players = [] } = info;
 
   const onCancel = () => {
     return cancelGame(dispatch, id)
@@ -40,7 +38,7 @@ export default () => {
 
 
   if(!existGame) {
-    return (<Redirect to={routes.getLink('index')} />);
+    return (<Redirect to={routes.getLink('new_game')} />);
   }
 
   return (
@@ -48,12 +46,11 @@ export default () => {
       <Columns.Column size={12}>
         <TitleInner
           user={authenticated}
-          onClick={onCancel}
-          icon='cancel'
+          icon={false}
         />
       </Columns.Column>
       <Columns.Column size={12}>
-        <InfoGame game={info} />
+        <InfoGame game={info} onCancel={onCancel} />
       </Columns.Column>
       <Columns.Column size={12}>
         <Players game={info} />

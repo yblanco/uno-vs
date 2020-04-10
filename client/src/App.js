@@ -74,7 +74,11 @@ const App = () => {
             <Routes auth={authenticated} />
           </Content>
         </Container>
-        <Footer home={authenticated === false} />
+          {
+            authenticated === false && (
+              <Footer />
+            )
+          }
       </TranslatorProvider>
     </div>
   );

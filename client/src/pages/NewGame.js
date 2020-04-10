@@ -14,7 +14,7 @@ import { createGame } from '../actions/game.action';
 export default () => {
   const { state, dispatch } = useContext(Store);
   const [created, setCreated] = useState(false);
-  const { auth, game } = state;
+  const { auth } = state;
   const { authenticated } = auth;
 
   const onSave = (data) => {

@@ -38,6 +38,9 @@
     "private": "Private",
     "waiting_one": "Waiting",
     "waiting": "Waiting for players",
-    "start": "Start Game"
+    "start": "Start Game",
+    "code": "Code",
+    "inline": "Play on line",
+    "friends": "Play with friends"
   }
 }

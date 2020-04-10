@@ -1,8 +1,26 @@
 .form-player-number  {
   width: 100%;
-  border-radius: 1em;
+  line-height: 3em;
 }
 
 .form-bet.no-active {
   opacity: 0.5;
+}
+
+.bet-show {
+  border-radius: 2em;
+}
+
+.bet-show-column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.btn-type-content {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.btn-type-content:not(.active) {
+  opacity: 0.85;
 }
