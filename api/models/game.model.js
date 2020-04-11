@@ -191,7 +191,7 @@ schema.statics.join = function join(id, code) {
       if(hasCode !== false) {
         return hasGame;
       }
-      return this.getByCode(code.toUpperCase())
+      return this.getByCode(code)
         .then(game => {
           const { cant } = game;
           return this.joinGame(id, code, cant);

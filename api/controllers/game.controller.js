@@ -88,7 +88,7 @@ module.exports = {
       const { emitEvent, events } = socket;
       const { games } = models;
       const code_event = `${events.set_code}_${id}`;
-      await games.join(id, code)
+      await games.join(id, code.toUpperCase())
         .then((game) => (emitEvent(code_event, game))
           .then(() => emitEvent(game.code, game)
             .then(() => {
