@@ -4,7 +4,6 @@ import { Columns } from 'react-bulma-components';
 import { translate } from 'react-translate';
 
 import Icons from '../Icons';
-import ShareButton from './ShareButton';
 import CodeShow from './CodeShow';
 
 export default translate('game')(({ t, game, onCancel }) => {

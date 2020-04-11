@@ -1,7 +1,5 @@
 import React  from 'react';
-import { Columns, Content } from 'react-bulma-components';
-
-import { translate } from 'react-translate';
+import { Columns } from 'react-bulma-components';
 
 import Icons from '../Icons';
 

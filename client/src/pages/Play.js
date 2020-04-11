@@ -10,7 +10,7 @@ export default () => {
   const { state } = useContext(Store);
   const { auth, game } = state;
   const { authenticated } = auth;
-  const { id, name } = authenticated;
+  const { name } = authenticated;
   const { info, current = false } = game;
   const { bet, cant, players = [] } = info;
 

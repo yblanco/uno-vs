@@ -12,7 +12,7 @@ import JoinGame from '../components/Game/JoinGame';
 
 import { joinGame } from '../actions/game.action';
 
-export default ({ }) => {
+export default () => {
   const { state, dispatch } = useContext(Store);
   const [exist, setExist] = useState(true);
   const { auth, game } = state;
