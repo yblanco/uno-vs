@@ -17,6 +17,7 @@ import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang, getLangStorage } from './actions/app.action';
 import { getAppId, loggedOut } from './actions/auth.action';
+import { setCode } from './actions/game.action';
 
 import en from './i18n/en.json';
 import es from './i18n/es.json';
@@ -41,16 +42,24 @@ const App = () => {
     const onConnect = (message) => console.log('CONNECT',message);
     const onDisconnect = (message) => console.log('DISCONNECT',message);
     const onReconect = (message) => console.log('RECONNECT',message);
-
     connect(events.connected, onConnect);
     connect(events.disconnected, onDisconnect);
-    connect(events.reconnecting, onReconect);
-    return () => {
+    connect(events.reconnecting, onReconect);    return () => {
       disconnect(events.connected, onConnect);
       disconnect(events.disconnected, onDisconnect);
       disconnect(events.reconnecting, onReconect);
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    const { id = '' } = authenticated;
+    const code_event = `${events.set_code}_${id}`;
+    const eventCode = ({ code }) => setCode(dispatch, code);
+    connect(code_event, eventCode);
+    return () => {
+      disconnect(code_event, eventCode);
+    }
+  }, [dispatch, authenticated]);
 
 
   useEffect(() => {

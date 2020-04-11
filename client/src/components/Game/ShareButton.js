@@ -17,7 +17,7 @@ export default ({ type, code }) => {
   const round = true;
   const link = routes.getLink('join_link', { code })
   const url = `${protocol}://${host}${link}`;
-  console.log(url);
+  // console.log(url);
   switch (type) {
     case 'facebook':
       return (

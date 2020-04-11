@@ -61,40 +61,69 @@ schema.statics.hasGame = function hasGame (id) {
 
 schema.statics.getByCode = function getByCode(code) {
   return this.findOne({ code })
-    .then(game => this.parseResult(game));
+    .then(this.getPlayers.bind(this));
 }
 
 schema.statics.get = function get(user) {
   return this.findOne({ players: user, state: states.slice(0,2) })
-    .then(game => this.parseResult(game));
+    .then(this.getPlayers.bind(this));
 }
 
 schema.statics.getCurrent = function getCurrent(user) {
   return this.get(user).then(game => game.code);
 }
 
-schema.statics.getCurrentInfo = function getCurrentInfo(user) {
-  return this.get(user)
-    .then(game => this.model('users').getMany(game.players)
-      .then(players => ({ ...game, players })));
+schema.statics.getPlayers = function getPlayers(gameModel) {
+  const game = this.parseResult(gameModel);
+  return this.model('users').getMany(game.players)
+    .then(players => ({ ...game, players }));
+}
+
+schema.statics.add = function add(user, isPrivate, cant, bet) {
+  return this.code()
+    .then(code => this.create({
+      user,
+      private: isPrivate,
+      players: [user],
+      cant,
+      bet,
+      code,
+    })).then(() => this.get(user))
+}
+
+schema.statics.joinGame = function joinGame(user, code) {
+  return this.updateOne({ code }, { $push: { players: user } })
+    .then(() => code).then(() => this.get(user));
+}
+
+schema.statics.matchGame = function matchGame(id, bet, cant) {
+  const playersMax = `players.${cant - 1}`;
+  return this.findOne({
+    bet,
+    cant,
+    private: false,
+    state: states[0],
+    [playersMax]: { $exists: false },
+  })
+    .then(game => {
+      const { code = false } = game || {};
+      if(code === false) {
+        return this.add(id, false, cant, bet)
+      }
+      return this.joinGame(id, code);
+    })
 }
 
 schema.statics.newGame = function newGame (id, cant, bet, type) {
   return this.model('users').get(id)
-    .then(user => this.hasGame(user.id)
+    .then(({ id:idUser }) => this.hasGame(idUser)
       .then(hasGame => {
         if(hasGame) {
-          return this.get(user.id);
+          return this.get(idUser);
+        } else if(type === 'private') {
+          return this.add(id, true, cant, bet)
         }
-        return this.code()
-          .then(code => this.create({
-            user: user.id,
-            private: type === 'private',
-            players: [user.id],
-            cant,
-            bet,
-            code,
-          })).then(() => this.get(user.id))
+        return this.matchGame(idUser, bet, cant);
       }))
 }
 
@@ -104,22 +133,24 @@ schema.statics.cancelGame = function cancelGame(code) {
 }
 
 schema.statics.removeUser = function removeUser(code, id) {
-  return this.updateOne({ code }, { players: { $pull: id} })
+  return this.updateOne({ code }, { $pull: { players: id } })
     .then(() => code);
 }
 
 
 schema.statics.cancel = function cancel (id) {
   return this.model('users').get(id)
-    .then(user => this.hasGame(user.id)
-      .then(hasGame => this.get(user.id)
-          .then(game => {
-            const { code, user } = game;
-            if(id === user) {
-              return this.cancelGame(code);
-            }
-            return this.removeUser(code, id)
-          }))).then((code) => (this.getByCode(code)));
+    .then(({ id: idUser}) => this.hasGame(idUser)
+      .then(hasGame => this.get(idUser)
+        .then(({ code }) => this.removeUser(code, idUser))
+          .then((code) => this.getByCode(code)
+            .then(game => {
+              const { players } = game;
+              if(players.length === 0) {
+                return this.cancelGame(code);
+              }
+              return code;
+            })).then((code) => (this.getByCode(code)))));
 }
 
 

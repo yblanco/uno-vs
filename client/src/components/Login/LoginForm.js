@@ -6,11 +6,6 @@ import { translate } from 'react-translate';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
-
-// import { Link } from 'react-router-dom';
-//
-// import routes from '../../routes';
-
 export default translate('login')(({ t, facebook, google, lang, disabled=false, onLogin=()=>{}, onError=()=>{} }) => {
   const mapFields = (name, email, picture, id, from) => ({ name, email, picture, id, from });
   const loginFacebook = (response) => {

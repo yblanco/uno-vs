@@ -110,7 +110,8 @@ schema.statics.get = function get(id) {
 }
 
 schema.statics.getMany = function getMany(ids) {
-  return this.find(this.queryUser(ids));
+  return this.find(this.queryUser(ids))
+    .then(users => users.map(this.parseResult));
 }
 
 schema.statics.updateUser = function udpateUser(id, online = null, picture = null) {

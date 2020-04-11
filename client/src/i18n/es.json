@@ -41,6 +41,7 @@
     "start": "Iniciar Juego",
     "code": "Código",
     "inline": "Juega en linea",
-    "friends": "Invita a tus amigos"
+    "friends": "Invita a tus amigos",
+    "cancel": "Cancelar"
   }
 }

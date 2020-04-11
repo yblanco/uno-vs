@@ -52,7 +52,7 @@ export default translate('home')(({ t }) => {
         <Logo />
       </Columns.Column>
       <Separator />
-      <Columns.Column desktop={{ size: 5, offset: 1 }} tablet={{ size: 4 }} mobile={mobile} >
+      <Columns.Column desktop={{ size: 5, offset: 1 }} tablet={{ size: 8 }} mobile={mobile} >
         <LoginForm
           disabled={(!ready && !check) || authenticated !== false}
           facebook={auth.facebook_id}

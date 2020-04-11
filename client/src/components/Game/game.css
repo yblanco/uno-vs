@@ -12,6 +12,14 @@
   opacity: 0.25;
 }
 
+.state-game {
+  line-height: 2.1em;
+}
+
+.info-contact {
+  line-height: 2em;
+}
+
 .bet-show {
   border-radius: 2em;
 }

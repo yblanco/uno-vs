@@ -5,9 +5,12 @@ import { translate } from 'react-translate';
 
 import UserImage from '../User/UserImage';
 
+import { maxPlayers } from '../../constants/app.constant';
+
+
 
 export default translate('game')(({ t, game }) => {
-  const { user, players = [], cant = 0 } = game;
+  const { user, players = [], cant = maxPlayers } = game;
   const users = players.concat(Array(cant-players.length).fill({ picture: 'default-user.png',  }));
   return (
     <Columns className='is-mobile is-vcentered'>

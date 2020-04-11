@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Columns } from 'react-bulma-components';
 import { Redirect } from 'react-router';
 
@@ -13,18 +13,15 @@ import { createGame } from '../actions/game.action';
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const [created, setCreated] = useState(false);
-  const { auth } = state;
+  const { auth, game } = state;
   const { authenticated } = auth;
+  const { current } = game;
 
   const onSave = (data) => {
-    return createGame(dispatch, data, authenticated)
-      .then(() => {
-        setCreated(true);
-      });
+    return createGame(dispatch, data, authenticated);
   }
 
-  if(created) {
+  if(current !== false) {
     return <Redirect to={routes.getLink('game')} />
   }
 

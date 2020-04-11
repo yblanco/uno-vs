@@ -39,7 +39,7 @@ export default translate('game')(({ t, user, onSave = () => {} }) => {
   const onClick = () => {
     if(!requesting) {
       setRequesting(true);
-      onSave({ players, bet, type: type.value })
+      onSave({ players, bet, type })
         .then(() => setRequesting(false));
     }
   }

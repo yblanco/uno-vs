@@ -26,21 +26,24 @@ export const getGame = (dispatch, id) => {
   const data = { id };
   return gameRest.get(data)
     .then(response => {
-      const { user, code, state, bet, cant, private: isPrivate, players } = response;
-      const info = { user, code, state, bet, cant, private: isPrivate, players };
+      const { code } = response;
       if(code === false){
-        dispatch(dispatchAction(gameAction.set_current, false))
+        setCode(dispatch, false)
         throw new Error('no_game')
       }
-      dispatch(dispatchAction(gameAction.set_info, info));
+      changeInfo(dispatch, response)
     });
+}
+
+export const changeInfo = (dispatch, info) => {
+  const { user, code, state, bet, cant, private: isPrivate, players } = info;
+  dispatch(dispatchAction(gameAction.set_info, { user, code, state, bet, cant, private: isPrivate, players }));
 }
 
 export const cancelGame = (dispatch, id) => {
   const data = { id };
   return gameRest.cancel(data)
     .then(response => {
-      console.log(response)
       return true;
     })
     .catch(err => {

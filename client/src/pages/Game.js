@@ -1,43 +1,48 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Columns } from 'react-bulma-components';
-import { Redirect } from 'react-router';
 
+import { Redirect } from 'react-router';
 import routes from '../routes';
+
+import { connect, disconnect } from '../socket';
 
 import { Store } from '../reducers';
 
 import TitleInner from '../components/utils/TitleInner';
 import InfoGame from '../components/Game/InfoGame';
 import Players from '../components/Game/Players';
-import Button from '../components/Game/Button';
+import OptionsGame from '../components/Game/OptionsGame';
 
-import { getGame, cancelGame } from '../actions/game.action';
+import { getGame, cancelGame, changeInfo } from '../actions/game.action';
 
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const [existGame, setExistGame] = useState(true);
   const { auth, game } = state;
   const { authenticated } = auth;
   const { id } = authenticated;
-  const { info } = game;
+  const { info, current } = game;
 
   const onCancel = () => {
-    return cancelGame(dispatch, id)
-      .then((cancel) => {
-        setExistGame(!cancel);
-      });
+    return cancelGame(dispatch, id);
   }
 
   useEffect(() => {
-    getGame(dispatch, id)
-      .catch(() => {
-        setExistGame(false);
-      })
+    const onChangeGame = (data) => changeInfo(dispatch, data);
+    if(current !== false) {
+      connect(current, onChangeGame);
+      return () => {
+        disconnect(current, onChangeGame);
+      }
+    }
+  }, [dispatch, current]);
+
+  useEffect(() => {
+    getGame(dispatch, id);
   }, [dispatch, id]);
 
 
-  if(!existGame) {
+  if(current === false) {
     return (<Redirect to={routes.getLink('new_game')} />);
   }
 
@@ -56,7 +61,7 @@ export default () => {
         <Players game={info} />
       </Columns.Column>
       <Columns.Column size={12}>
-        <Button text='start' disabled={true}/>
+        <OptionsGame info={info} onCancel={onCancel} />
       </Columns.Column>
     </Columns>
   );
