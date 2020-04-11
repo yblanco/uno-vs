@@ -36,6 +36,16 @@ const schema = new Schema({
     required: true,
     index: true,
   },
+  left: {
+    type: [],
+    required: true,
+    default: [],
+  },
+  reward: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   date: {
     type: Date,
     require: true,
@@ -125,14 +135,17 @@ schema.statics.matchGame = function matchGame(id, bet, cant) {
 
 schema.statics.newGame = function newGame (id, cant, bet, type) {
   return this.model('users').get(id)
-    .then(({ id:idUser }) => this.hasGame(idUser)
+    .then(({ id:idUser, money }) => this.hasGame(idUser)
       .then(hasGame => {
-        if(hasGame) {
+        const betPrice = Math.abs(bet);
+        if(betPrice > money) {
+          throw new Error('No enough money');
+        }else if(hasGame) {
           return this.get(idUser);
         } else if(type === 'private') {
-          return this.add(id, true, cant, bet)
+          return this.add(id, true, cant, betPrice)
         }
-        return this.matchGame(idUser, bet, cant);
+        return this.matchGame(idUser, betPrice, cant);
       }))
 }
 
@@ -170,17 +183,18 @@ schema.statics.cancel = function cancel (id) {
             })).then((code) => (this.getByCode(code)))));
 }
 
-schema.statics.play = function play(code) {
-  return this.updateOne({ code }, { state: states[1] })
+schema.statics.play = function play(code, reward) {
+  return this.updateOne({ code }, { state: states[1], reward })
     .then(() => this.getByCode(code));
 }
 
 schema.statics.start = function start(id) {
   return this.get(id)
     .then(game => {
-      const { user, code } = game;
+      const { user, code, players, bet } = game;
       if(user === id) {
-        return this.play(code)
+        return this.model('users').invert(bet, players)
+          .then((reward) => this.play(code, reward));
       }
       return game;
     })

@@ -38,12 +38,12 @@ const schema = new Schema({
   money: {
     type: Number,
     required: true,
-    default: 100,
+    default: 1000,
   },
   diamonds: {
     type: Number,
     required: true,
-    default: 1,
+    default: 10,
   },
   tutorial: {
     type: Boolean,
@@ -213,6 +213,10 @@ schema.statics.getRank = function getRank(rank) {
   })
 }
 
+schema.statics.invert = function invert(bet, players) {
+  return this.updateMany({ id: players.map(({ id }) => id)}, { $inc: { money: bet*-1 }})
+    .then(({ n }) => n*bet);
+}
 
 
 module.exports = mongoose.model('users', schema);
