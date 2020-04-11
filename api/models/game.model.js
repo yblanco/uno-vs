@@ -104,7 +104,6 @@ schema.statics.joinGame = function joinGame(user, code, cant) {
 }
 
 schema.statics.matchGame = function matchGame(id, bet, cant) {
-  console.log(cant)
   const playersMax = `players.${cant - 1}`;
   return this.findOne({
     bet,
@@ -194,13 +193,21 @@ schema.statics.join = function join(id, code) {
       }
       return this.getByCode(code)
         .then(game => {
-          const { cant, code } = game;
+          const { cant, code, state } = game;
           if(code === false) {
             throw new Error('Game does not exist');
+          } else if(state !== states[0]) {
+            throw new Error(`Game is ${state}`)
           }
           return this.joinGame(id, code, cant);
         })
     });
+}
+
+schema.statics.games = function games(id) {
+  return this.model('users').get(id)
+    .then(({ money }) => this.find({ private: false, state: states[0], bet: { $lte: money }})
+      .then((games) => games.map(this.parseResult)));
 }
 
 

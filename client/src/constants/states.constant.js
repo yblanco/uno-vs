@@ -28,6 +28,7 @@ export const user = {
 export const game = {
   current: false,
   info: {},
+  globals: [],
 };
 
 export default {

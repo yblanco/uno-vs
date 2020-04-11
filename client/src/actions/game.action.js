@@ -19,7 +19,7 @@ export const createGame = (dispatch, game, user) => {
 }
 
 export const setCode = (dispatch, code) => {
-  dispatch(dispatchAction(gameAction.set_current, code))
+  dispatch(dispatchAction(gameAction.set_current, code));
 }
 
 export const getGame = (dispatch, id) => {
@@ -71,5 +71,17 @@ export const joinGame = (dispatch, id, code) => {
     .catch(err => {
       showSnackbarError(dispatch, err);
       return false;
+    });
+}
+
+export const getGames = (dispatch, id) => {
+  const data = { id };
+  return gameRest.games(data)
+    .then(response => {
+      const { games } = response;
+      dispatch(dispatchAction(gameAction.set_globals, games))
+    })
+    .catch(err => {
+      showSnackbarError(dispatch, err);
     });
 }

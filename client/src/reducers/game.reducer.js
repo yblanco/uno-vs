@@ -7,6 +7,8 @@ export default (state = game, action = {}) => {
       return { ...state, current: action.data, info: action.data === false ? {} : state.info }
     case gameAction.set_info:
       return { ...state, info: action.data }
+    case gameAction.set_globals:
+      return { ...state, globals: action.data }
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import { showSnackbarError } from './snackbar.action';
 
 export const getRanking = (dispatch, user) => {
   const { encoded = '' } = user;
-  userRest.rank(encoded)
+  return userRest.rank(encoded)
     .then(response => {
       const { ranks = [] } = response;
       dispatch(dispatchAction(userAction.get_rank, ranks));

@@ -22,6 +22,10 @@ class GameRest extends Rest {
     return this.requestAuth(`join`, 'post', data)
   }
 
+  games(data) {
+    return this.requestAuth(`games`, 'post', data)
+  }
+
 }
 
 export default new GameRest(`game`);

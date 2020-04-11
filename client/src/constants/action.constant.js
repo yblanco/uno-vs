@@ -22,5 +22,6 @@ export const userAction = {
 
 export const gameAction = {
   set_current: 'game-set_current',
-  set_info: 'game-set_info'
+  set_info: 'game-set_info',
+  set_globals: 'game-set_globals',
 };

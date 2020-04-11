@@ -31,7 +31,7 @@ const login = (dispatch, response) => {
 }
 
 export const getAppId = (dispatch) => {
-  authRest.getAppId()
+  return authRest.getAppId()
     .then(response => {
       dispatch(dispatchAction(authAction.set_app_id, response));
       dispatch(dispatchAction(authAction.checked_authenticated));
@@ -43,7 +43,7 @@ export const getAppId = (dispatch) => {
 };
 
 export const authUser = (dispatch, data, id) => {
-  authRest.auth(data, id)
+  return authRest.auth(data, id)
     .then(response => {
       login(dispatch, response);
     })
@@ -56,7 +56,7 @@ export const authUser = (dispatch, data, id) => {
 export const checkUser = (dispatch, id) => {
   const logged = getLogged();
   if(logged !== null) {
-    authRest.checkUser(logged, id)
+    return authRest.checkUser(logged, id)
       .then(response => {
         login(dispatch, response);
       })

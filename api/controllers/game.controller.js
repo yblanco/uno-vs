@@ -100,4 +100,21 @@ module.exports = {
     }
     return res.response(success, response);
   },
+  games: async (req, res, next) => {
+    let response = "Unknow Error";
+    let success = false;
+    try{
+      const { body, models, jwt, decode  } = req;
+      const { id, code } = decode;
+      const { games } = models;
+      await games.games(id)
+        .then((all) =>  {
+            response = jwt.encodeRequest({games: all});
+            success = true;
+          });
+    } catch(err) {
+      return next(err);
+    }
+    return res.response(success, response);
+  },
 }
