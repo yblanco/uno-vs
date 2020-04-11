@@ -8,7 +8,7 @@ import ShareButton from './ShareButton';
 import CodeShow from './CodeShow';
 
 export default translate('game')(({ t, game, onCancel }) => {
-  const { code, bet = 0, cant = 0, private:isPrivate, players = [] } = game;
+  const { code = '', bet = 0, cant = 0, private:isPrivate, players = [] } = game;
   return (
     <Columns className='is-mobile is-vcentered has-background-grey-light has-text-weight-bold'>
       <Columns.Column mobile={{ size: 2 }} tablet={{ size: 1 }} desktop={{ size: 1 }}>
