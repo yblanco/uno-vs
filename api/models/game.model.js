@@ -137,6 +137,12 @@ schema.statics.removeUser = function removeUser(code, id) {
     .then(() => code);
 }
 
+schema.statics.changeAdmin = function changeAdmin(players, code) {
+  const [admin] = players;
+  const { id } = admin;
+  return this.updateOne({ code }, { user: id })
+    .then(() => code);
+}
 
 schema.statics.cancel = function cancel (id) {
   return this.model('users').get(id)
@@ -145,12 +151,30 @@ schema.statics.cancel = function cancel (id) {
         .then(({ code }) => this.removeUser(code, idUser))
           .then((code) => this.getByCode(code)
             .then(game => {
-              const { players } = game;
+              const { players, user } = game;
               if(players.length === 0) {
                 return this.cancelGame(code);
+              } else if(user === id) {
+                return this.changeAdmin(players, code)
               }
               return code;
             })).then((code) => (this.getByCode(code)))));
+}
+
+schema.statics.play = function play(code) {
+  return this.updateOne({ code }, { state: states[1] })
+    .then(() => this.getByCode(code));
+}
+
+schema.statics.start = function start(id) {
+  return this.get(id)
+    .then(game => {
+      const { user, code } = game;
+      if(user === id) {
+        return this.play(code)
+      }
+      return game;
+    })
 }
 
 

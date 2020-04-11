@@ -9,8 +9,11 @@ router.route('/new')
 router.route('/get')
   .post(controller.get);
 
-  router.route('/cancel')
-    .post(controller.cancel);
+router.route('/cancel')
+  .post(controller.cancel);
+
+router.route('/start')
+  .post(controller.start);
 
 
 module.exports = router;

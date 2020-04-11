@@ -21,6 +21,7 @@
 .notification.snackbar.hide {
   opacity: 0;
   animation: fadeout 0.5s;
+  bottom: -6em;
 }
 
 [data-text=''].notification.snackbar {

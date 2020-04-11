@@ -13,6 +13,9 @@ import logout from './logout.png';
 import cancel from './cancel.png';
 import add from './add.png';
 import less from './less.png';
+import wait from './wait.png';
+import empty from './empty.png';
+
 
 
 import en from './en.png';
@@ -31,12 +34,12 @@ const stats = {
   cancel,
   add,
   less,
+  wait,
+  empty,
   en,
   es,
 };
 
-export default ({ type, size=16 }) => {
-  return (
-    <Image size={size} alt={type} src={stats[type]} />
-  );
-};
+export default ({ type, size=16, rounded=false }) => (
+  <Image size={size} alt={type} src={stats[type]} rounded={rounded} />
+);

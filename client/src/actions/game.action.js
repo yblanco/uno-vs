@@ -51,3 +51,15 @@ export const cancelGame = (dispatch, id) => {
       return false;
     });
 }
+
+export const startGame = (dispatch, id) => {
+  const data = { id };
+  return gameRest.start(data)
+    .then(response => {
+      return true;
+    })
+    .catch(err => {
+      showSnackbarError(dispatch, err);
+      return false;
+    });
+}

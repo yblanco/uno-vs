@@ -13,7 +13,7 @@ import InfoGame from '../components/Game/InfoGame';
 import Players from '../components/Game/Players';
 import OptionsGame from '../components/Game/OptionsGame';
 
-import { getGame, cancelGame, changeInfo } from '../actions/game.action';
+import { getGame, cancelGame, changeInfo, startGame } from '../actions/game.action';
 
 
 export default () => {
@@ -22,6 +22,7 @@ export default () => {
   const { authenticated } = auth;
   const { id } = authenticated;
   const { info, current } = game;
+  const { state:stateGame } = info;
 
   const onCancel = () => {
     return cancelGame(dispatch, id);
@@ -41,9 +42,18 @@ export default () => {
     getGame(dispatch, id);
   }, [dispatch, id]);
 
+  useEffect(() => {
+    const { cant, players = [], user, state:stateGame } = info;
+    if(cant === players.length && user === id && stateGame === 'waiting') {
+      startGame(dispatch, id);
+    }
+  }, [dispatch, info])
+
 
   if(current === false) {
     return (<Redirect to={routes.getLink('new_game')} />);
+  } else if (stateGame === 'playing') {
+    return (<Redirect to={routes.getLink('play')} />);
   }
 
   return (
@@ -57,7 +67,7 @@ export default () => {
       <Columns.Column size={12}>
         <InfoGame game={info} onCancel={onCancel} />
       </Columns.Column>
-      <Columns.Column size={12}>
+      <Columns.Column mobile={{ size: 12 }} tablet={{ size: 8, offset: 2 }}>
         <Players game={info} />
       </Columns.Column>
       <Columns.Column size={12}>

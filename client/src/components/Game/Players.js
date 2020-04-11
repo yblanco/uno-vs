@@ -7,21 +7,24 @@ import UserImage from '../User/UserImage';
 
 import { maxPlayers } from '../../constants/app.constant';
 
-
-
 export default translate('game')(({ t, game }) => {
   const { user, players = [], cant = maxPlayers } = game;
-  const users = players.concat(Array(cant-players.length).fill({ picture: 'default-user.png',  }));
+  const users = players
+    .concat(Array(cant-players.length)
+    .fill({ picture: 'wait', icon: true }));
   return (
     <Columns className='is-mobile is-vcentered'>
       {
-        users.map((player, index) => (
+        users
+        .concat(Array(maxPlayers-users.length)
+        .fill({ picture: 'empty', name: '...', icon: true }))
+        .map((player, index) => (
           <Columns.Column
             key={`${index}_${player.id}`}
-            mobile={{ size: 6 }}
+            size={6}
             className={`${user === player.id && 'game-admin'} has-text-centered has-text-weight-bold`}
           >
-            <UserImage user={player} />
+            <UserImage user={player} icon={player.icon === true} />
             {player.name === undefined ? t('waiting_one') : player.name}
           </Columns.Column>
         ))

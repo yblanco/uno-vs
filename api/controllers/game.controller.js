@@ -59,4 +59,25 @@ module.exports = {
     }
     return res.response(success, response);
   },
+  start: async (req, res, next) => {
+    let response = "Unknow Error";
+    let success = false;
+    try{
+      const { body, models, socket, jwt, decode  } = req;
+      const { id } = decode;
+      const { emitEvent, events } = socket;
+      const { games } = models;
+      const code_event = `${events.set_code}_${id}`
+      await games.start(id)
+        .then((game) => emitEvent(game.code, game)
+          .then(() => {
+            console.log(game)
+            response = jwt.encodeRequest(game);
+            success = true;
+          }))
+    } catch(err) {
+      return next(err);
+    }
+    return res.response(success, response);
+  },
 }
