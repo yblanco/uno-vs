@@ -104,6 +104,7 @@ schema.statics.joinGame = function joinGame(user, code, cant) {
 }
 
 schema.statics.matchGame = function matchGame(id, bet, cant) {
+  console.log(cant)
   const playersMax = `players.${cant - 1}`;
   return this.findOne({
     bet,
@@ -113,7 +114,7 @@ schema.statics.matchGame = function matchGame(id, bet, cant) {
     [playersMax]: { $exists: false },
   })
     .then(game => {
-      const { code = false, cant } = game || {};
+      const { code = false } = game || {};
       if(code === false) {
         return this.add(id, false, cant, bet)
       }
