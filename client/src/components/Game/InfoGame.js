@@ -5,6 +5,7 @@ import { translate } from 'react-translate';
 
 import Icons from '../Icons';
 import ShareButton from './ShareButton';
+import CodeShow from './CodeShow';
 
 export default translate('game')(({ t, game, onCancel }) => {
   const { code, bet = 0, cant = 0, private:isPrivate, players = [] } = game;
@@ -29,23 +30,8 @@ export default translate('game')(({ t, game, onCancel }) => {
         mobile={{ size: 12 }}
         tablet={{ size: 5 }}
         desktop={{ size: 5 }}
-        className="has-background-white is-size-7 game-code"
       >
-        <Columns className='is-mobile is-vcentered has-text-centered info-contact'>
-          <Columns.Column size={2}>
-            {t('code')}:
-          </Columns.Column>
-          <Columns.Column size={3} className='has-text-weight-light'>
-            {code}
-          </Columns.Column>
-          {
-            ['facebook', 'twitter', 'telegram', 'whatsapp'].map((rrss, index) => (
-              <Columns.Column key={rrss} size={1} offset={index === 0 ? 2 : null}>
-                <ShareButton type={rrss} code={code} />
-              </Columns.Column>
-            ))
-          }
-        </Columns>
+        <CodeShow code={code} />
       </Columns.Column>
     </Columns>
   );

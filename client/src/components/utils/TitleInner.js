@@ -10,16 +10,17 @@ import Icons from '../Icons';
 
 export default ({ user, route = false, onClick = false, icon='back' }) => {
   const click = onClick === false ? () => {} : onClick;
+  const isIcon = icon !== false;
   return (
     <Columns className='is-mobile is-vcentered title-inner'>
         <Columns.Column
           mobile={{ size: 3 }}
           desktop={{ size: 2 }}
-          className='pointer'
+          className={`${isIcon && 'pointer' }`}
           onClick={click}
         >
           {
-            icon !== false && (
+            isIcon && (
               <Link to={routes.getLink(route)}>
                 <Icons type={icon} size={48} />
               </Link>

@@ -8,6 +8,8 @@ import NewGame from '../pages/NewGame';
 import Game from '../pages/Game';
 import Play from '../pages/Play';
 import Join from '../pages/Join';
+import JoinLink from '../pages/JoinLink';
+
 
 
 const routes = {
@@ -44,6 +46,11 @@ const routes = {
   join: {
     link: '/join',
     component: Join,
+    private: true,
+  },
+  join_link: {
+    link: '/join/:code',
+    component: JoinLink,
     private: true,
   }
 };

@@ -20,7 +20,7 @@ export default () => {
 
   return (
     <Columns className='is-vcentered'>
-      Hola, {name} ({id})
+      Hola, {name}
       <br />
       Código: {current}
       <br/ >
@@ -29,9 +29,11 @@ export default () => {
       Jugadores: {cant}
       <hr />
       <br />
+      <ul>
       {
-        players.map(player => <div>{player.name}</div>)
+        players.map(player => <li>{player.name}</li>)
       }
+      </ul>
     </Columns>
   );
 };

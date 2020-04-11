@@ -12,12 +12,11 @@ import routes from '../../routes';
 
 export default ({ type, code }) => {
   const { location } = window;
-  const { protocol = 'https', host = 'uno-vs.com/' } = location;
+  const { protocol = 'https:', host = 'uno-vs.com/' } = location;
   const size=24;
   const round = true;
   const link = routes.getLink('join_link', { code })
-  const url = `${protocol}://${host}${link}`;
-  console.log(url, location);
+  const url = `${protocol}//${host}${link}`;
   switch (type) {
     case 'facebook':
       return (

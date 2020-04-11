@@ -10,15 +10,13 @@ import world from './world.png';
 import back from './back.png';
 import ranking from './ranking.png';
 import logout from './logout.png';
-import cancel from './cancel.png';
+import error from './error.png';
 import add from './add.png';
 import less from './less.png';
 import wait from './wait.png';
 import empty from './empty.png';
 import join from './join.png';
-
-
-
+import loading from './loading.gif';
 
 import en from './en.png';
 import es from './es.png';
@@ -33,12 +31,13 @@ const stats = {
   back,
   ranking,
   logout,
-  cancel,
+  error,
   add,
   less,
   wait,
   empty,
   join,
+  loading,
   en,
   es,
 };
