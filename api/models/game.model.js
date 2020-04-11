@@ -48,6 +48,8 @@ schema.statics.parseResult = (game) => {
   return { user, state, private, code, bet, cant, players };
 }
 
+schema.statics.queryGamesWaiting = (bet = 0) => ({ state: states[0], private: false, bet: { $lte: bet } });
+
 schema.statics.code = function code() {
   const code = makeId(6);
   return this.findOne({ code })
@@ -204,10 +206,13 @@ schema.statics.join = function join(id, code) {
     });
 }
 
-schema.statics.games = function games(id) {
+schema.statics.games = function games(id, from, to) {
   return this.model('users').get(id)
-    .then(({ money }) => this.find({ private: false, state: states[0], bet: { $lte: money }})
-      .then((games) => games.map(this.parseResult)));
+    .then(({ money }) => (
+      this.find(this.queryGamesWaiting(money)).skip(from).limit(to)
+        .then((games) => games.map(this.parseResult))
+          .then(all => this.countDocuments(this.queryGamesWaiting(money))
+            .then(total => ({ all, total })))));
 }
 
 

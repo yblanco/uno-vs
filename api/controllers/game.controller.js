@@ -105,11 +105,11 @@ module.exports = {
     let success = false;
     try{
       const { body, models, jwt, decode  } = req;
-      const { id, code } = decode;
+      const { id, from = 0, to = 10 } = decode;
       const { games } = models;
-      await games.games(id)
-        .then((all) =>  {
-            response = jwt.encodeRequest({games: all});
+      await games.games(id, from, to)
+        .then((records) =>  {
+            response = jwt.encodeRequest(records);
             success = true;
           });
     } catch(err) {

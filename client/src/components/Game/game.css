@@ -37,3 +37,37 @@
 .btn-type-content:not(.active), .form-player-number:not(.active) {
   opacity: 0.85;
 }
+
+.box.box-game-list {
+  padding: 1em;
+  height: 48vh;
+}
+
+.box.box-game-list .columns.list-game {
+  margin: 0;
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.columns.list-game .columns.list-game-items {
+  border-bottom: 1px solid white;
+}
+
+.box.box-game-list .box-game-pager ul{
+  margin: 0;
+}
+
+.box.box-game-list .box-game-pager ul li a{
+  color: white;
+  border-color: white;
+  font-weight: lighter;
+  border-radius: 1em;
+}
+
+.box.box-game-list .box-game-pager ul li a.is-current{
+  background: rgba(255,255,255,0.5);
+  font-weight: bolder;
+  color: black;
+  border-color: black;
+}

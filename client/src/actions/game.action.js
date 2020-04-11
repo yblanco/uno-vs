@@ -2,6 +2,8 @@ import { gameAction } from '../constants/action.constant';
 import dispatchAction from './action';
 import gameRest from '../apis/game.api';
 
+import { perPage } from '../constants/app.constant';
+
 import { showSnackbarError } from './snackbar.action';
 
 
@@ -74,12 +76,15 @@ export const joinGame = (dispatch, id, code) => {
     });
 }
 
-export const getGames = (dispatch, id) => {
-  const data = { id };
+export const getGames = (dispatch, id, page = 1) => {
+  const from = (page - 1) * perPage;
+  const to = from + perPage;
+  const data = { id, from, to };
   return gameRest.games(data)
     .then(response => {
-      const { games } = response;
-      dispatch(dispatchAction(gameAction.set_globals, games))
+      const { all, total } = response;
+      dispatch(dispatchAction(gameAction.set_globals, all))
+      return parseInt(Math.ceil(total/perPage), 10);
     })
     .catch(err => {
       showSnackbarError(dispatch, err);

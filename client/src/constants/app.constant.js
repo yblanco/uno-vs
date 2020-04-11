@@ -7,3 +7,4 @@ export const stats = {
 export const maxPlayers = 4;
 export const minBet = 10;
 export const expiresIn = '3m';
+export const perPage = 10;
