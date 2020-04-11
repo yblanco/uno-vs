@@ -193,7 +193,10 @@ schema.statics.join = function join(id, code) {
       }
       return this.getByCode(code)
         .then(game => {
-          const { cant } = game;
+          const { cant, code } = game;
+          if(code === false) {
+            throw new Error('Game does not exist');
+          }
           return this.joinGame(id, code, cant);
         })
     });
