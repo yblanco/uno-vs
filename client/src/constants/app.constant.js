@@ -7,9 +7,3 @@ export const stats = {
 export const maxPlayers = 4;
 export const minBet = 10;
 export const expiresIn = '3m';
-export const gameStatesColor = {
-  waiting: 'warning',
-  playing: 'success',
-  finished: 'info',
-  canceled: 'error',
-}

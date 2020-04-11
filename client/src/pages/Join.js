@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {  useContext } from 'react';
 import { Columns } from 'react-bulma-components';
 
 import { Redirect } from 'react-router';
@@ -8,18 +8,20 @@ import routes from '../routes';
 import { Store } from '../reducers';
 
 import TitleInner from '../components/utils/TitleInner';
-import NewForm from '../components/Game/NewForm';
 
-import { createGame } from '../actions/game.action';
+import JoinCode from '../components/Game/JoinCode';
+
+import { joinGame } from '../actions/game.action';
 
 export default () => {
   const { state, dispatch } = useContext(Store);
   const { auth, game } = state;
   const { authenticated } = auth;
+  const { id } = authenticated;
   const { current } = game;
 
-  const onSave = (data) => {
-    return createGame(dispatch, data, authenticated);
+  const onJoin = (code) => {
+    joinGame(dispatch, id, code);
   }
 
   if(current !== false) {
@@ -32,7 +34,7 @@ export default () => {
         <TitleInner route='index' user={authenticated} />
       </Columns.Column>
       <Columns.Column>
-        <NewForm user={authenticated} onSave={onSave} />
+        <JoinCode onClick={onJoin} />
       </Columns.Column>
     </Columns>
   );

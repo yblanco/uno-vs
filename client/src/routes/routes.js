@@ -7,7 +7,7 @@ import Index from '../pages/Index';
 import NewGame from '../pages/NewGame';
 import Game from '../pages/Game';
 import Play from '../pages/Play';
-
+import Join from '../pages/Join';
 
 
 const routes = {
@@ -39,6 +39,11 @@ const routes = {
   play: {
     link: '/play',
     component: Play,
+    private: true,
+  },
+  join: {
+    link: '/join',
+    component: Join,
     private: true,
   }
 };

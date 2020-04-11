@@ -8,7 +8,7 @@
   padding-bottom: 0.5em;
 }
 
-.form-bet.no-active {
+.form-bet.no-active, .form-code.no-active {
   opacity: 0.25;
 }
 

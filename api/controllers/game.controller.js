@@ -71,10 +71,30 @@ module.exports = {
       await games.start(id)
         .then((game) => emitEvent(game.code, game)
           .then(() => {
-            console.log(game)
             response = jwt.encodeRequest(game);
             success = true;
           }))
+    } catch(err) {
+      return next(err);
+    }
+    return res.response(success, response);
+  },
+  join: async (req, res, next) => {
+    let response = "Unknow Error";
+    let success = false;
+    try{
+      const { body, models, socket, jwt, decode  } = req;
+      const { id, code } = decode;
+      const { emitEvent, events } = socket;
+      const { games } = models;
+      const code_event = `${events.set_code}_${id}`;
+      await games.join(id, code)
+        .then((game) => (emitEvent(code_event, game))
+          .then(() => emitEvent(game.code, game)
+            .then(() => {
+              response = jwt.encodeRequest(game);
+              success = true;
+            })));
     } catch(err) {
       return next(err);
     }

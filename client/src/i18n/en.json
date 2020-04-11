@@ -42,6 +42,8 @@
     "code": "Code",
     "inline": "Play on line",
     "friends": "Play with friends",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "join_game": "Join to game",
+    "wait_start": "Wait for start"
   }
 }

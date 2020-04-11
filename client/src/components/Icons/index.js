@@ -15,6 +15,8 @@ import add from './add.png';
 import less from './less.png';
 import wait from './wait.png';
 import empty from './empty.png';
+import join from './join.png';
+
 
 
 
@@ -36,6 +38,7 @@ const stats = {
   less,
   wait,
   empty,
+  join,
   en,
   es,
 };

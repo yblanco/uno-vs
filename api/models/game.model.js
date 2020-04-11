@@ -91,9 +91,16 @@ schema.statics.add = function add(user, isPrivate, cant, bet) {
     })).then(() => this.get(user))
 }
 
-schema.statics.joinGame = function joinGame(user, code) {
-  return this.updateOne({ code }, { $push: { players: user } })
-    .then(() => code).then(() => this.get(user));
+schema.statics.joinGame = function joinGame(user, code, cant) {
+  const playersMax = `players.${cant - 1}`;
+  return this.updateOne({ code, [playersMax]: { $exists: false } }, { $push: { players: user } })
+    .then((update) => {
+      const { n } = update;
+      if(n === 0) {
+        throw new Error('Game is full');
+      }
+      return code;
+    }).then(() => this.get(user));
 }
 
 schema.statics.matchGame = function matchGame(id, bet, cant) {
@@ -106,11 +113,11 @@ schema.statics.matchGame = function matchGame(id, bet, cant) {
     [playersMax]: { $exists: false },
   })
     .then(game => {
-      const { code = false } = game || {};
+      const { code = false, cant } = game || {};
       if(code === false) {
         return this.add(id, false, cant, bet)
       }
-      return this.joinGame(id, code);
+      return this.joinGame(id, code, cant);
     })
 }
 
@@ -175,6 +182,21 @@ schema.statics.start = function start(id) {
       }
       return game;
     })
+}
+
+schema.statics.join = function join(id, code) {
+  return this.get(id)
+    .then(hasGame => {
+      const { code:hasCode } = hasGame;
+      if(hasCode !== false) {
+        return hasGame;
+      }
+      return this.getByCode(code.toUpperCase())
+        .then(game => {
+          const { cant } = game;
+          return this.joinGame(id, code, cant);
+        })
+    });
 }
 
 

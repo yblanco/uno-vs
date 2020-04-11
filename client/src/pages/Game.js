@@ -28,6 +28,10 @@ export default () => {
     return cancelGame(dispatch, id);
   }
 
+  const onStart = () => {
+    startGame(dispatch, id);
+  }
+
   useEffect(() => {
     const onChangeGame = (data) => changeInfo(dispatch, data);
     if(current !== false) {
@@ -47,7 +51,7 @@ export default () => {
     if(cant === players.length && user === id && stateGame === 'waiting') {
       startGame(dispatch, id);
     }
-  }, [dispatch, info])
+  }, [dispatch, info, id])
 
 
   if(current === false) {
@@ -71,7 +75,7 @@ export default () => {
         <Players game={info} />
       </Columns.Column>
       <Columns.Column size={12}>
-        <OptionsGame info={info} onCancel={onCancel} />
+        <OptionsGame info={info} auth={id} onCancel={onCancel} onStart={onStart} />
       </Columns.Column>
     </Columns>
   );

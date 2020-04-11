@@ -15,5 +15,8 @@ router.route('/cancel')
 router.route('/start')
   .post(controller.start);
 
+  router.route('/join')
+    .post(controller.join);
+
 
 module.exports = router;

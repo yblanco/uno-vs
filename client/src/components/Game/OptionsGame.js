@@ -3,16 +3,20 @@ import { Columns, Content } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
-import { gameStatesColor } from '../../constants/app.constant';
 
 import Button from './Button';
 
-export default translate('game')(({ t, info, onCancel }) => {
-  const { state, players, private:isPrivate } = info;
-  const { [state]:stateColor } = gameStatesColor;
+export default translate('game')(({ t, auth, info, onStart, onCancel }) => {
+  const { players, private:isPrivate, user } = info;
   let buttonEnable = false;
+  let text = t('waiting');
+  let color = 'warning';
   if(isPrivate && players.length > 1) {
-    buttonEnable = true;
+    color = 'success';
+    text = t('wait_start');
+    if(user === auth) {
+      buttonEnable = true;
+    }
   }
   return (
     <Columns className='is-mobile'>
@@ -22,10 +26,10 @@ export default translate('game')(({ t, info, onCancel }) => {
       <Columns.Column mobile={{ size: 7, offset: 1 }}>
         {
           buttonEnable
-          ? <Button text='start' color={stateColor} />
+          ? <Button text='start' color='success' onClick={onStart} />
           : (
-              <Content className={`state-game has-background-${stateColor} has-text-centered has-text-weight-bold`}>
-                {t(state)}
+              <Content className={`state-game has-background-${color} has-text-centered has-text-weight-bold`}>
+                {text}
               </Content>
             )
         }

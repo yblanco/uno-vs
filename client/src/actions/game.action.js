@@ -27,11 +27,9 @@ export const getGame = (dispatch, id) => {
   return gameRest.get(data)
     .then(response => {
       const { code } = response;
-      if(code === false){
-        setCode(dispatch, false)
-        throw new Error('no_game')
-      }
-      changeInfo(dispatch, response)
+      const info = code === false ? {} : response;
+      setCode(dispatch, code);
+      changeInfo(dispatch, info);
     });
 }
 
@@ -55,6 +53,18 @@ export const cancelGame = (dispatch, id) => {
 export const startGame = (dispatch, id) => {
   const data = { id };
   return gameRest.start(data)
+    .then(response => {
+      return true;
+    })
+    .catch(err => {
+      showSnackbarError(dispatch, err);
+      return false;
+    });
+}
+
+export const joinGame = (dispatch, id, code) => {
+  const data = { id, code };
+  return gameRest.join(data)
     .then(response => {
       return true;
     })

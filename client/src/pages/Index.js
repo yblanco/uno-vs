@@ -18,7 +18,6 @@ import Friends from '../components/Buttons/Friends';
 import Ranking from '../components/Ranking/Ranking';
 
 import { getRanking, updateAllRankUser, changeStateUser } from '../actions/user.action';
-import { showSnackbarWarning } from '../actions/snackbar.action';
 
 
 export default translate('index')(({ t }) => {
@@ -28,8 +27,6 @@ export default translate('index')(({ t }) => {
   const { id } = authenticated;
   const { rank } = user;
   const { global:all, friends } = rank;
-
-  const onClick = () => (showSnackbarWarning(dispatch, t('coming_soon')));
 
   useEffect(() => {
     const updateAllRank = (data) => updateAllRankUser(dispatch, data);
@@ -58,7 +55,9 @@ export default translate('index')(({ t }) => {
         </Link>
       </Columns.Column>
       <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
-        <Join onClick={onClick} />
+        <Link to={routes.getLink('join')}>
+          <Join />
+        </Link>
       </Columns.Column>
       <Columns.Column className='off' mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
         <Friends />

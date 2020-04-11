@@ -46,7 +46,9 @@ export default translate('game')(({ t, user, onSave = () => {} }) => {
   return (
     <Columns className='is-mobile is-vcentered title-inner has-text-centered has-text-weight-bold'>
       <Columns.Column size={12}>
-        <TitleForm title={t('new_game')} />
+        <TitleForm>
+          {t('new_game')}
+        </TitleForm>  
       </Columns.Column>
       <Columns.Column mobile={{ size: 3 }} desktop={{ size: 1 }}>
         <Icons type='money' size={64} />
