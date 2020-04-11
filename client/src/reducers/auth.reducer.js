@@ -11,8 +11,6 @@ export default (state = auth, action = {}) => {
       return {
         ...state, login: true, authenticated: action.data,
       }
-    case authAction.checked_authenticated:
-      return { ...state, check: true }
     default:
       return state;
   }

@@ -16,10 +16,6 @@ export const removeLangStorage = () => {
   localStorage.removeItem(KEY_STORAGE_LANG);
 }
 
-export const setReady = (dispatch) => {
-  dispatch(dispatchAction(appAction.set_ready));
-};
-
 export const setLang = (dispatch, lang) => {
   setLangStorage(lang);
   dispatch(dispatchAction(appAction.change_language, lang));

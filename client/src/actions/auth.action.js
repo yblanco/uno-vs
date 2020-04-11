@@ -2,7 +2,6 @@ import { authAction } from '../constants/action.constant';
 import dispatchAction from './action';
 import authRest from '../apis/auth.api';
 
-import { setReady } from './app.action';
 import { showSnackbarError, showSnackbarSuccess } from './snackbar.action';
 import { setCode } from './game.action';
 
@@ -34,11 +33,11 @@ export const getAppId = (dispatch) => {
   return authRest.getAppId()
     .then(response => {
       dispatch(dispatchAction(authAction.set_app_id, response));
-      dispatch(dispatchAction(authAction.checked_authenticated));
-      setReady(dispatch);
+      return true;
     })
     .catch(err => {
       showSnackbarError(dispatch, err);
+      return false;
     })
 };
 
@@ -59,14 +58,16 @@ export const checkUser = (dispatch, id) => {
     return authRest.checkUser(logged, id)
       .then(response => {
         login(dispatch, response);
+        return true;
       })
       .catch(err => {
         removeLogged();
-        dispatch(dispatchAction(authAction.checked_authenticated));
         setCode(dispatch, false);
         showSnackbarError(dispatch, err);
+        return false;
       })
   }
+  return Promise.resolve(false);
 }
 
 export const loggedOut = (dispatch, id) => {

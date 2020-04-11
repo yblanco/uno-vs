@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Columns } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
-import { useHistory, useLocation } from 'react-router';
+import { Redirect } from 'react-router';
 
 import routes from '../routes';
 
@@ -17,34 +17,54 @@ import Separator from '../components/utils/Separator';
 import Logo from '../components/layout/Logo';
 import LoginForm from '../components/Login/LoginForm';
 
-import { authUser, checkUser } from '../actions/auth.action';
 import { showSnackbarWarning } from '../actions/snackbar.action';
 
-export default translate('home')(({ t }) => {
-  const history = useHistory();
-  const location = useLocation();
+import { authUser, checkUser } from '../actions/auth.action';
+import { getAppId } from '../actions/auth.action';
+
+
+
+export default translate('home')(({ t, location }) => {
+  const { state: history = {}, search } = location;
   const { state, dispatch } = useContext(Store);
+  const [redirect, setRedirect] = useState(false);
+  const [ready, setReady] = useState(false);
   const { app, auth, game } = state;
-  const { ready, lang } = app;
-  const { check, authenticated } = auth;
+  const { lang } = app;
+  const { authenticated } = auth;
   const { current } = game;
   const { id:socket } = listener;
+
+  const params = new URLSearchParams(search);
+  const code = params.get('code') || false;
+
+  const disabled = (ready && authenticated !== false) || code !== false;
 
   const mobile = { size: 12 };
 
   useEffect(() => {
-    if(ready === true) {
-      checkUser(dispatch, socket);
-    }
-  }, [dispatch, ready, socket])
+    getAppId(dispatch)
+      .then(getted => checkUser(dispatch, socket)
+        .then(checked => {
+          setReady(getted && !checked);
+        }))
+  }, [dispatch]);
 
   useEffect(() => {
-    const { from } = location.state || { from: { pathname: routes.getLink('index') } };
-    const redirect = current === false ? from : routes.getLink('game');
+    const { from = {} } = history;
+    const { pathname =  routes.getLink('index') } = from;
+    const link = current === false ? pathname : routes.getLink('game');
     if(authenticated !== false) {
-      history.replace(redirect)
+      setRedirect(link);
     }
-  }, [dispatch, history, location, authenticated, current])
+  }, [dispatch, history, authenticated, current])
+
+
+
+
+  if(redirect !== false) {
+    return <Redirect to={redirect} />
+  }
 
   return (
     <Columns centered className='is-vcentered is-mobile'>
@@ -54,7 +74,7 @@ export default translate('home')(({ t }) => {
       <Separator />
       <Columns.Column desktop={{ size: 5, offset: 1 }} tablet={{ size: 8 }} mobile={mobile} >
         <LoginForm
-          disabled={(!ready && !check) || authenticated !== false}
+          disabled={disabled}
           facebook={auth.facebook_id}
           google={auth.google_id}
           onLogin={(data) => authUser(dispatch, data, socket)}

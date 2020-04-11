@@ -20,7 +20,7 @@ export default ({ games = [], loaded = false, onChange=()=>{}}) => {
     if(isLoaded) {
       setTotal(loaded)
     }
-  }, [loaded])
+  }, [loaded, isLoaded])
 
   return (
     <Box className='has-background-dark box-game-list'>

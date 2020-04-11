@@ -16,7 +16,7 @@ import Header from './components/layout/Header';
 import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang, getLangStorage } from './actions/app.action';
-import { getAppId, loggedOut } from './actions/auth.action';
+import { loggedOut } from './actions/auth.action';
 import { setCode } from './actions/game.action';
 
 import en from './i18n/en.json';
@@ -35,7 +35,7 @@ const App = () => {
   const { location } = window;
   const { search = '' } = location;
   const params = new URLSearchParams(search);
-  const language = params.get('lang') || 'en';
+  const language = params.get('lang');
   const { [lang]:translations } = translate;
 
   useEffect(() => {
@@ -61,12 +61,12 @@ const App = () => {
     }
   }, [dispatch, authenticated]);
 
-
   useEffect(() => {
-    const langStorage = getLangStorage() || language;
-    getAppId(dispatch);
-    setLang(dispatch, langStorage);
-  }, [dispatch, language]);
+    const langStorage = language === null ? getLangStorage() : language;
+    setLang(dispatch, langStorage || lang);
+  }, [dispatch, language, lang]);
+
+
 
   return (
     <div className='app home'>

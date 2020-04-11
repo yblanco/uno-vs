@@ -5,7 +5,6 @@ export const snackbar = {
 };
 
 export const app = {
-  ready: false,
   lang: 'en',
 };
 
@@ -14,7 +13,6 @@ export const auth = {
   google_id: false,
   login: false,
   authenticated: false,
-  check: false,
 };
 
 export const user = {
