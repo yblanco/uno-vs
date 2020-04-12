@@ -46,6 +46,10 @@ const schema = new Schema({
     required: true,
     default: 0,
   },
+  winner: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     require: true,
@@ -54,8 +58,8 @@ const schema = new Schema({
 });
 
 schema.statics.parseResult = (game) => {
-  const { user, state, private = true, code = false, bet = 0, cant = 0, players = [] } = game || {};
-  return { user, state, private, code, bet, cant, players };
+  const { user, state, private = true, code = false, bet = 0, cant = 0, players = [], reward = 0, left=[], winner } = game || {};
+  return { user, state, private, code, bet, cant, players, reward, left, winner };
 }
 
 schema.statics.queryGamesWaiting = (bet = 0) => ({ state: states[0], private: false, bet: { $lte: bet } });
@@ -77,7 +81,7 @@ schema.statics.getByCode = function getByCode(code) {
 }
 
 schema.statics.get = function get(user) {
-  return this.findOne({ players: user, state: states.slice(0,2) })
+  return this.findOne({ players: user, left: { $ne: user }, state: states.slice(0,2) })
     .then(this.getPlayers.bind(this));
 }
 
@@ -227,6 +231,40 @@ schema.statics.games = function games(id, from, to) {
         .then((games) => games.map(this.parseResult))
           .then(all => this.countDocuments(this.queryGamesWaiting(money))
             .then(total => ({ all, total })))));
+}
+
+schema.statics.leftGame = function leftGame(code, id) {
+  return this.updateOne({ code }, { $push: { left: id }})
+    .then(() => code);
+}
+
+schema.statics.finishGame = function finishGame(code, id) {
+  return this.updateOne({ code }, { state: states[2], winner: id })
+    .then(() => this.getByCode(code)
+      .then(game => this.model('users').reward(game.reward, id)
+        .then(() => game)));
+}
+
+schema.statics.left = function left(id) {
+  return this.get(id)
+    .then(({ left, players, code }) => {
+      console.log(code);
+      const isPlayer = players.find(item => item.id === id) !== undefined;
+      const hasLeft = left.find(item => item === id) !== undefined;
+      if(isPlayer && !hasLeft) {
+        return this.leftGame(code, id);
+      } else{
+        return this.getByCode(code);
+      }
+    }).then((code) => (this.getByCode(code)
+        .then(game => {
+          const { players, left } = game;
+          const playerInGame = players.length - left.length;
+          if(playerInGame > 1) {
+            return game;
+          }
+          return this.finishGame(code, id);
+        })));
 }
 
 

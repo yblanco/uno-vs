@@ -22,8 +22,6 @@ import { showSnackbarWarning } from '../actions/snackbar.action';
 import { authUser, checkUser } from '../actions/auth.action';
 import { getAppId } from '../actions/auth.action';
 
-
-
 export default translate('home')(({ t, location }) => {
   const { state: history = {}, search } = location;
   const { state, dispatch } = useContext(Store);
@@ -48,7 +46,7 @@ export default translate('home')(({ t, location }) => {
         .then(checked => {
           setReady(getted && !checked);
         }))
-  }, [dispatch]);
+  }, [dispatch, socket]);
 
   useEffect(() => {
     const { from = {} } = history;
@@ -58,8 +56,6 @@ export default translate('home')(({ t, location }) => {
       setRedirect(link);
     }
   }, [dispatch, history, authenticated, current])
-
-
 
 
   if(redirect !== false) {

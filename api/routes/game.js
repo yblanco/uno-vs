@@ -21,5 +21,9 @@ router.route('/join')
 router.route('/games')
   .post(controller.games);
 
+router.route('/left')
+  .post(controller.left);
+
+
 
 module.exports = router;

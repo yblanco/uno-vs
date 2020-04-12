@@ -32,12 +32,15 @@ export const getGame = (dispatch, id) => {
       const info = code === false ? {} : response;
       setCode(dispatch, code);
       changeInfo(dispatch, info);
-    });
+    })
+    .catch(err => {
+      showSnackbarError(dispatch, err);
+    });;
 }
 
 export const changeInfo = (dispatch, info) => {
-  const { user, code, state, bet, cant, private: isPrivate, players } = info;
-  dispatch(dispatchAction(gameAction.set_info, { user, code, state, bet, cant, private: isPrivate, players }));
+  const { user, code, state, bet, cant, private: isPrivate, players, reward,  winner, left=[] } = info;
+  dispatch(dispatchAction(gameAction.set_info, { user, code, state, bet, cant, private: isPrivate, players, reward, left, winner }));
 }
 
 export const cancelGame = (dispatch, id) => {
@@ -88,5 +91,17 @@ export const getGames = (dispatch, id, page = 1) => {
     })
     .catch(err => {
       showSnackbarError(dispatch, err);
+    });
+}
+
+export const leftGame = (dispatch, id) => {
+  const data = { id };
+  return gameRest.left(data)
+    .then(response => {
+      return true;
+    })
+    .catch(err => {
+      showSnackbarError(dispatch, err);
+      return false;
     });
 }

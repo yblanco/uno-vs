@@ -218,5 +218,9 @@ schema.statics.invert = function invert(bet, players) {
     .then(({ n }) => n*bet);
 }
 
+schema.statics.reward = function reward(reward, player) {
+  return this.updateOne({ id: player }, { $inc: { money: reward }});
+}
+
 
 module.exports = mongoose.model('users', schema);
