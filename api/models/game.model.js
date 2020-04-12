@@ -92,7 +92,15 @@ schema.statics.getCurrent = function getCurrent(user) {
 schema.statics.getPlayers = function getPlayers(gameModel) {
   const game = this.parseResult(gameModel);
   return this.model('users').getMany(game.players)
-    .then(players => ({ ...game, players }));
+    .then(players => ({ ...game, players }))
+      .then(gameInfo => {
+        const { winner = false } = gameInfo;
+        if(winner === false) {
+          return gameInfo;
+        }
+        return this.model('users').get(winner)
+          .then(winnerInfo => ({ ...gameInfo, winner: winnerInfo }));
+      });
 }
 
 schema.statics.add = function add(user, isPrivate, cant, bet) {

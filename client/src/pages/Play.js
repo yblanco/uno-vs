@@ -73,7 +73,7 @@ export default () => {
       {
         finish && (
           <div>
-            Finalizada: ${winner} |
+            Finalizó - Ganó: {winner.name || 'nop'} |
             <Link className='has-background-success' to={routes.getLink('index')}>IR A INICIO</Link>
           </div>
         )
