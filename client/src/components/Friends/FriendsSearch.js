@@ -28,12 +28,12 @@ export default translate('friends')(({ t, user, onSearch, search, onAdd, onBlock
 
   return (
     <Columns className='is-mobile '>
-      <Columns.Column mobile={{ size: 10 }}>
+      <Columns.Column mobile={{ size: 10 }} desktop={{ size: 11 }} tablet={{ size: 10 }}>
           <Form.Input placeholder={t('search')} value={string} onChange={onChange} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 2 }}>
+      <Columns.Column mobile={{ size: 2 }} desktop={{ size: 1 }} tablet={{ size: 2 }}>
         <Button color='info' onClick={onClick} className='btn-friends' disabled={!isSearching} >
-          <Icons type='search' size={48} />
+          <Icons type='search' size={24} />
         </Button>
       </Columns.Column>
       <Columns.Column size={12} className='friends'>
