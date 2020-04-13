@@ -3,19 +3,32 @@
   overflow-x: hidden;
 }
 
+.box.user .media-content .user-me{
+  overflow-y: hidden;
+  height: 3em;
+}
+
 .box.user .columns:not(.user-point), .box.user .columns:not(.user-point) > .column {
   padding: 0;
   margin: 0;
 }
 
 .status-user {
-  text-transform: uppercase;
-  font-size: 0.6em !important;
+  width: 1em;
+  height: 1em;
+  content: '.';
+  display: inline-block;
+  border-radius: 1em;
+  font-size: 0.5em;
+}
+
+.status-user.online {
+  background: green;
 }
 
 .status-user.offline {
-  opacity: 0.5;
-  color: rgba(255,255,255,0.5) !important;
+  opacity: 0.25;
+  background: red !important;
 }
 
 .user article {

@@ -8,8 +8,8 @@ import { setCode } from './game.action';
 import { KEY_STORAGE } from '../constants/env.constant';
 
 const setLogged = (response) => {
-  const { encoded = '' } = response;
-  if(encoded !== '') {
+  const { encoded = false } = response;
+  if(encoded !== false) {
     localStorage.setItem(KEY_STORAGE, encoded);
   }
 }
@@ -21,11 +21,11 @@ const removeLogged = () => {
 const getLogged = () => (localStorage.getItem(KEY_STORAGE));
 
 const login = (dispatch, response) => {
-  const { name, picture, id, money, diamonds, online, code, encoded, level } = response;
-  const user = { name, picture, id, money, diamonds, online, encoded, level };
+  const { name, picture, id, money, diamonds, online, code, encoded, level, friends_confirmed, friends_request, requested_friends, friends_blocked, friends } = response;
+  const user = { name, picture, id, money, diamonds, online, encoded, level, friends_confirmed, friends_request, requested_friends, friends_blocked, friends };
   setLogged(user);
   setCode(dispatch, code);
-  dispatch(dispatchAction(authAction.set_authenticated, user));
+  updateAuth(dispatch, user);  
   showSnackbarSuccess(dispatch, name);
 }
 
@@ -74,10 +74,15 @@ export const loggedOut = (dispatch, id) => {
   return authRest.logout(id)
     .then(() => {
       removeLogged();
-      dispatch(dispatchAction(authAction.set_authenticated, false));
+      updateAuth(dispatch, false);
       setCode(dispatch, false);
     })
     .catch(err => {
       showSnackbarError(dispatch, err);
     });
+}
+
+export const updateAuth = (dispatch, auth) => {
+  dispatch(dispatchAction(authAction.set_authenticated, auth));
+
 }

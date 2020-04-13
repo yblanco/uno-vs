@@ -65,6 +65,26 @@ const schema = new Schema({
     required: true,
     default: true,
   },
+  friends_confirmed: {
+    type: [],
+    required: true,
+    default: [],
+  },
+  friends_blocked: {
+    type: [],
+    required: true,
+    default: [],
+  },
+  friends_request: {
+    type: [],
+    required: true,
+    default: [],
+  },
+  requested_friends: {
+    type: [],
+    required: true,
+    default: [],
+  }
 });
 
 schema.statics.queryUserStatus = () => ({ status: true,});
@@ -84,8 +104,40 @@ schema.statics.queryRank = () => ({
 });
 
 schema.statics.parseResult = (user) => {
-  const { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online } = user || {};
-  return { level, tutorial, name, mail, picture, id, money, diamonds, rank, position, ip, online };
+  const {
+    level,
+    tutorial,
+    name,
+    mail,
+    picture,
+    id,
+    money,
+    diamonds,
+    rank,
+    position,
+    online,
+    friends_confirmed=[],
+    friends_request=[],
+    requested_friends=[],
+    friends_blocked=[],
+  } = user || {};
+  return {
+    level,
+    tutorial,
+    name,
+    mail,
+    picture,
+    id,
+    money,
+    diamonds,
+    rank,
+    position,
+    online,
+    friends_confirmed,
+    friends_request,
+    requested_friends,
+    friends_blocked,
+   };
 }
 
 schema.statics.add = function add(name, mail, picture, id, from, ip) {
@@ -96,16 +148,22 @@ schema.statics.add = function add(name, mail, picture, id, from, ip) {
     .then(user => this.get(user.id));
 };
 
+schema.statics.getAllFriends = (user) => {
+  const { friends_confirmed, friends_request, requested_friends, friends_blocked } = user;
+  return friends_confirmed.concat(friends_request).concat(requested_friends).concat(friends_blocked);
+}
+
 schema.statics.get = function get(id) {
   return this.findOne(this.queryUser(id))
     .then((user) => {
       const response = this.parseResult(user);
-      const { picture } = response;
+      const allfriends = this.getAllFriends(response);
       if (user === null) {
         throw new Error(noUser);
       }
       return this.model('games').getCurrent(user.id)
-        .then(game => ({ ...response, code: game }));
+        .then(code => this.getMany(allfriends)
+          .then(friends => ({ ...response, code, friends })));
       });
 }
 
@@ -113,6 +171,14 @@ schema.statics.getMany = function getMany(ids) {
   return this.find(this.queryUser(ids))
     .then(users => users.map(this.parseResult));
 }
+
+schema.statics.getManyWithFriends = function getManyWithFriends(ids) {
+  return this.getMany(ids)
+    .then(users => (Promise.all(users.map(user => (
+      this.getMany(this.getAllFriends(user)).then(friends => ({ ...user, friends}))))
+    )))
+}
+
 
 schema.statics.updateUser = function udpateUser(id, online = null, picture = null) {
   const data = {};
@@ -220,6 +286,88 @@ schema.statics.invert = function invert(bet, players) {
 
 schema.statics.reward = function reward(reward, player) {
   return this.updateOne({ id: player }, { $inc: { money: reward }});
+}
+
+schema.statics.search = function search(id, name) {
+  return this.find({
+    id: { $ne: id },
+    name: RegExp(name, ['i']),
+    friends_confirmed: { $ne: id },
+    friends_blocked: { $ne: id },
+  })
+}
+
+schema.statics.getMeAndThey = (users, me, they) => ({
+  me: users.find(item => item.id === me),
+  they: users.find(item => item.id === they)
+})
+
+schema.statics.sendRequest = function sendRequest(user, friend) {
+  return this.updateOne({ id: user }, { $push: { requested_friends: friend }})
+    .then(() => this.updateOne({ id: friend }, { $push: { friends_request: user }}))
+      .then(() =>  this.getManyWithFriends([user, friend]))
+        .then(users => this.getMeAndThey(users, user, friend));
+}
+
+schema.statics.confirmFriend = function confirmFriend(user, friend) {
+  return this.updateOne({ id: user }, { $pull: { friends_request: friend }, $push: { friends_confirmed: friend }})
+    .then(() => this.updateOne({ id: friend }, { $pull: { requested_friends: user }, $push: { friends_confirmed: user }}))
+      .then(() =>  this.getManyWithFriends([user, friend]))
+        .then(users => this.getMeAndThey(users, user, friend));
+}
+
+schema.statics.cancelRequest = function cancelRequest(user, friend) {
+  return this.updateOne({ id: user }, { $pull: { requested_friends: friend }})
+    .then(() => this.updateOne({ id: friend }, { $pull: { friends_request: user }}))
+      .then(() =>  this.getManyWithFriends([user, friend]))
+        .then(users => this.getMeAndThey(users, user, friend));
+}
+
+schema.statics.addFriend = function addFriend(user, friend) {
+  return this.getMany([user, friend])
+    .then(users => {
+      const { me, they } = this.getMeAndThey(users, user, friend);
+      const isBlocked = they.friends_blocked.find(item => item === user) || false;
+      const isFriend = they.friends_confirmed.find(item => item === user) || false;
+      const isRequested = they.friends_request.find(item => item === user) || false;
+      const hasRequest = they.requested_friends.find(item => item === user) || false;
+      if(user === friend) {
+        throw new Error('You cannot send request to yourself')
+      } else if(isBlocked) {
+        throw new Error('user has blocked you')
+      } else if (isRequested) {
+        return this.cancelRequest(user, friend);
+      } else if(isFriend) {
+        return { me, they };
+      } else if(hasRequest) {
+        return this.confirmFriend(user, friend);
+      }
+      return this.sendRequest(user, friend);
+    })
+}
+
+schema.statics.rejectFriend = function rejectFriend(user, friend) {
+  return this.getMany([user, friend])
+    .then(users => {
+      const { me, they } = this.getMeAndThey(users, user, friend);
+      const isRequested = me.friends_request.find(item => item === friend) || false;
+      if(isRequested === false) {
+        return this.getManyWithFriends([user, friend])
+          .then(users => this.getMeAndThey(users, user, friend));
+      }
+      return this.cancelRequest(friend, user);
+    });
+}
+
+schema.statics.blockFriend = function blockFriend(user, friend) {
+  return this.get(user)
+    .then(me => {
+      const isBlocked = me.friends_blocked.find(item => item === friend) || false;
+      if(isBlocked) {
+        return this.updateOne({ id: user }, { $pull: { friends_blocked: friend } });
+      }
+      return this.updateOne({ id: user }, { $push: { friends_blocked: friend } });
+    }).then(() => this.get(user))
 }
 
 

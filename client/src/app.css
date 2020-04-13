@@ -33,3 +33,12 @@ figure {
   background: black;
   border-radius: 1em;
 }
+
+
+.tabs ul{
+  margin: 0;
+}
+
+.tabs ul li.is-active {
+  text-decoration: underline;
+}

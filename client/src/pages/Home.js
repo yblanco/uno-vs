@@ -31,7 +31,7 @@ export default translate('home')(({ t, location = {} }) => {
   const { lang } = app;
   const { authenticated } = auth;
   const { current } = game;
-  const { id:socket } = listener;
+  const { id:socket = false } = listener;
 
   const params = new URLSearchParams(search);
   const code = params.get('code') || false;
@@ -41,11 +41,13 @@ export default translate('home')(({ t, location = {} }) => {
   const mobile = { size: 12 };
 
   useEffect(() => {
-    getAppId(dispatch)
-      .then(getted => checkUser(dispatch, socket)
-        .then(checked => {
-          setReady(getted && !checked);
-        }))
+    if(socket !== false){
+      getAppId(dispatch)
+        .then(getted => checkUser(dispatch, socket)
+          .then(checked => {
+            setReady(getted && !checked);
+          }))
+    }
   }, [dispatch, socket]);
 
   useEffect(() => {

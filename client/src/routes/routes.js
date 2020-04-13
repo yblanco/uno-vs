@@ -9,6 +9,8 @@ import Game from '../pages/Game';
 import Play from '../pages/Play';
 import Join from '../pages/Join';
 import JoinLink from '../pages/JoinLink';
+import Friends from '../pages/Friends';
+
 
 
 
@@ -51,6 +53,11 @@ const routes = {
   join_link: {
     link: '/join/:code',
     component: JoinLink,
+    private: true,
+  },
+  friends: {
+    link: '/friends',
+    component: Friends,
     private: true,
   }
 };

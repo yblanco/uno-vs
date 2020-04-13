@@ -23,7 +23,6 @@ const plays = {
   friends: {
     icon: friends,
     label: false,
-    class: 'not-allowed'
   }
 }
 

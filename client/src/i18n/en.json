@@ -46,5 +46,14 @@
     "join_game": "Join to game",
     "wait_start": "Wait for start",
     "no_game_found": "No games found"
+  },
+  "friends": {
+    "friends": "Friends",
+    "search": "Search",
+    "request": "Request",
+    "no_friends": "No friends found",
+    "no_friends_found": "No match found",
+    "search_friend": "Search by name",
+    "no_request": "No requests found"
   }
 }

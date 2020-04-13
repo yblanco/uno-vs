@@ -1,0 +1,51 @@
+.tabs.is-toggle.friends-tab ul li a {
+  border-radius: 0;
+  color: white;
+}
+
+.tabs.is-toggle.friends-tab ul li a:hover {
+  background: transparent;
+}
+
+.tabs.is-toggle.friends-tab ul li.active a {
+  border-bottom-color: transparent;
+}
+
+.friends-list {
+  height: 52vh;
+}
+
+.friends-list .friends {
+  height: 40vh;
+  overflow-y: scroll;
+}
+
+.friend-list-content.column, .user-list-item.columns {
+  padding-bottom: 0;
+}
+
+.btn-friends {
+  padding: 0.3em;
+}
+
+.friends {
+  border-top: solid 1px white;
+}
+
+.user-list-item.columns, .user-request.columns .user-request-button.columns {
+  border-bottom: 1px solid white;
+  margin: 0;
+  margin-left: 0.5em;
+  margin-right:0.5em;
+}
+
+.user-request.columns > .column {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.user-request.columns  .user-request-button.columns {
+  margin-left: 0;
+  margin-right: 0;
+}

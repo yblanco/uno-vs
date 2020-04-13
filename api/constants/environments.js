@@ -15,5 +15,5 @@ module.exports = {
     user: process.env.DBUSER,
     pass: process.env.DBPASS,
   },
-  rank_limit: parseInt(process.env.RANK_LIMIT || 25, 10),
+  user_limit: parseInt(process.env.USER_LIMIT || 25, 10),
 }

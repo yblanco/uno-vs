@@ -40,7 +40,7 @@ export default translate('index')(({ t }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    getRanking(dispatch, authenticated);
+    getRanking(dispatch, id);
   }, [dispatch, authenticated]);
 
 
@@ -59,8 +59,10 @@ export default translate('index')(({ t }) => {
           <Join />
         </Link>
       </Columns.Column>
-      <Columns.Column className='off' mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
-        <Friends />
+      <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+        <Link to={routes.getLink('friends')}>
+          <Friends />
+        </Link>
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }} tablet={{ size: 12 }} desktop={{ size: 6 }} >
         <Ranking all={all} friends={friends} auth={id} />

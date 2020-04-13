@@ -45,7 +45,7 @@ export default () => {
   }
   return (
     <Columns className='is-vcentered'>
-      Hola, {name} <img src={picture} width={15} />
+      Hola, {name} <img src={picture} width={15} alt={name} />
       <br />
       Código: {current}
       <br/ >
@@ -60,7 +60,7 @@ export default () => {
       {
         players.map(player => (
           <li key={player.id}>
-            <img src={player.picture} width={15} /> {player.name} | {player.money} | {
+            <img src={player.picture} width={15} alt={player.name} /> {player.name} | {player.money} | {
               left.find(item => item === player.id) !== undefined ? 'Abandonó' : 'En juego'
             }
           </li>

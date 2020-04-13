@@ -17,6 +17,18 @@ import wait from './wait.png';
 import empty from './empty.png';
 import join from './join.png';
 import loading from './loading.gif';
+import setting from './setting.png';
+import friends from './friends.png';
+import cup from './cup.png';
+import search from './search.png';
+import blockfriend from './blockfriend.png';
+import unblockfriend from './unblockfriend.png';
+import addfriend from './addfriend.png';
+import acceptfriend from './acceptfriend.png';
+import cancelfriend from './cancelfriend.png';
+
+
+
 
 import en from './en.png';
 import es from './es.png';
@@ -38,10 +50,19 @@ const stats = {
   empty,
   join,
   loading,
+  setting,
+  friends,
+  blockfriend,
+  unblockfriend,
+  addfriend,
+  acceptfriend,
+  cancelfriend,
+  cup,
+  search,
   en,
   es,
 };
 
-export default ({ type, size=16, rounded=false }) => (
-  <Image size={size} alt={type} src={stats[type]} rounded={rounded} />
+export default ({ type, size=16, ...others }) => (
+  <Image size={size} alt={type} src={stats[type]} {...others} />
 );

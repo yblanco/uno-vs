@@ -46,5 +46,14 @@
     "join_game": "Únete a un juego",
     "wait_start": "Por empezar",
     "no_game_found": "No hay juegos"
+  },
+  "friends": {
+    "friends": "Amigos",
+    "search": "Buscar",
+    "request": "Solicitudes",
+    "no_friends": "No tienes amigos",
+    "no_friends_found": "No se encontró coincidencia",
+    "search_friend": "Busqueda por nombre",
+    "no_request": "No tiene solicitudes"
   }
 }

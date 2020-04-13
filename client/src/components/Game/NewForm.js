@@ -9,7 +9,7 @@ import Icons from '../Icons';
 import TitleForm from '../utils/TitleForm';
 import Numbers from '../utils/Numbers';
 import NumberPlayers from './NumberPlayers';
-import Button from './Button';
+import Button from '../utils/Button';
 import ButtonBet from './ButtonBet';
 import ButtonType from './ButtonType';
 
@@ -48,7 +48,7 @@ export default translate('game')(({ t, user, onSave = () => {} }) => {
       <Columns.Column size={12}>
         <TitleForm>
           {t('new_game')}
-        </TitleForm>  
+        </TitleForm>
       </Columns.Column>
       <Columns.Column mobile={{ size: 3 }} desktop={{ size: 1 }}>
         <Icons type='money' size={64} />
@@ -86,7 +86,9 @@ export default translate('game')(({ t, user, onSave = () => {} }) => {
         </Columns>
       </Columns.Column>
       <Columns.Column size={12}>
-        <Button text='create' onClick={onClick} disabled={requesting} />
+        <Button onClick={onClick} disabled={requesting}>
+          {t('create')}
+        </Button>
       </Columns.Column>
     </Columns>
   );

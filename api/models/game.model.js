@@ -256,7 +256,6 @@ schema.statics.finishGame = function finishGame(code, id) {
 schema.statics.left = function left(id) {
   return this.get(id)
     .then(({ left, players, code }) => {
-      console.log(code);
       const isPlayer = players.find(item => item.id === id) !== undefined;
       const hasLeft = left.find(item => item === id) !== undefined;
       if(isPlayer && !hasLeft) {

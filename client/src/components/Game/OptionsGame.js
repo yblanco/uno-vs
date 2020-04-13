@@ -4,7 +4,7 @@ import { Columns, Content } from 'react-bulma-components';
 import { translate } from 'react-translate';
 
 
-import Button from './Button';
+import Button from '../utils/Button';;
 
 export default translate('game')(({ t, auth, info, onStart, onCancel }) => {
   const { players, private:isPrivate, user } = info;
@@ -21,12 +21,18 @@ export default translate('game')(({ t, auth, info, onStart, onCancel }) => {
   return (
     <Columns className='is-mobile'>
       <Columns.Column mobile={{ size: 4 }}>
-        <Button text='cancel' color='danger' onClick={onCancel} />
+        <Button color='danger' onClick={onCancel} >
+          {t('cancel')}
+        </Button>
       </Columns.Column>
       <Columns.Column mobile={{ size: 7, offset: 1 }}>
         {
           buttonEnable
-          ? <Button text='start' color='success' onClick={onStart} />
+          ? (
+              <Button color='success' onClick={onStart} >
+                {t('start')}
+              </Button>
+            )
           : (
               <Content className={`state-game has-background-${color} has-text-centered has-text-weight-bold`}>
                 {text}
