@@ -28,7 +28,7 @@ export const updateRankGlobal = (dispatch, ranks) => {
 }
 
 export const updateRankFriend = (dispatch, ranks) => {
-  dispatch(dispatchAction(userAction.get_rank_friend, ranks));
+  dispatch(dispatchAction(userAction.get_rank_friends, ranks));
 }
 
 export const searchUser = (dispatch, id, string) => {

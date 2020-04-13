@@ -22,11 +22,13 @@ import { showSnackbarWarning } from '../actions/snackbar.action';
 import { authUser, checkUser } from '../actions/auth.action';
 import { getAppId } from '../actions/auth.action';
 
+
 export default translate('home')(({ t, location = {} }) => {
   const { state: history = {}, search } = location;
   const { state, dispatch } = useContext(Store);
   const [redirect, setRedirect] = useState(false);
   const [ready, setReady] = useState(false);
+  const [appId, setAppId] = useState(false);
   const { app, auth, game } = state;
   const { lang } = app;
   const { authenticated } = auth;
@@ -41,14 +43,20 @@ export default translate('home')(({ t, location = {} }) => {
   const mobile = { size: 12 };
 
   useEffect(() => {
-    if(socket !== false){
-      getAppId(dispatch)
-        .then(getted => checkUser(dispatch, socket)
-          .then(checked => {
-            setReady(getted && !checked);
-          }))
+    getAppId(dispatch)
+      .then(getted => {
+        setAppId(getted);
+      })
+  }, [dispatch]);
+
+  useEffect(() => {
+    if(socket !== false && appId === true){
+      checkUser(dispatch, socket)
+        .then(checked => {
+          setReady(appId && !checked);
+        })
     }
-  }, [dispatch, socket]);
+  }, [dispatch, appId, socket]);
 
   useEffect(() => {
     const { from = {} } = history;
@@ -63,7 +71,7 @@ export default translate('home')(({ t, location = {} }) => {
   if(redirect !== false) {
     return <Redirect to={redirect} />
   }
-
+  
   return (
     <Columns centered className='is-vcentered is-mobile'>
       <Columns.Column desktop={{ size: 6 }} tablet={{ size:8 }} mobile={mobile} >

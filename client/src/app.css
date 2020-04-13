@@ -42,3 +42,21 @@ figure {
 .tabs ul li.is-active {
   text-decoration: underline;
 }
+
+.box.box-game-list .box-game-pager ul{
+  margin: 0;
+}
+
+.pagination ul li a{
+  color: white;
+  border-color: white;
+  font-weight: lighter;
+  border-radius: 1em;
+}
+
+.pagination ul li a.is-current{
+  background: rgba(255,255,255,0.5);
+  font-weight: bolder;
+  color: black;
+  border-color: black;
+}

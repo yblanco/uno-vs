@@ -25,8 +25,7 @@ export default translate('index')(({ t }) => {
   const { auth, user } = state;
   const { authenticated } = auth;
   const { id } = authenticated;
-  const { rank } = user;
-  const { global:all, friends } = rank;
+  const { rank_global:all, rank_friends: friends } = user;
 
   useEffect(() => {
     const updateRank = (data) => updateRankGlobal(dispatch, data);

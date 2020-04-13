@@ -20,7 +20,9 @@
     "join_game":"Unirte"
   },
   "ranking": {
-    "ranking": "Ranking"
+    "ranking": "Ranking",
+    "world": "Global",
+    "friends": "Amigos"
   },
   "index": {
     "coming_soon": "Proximamente"
@@ -34,7 +36,7 @@
     "new_game": "Crear Partida",
     "of": "de",
     "create": "Crear",
-    "world": "Global",
+    "world": "Pública",
     "private": "Privada",
     "waiting_one": "Esperando",
     "waiting": "Esperando jugadores",

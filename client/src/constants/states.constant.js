@@ -17,10 +17,8 @@ export const auth = {
 
 export const user = {
   friends: [],
-  rank: {
-    global: [],
-    friends: [],
-  }
+  rank_global: [],
+  rank_friends: [],
 };
 
 export const game = {

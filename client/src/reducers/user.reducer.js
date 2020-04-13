@@ -17,21 +17,21 @@ export default (state = user, action = {}) => {
   switch (action.type) {
     case userAction.get_rank_global:
       return {
-        ...state, rank: { global: action.data },
+        ...state, rank_global: action.data,
       };
     case userAction.get_rank_friends:
       return {
-        ...state, rank: { friends: action.data },
+        ...state, rank_friends: action.data,
       };
     case userAction.on_user:
-      users = changeUserState(state.rank.global, action.data)
+      users = changeUserState(state.rank_global, action.data)
       return {
-        ...state, rank: { friends: state.rank.friends, global: users }
+        ...state, rank_global: users
       }
     case userAction.off_user:
       users = changeUserState(state.rank.global, action.data, false);
       return {
-        ...state, rank: { friends: state.rank.friends, global: users }
+        ...state, rank_global: users
       }
     default:
       return state;

@@ -14,6 +14,8 @@ module.exports = {
         .then(rank => users.rankFriends(limit, id)
           .then(rankFriend => emitEvent(rank_event, rankFriend)
             .then(() =>{
+              console.log(rankFriend)
+
               if(rank.filter(item => item.id === id).length > 0){
                 return rank;
               }

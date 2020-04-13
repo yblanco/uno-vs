@@ -250,7 +250,7 @@ schema.statics.rankFriends = function rank(limit, id) {
     .then(user => {
       const { friends_confirmed:friends = [] } = user;
       return this.aggregate([
-        { $match: { ...this.queryUserStatus(), id: friends.concat(id) }},
+        { $match: { ...this.queryUserStatus(), id: { $in: friends.concat(id) } }},
         { $addFields: this.queryRank() },
         { $sort: { rank: -1, date: 1 } },
         { $limit: limit }

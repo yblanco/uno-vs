@@ -5,7 +5,7 @@ import Icons from '../Icons';
 
 import './switch.css';
 
-export default ({ first, second, active, onChange = () => {} }) => {
+export default ({ first, second, active, onChange = () => {}, size=48 }) => {
   const [current, setCurrent] = useState(active.value === first.value);
   const getActive = (isActive) => isActive ? first : second;
   const activeItem = getActive(current);
@@ -18,7 +18,7 @@ export default ({ first, second, active, onChange = () => {} }) => {
   return (
     <Columns className='is-mobile is-vcentered switch-form pointer' onClick={onClick}>
       <Columns.Column mobile={{ size: 3 }}>
-        <Icons type={first.value} size={48} />
+        <Icons type={first.value} size={size} />
       </Columns.Column>
       <Columns.Column
         mobile={{ size: 6 }}
@@ -32,7 +32,7 @@ export default ({ first, second, active, onChange = () => {} }) => {
         </div>
       </Columns.Column>
       <Columns.Column mobile={{ size: 3 }}>
-        <Icons type={second.value} size={48} />
+        <Icons type={second.value} size={size} />
       </Columns.Column>
     </Columns>
   );

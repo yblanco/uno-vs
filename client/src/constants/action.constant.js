@@ -14,7 +14,7 @@ export const authAction = {
 
 export const userAction = {
   get_rank_global: 'user-get_rank_global',
-  get_rank_friend: 'user-get_rank_friend',
+  get_rank_friends: 'user-get_rank_friends',
   on_user: 'user-on_user',
   off_user: 'user-off_user',
 }

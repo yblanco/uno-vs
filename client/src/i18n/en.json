@@ -20,7 +20,9 @@
     "join_game":"Join"
   },
   "ranking": {
-    "ranking": "Ranking"
+    "ranking": "Ranking",
+    "world": "Global",
+    "friends": "Friends"
   },
   "index": {
     "coming_soon": "Coming soon"
@@ -34,7 +36,7 @@
     "new_game": "Create Game",
     "of": "of",
     "create": "Create",
-    "world": "Global",
+    "world": "Public",
     "private": "Private",
     "waiting_one": "Waiting",
     "waiting": "Waiting for players",
