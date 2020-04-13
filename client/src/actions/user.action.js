@@ -8,10 +8,6 @@ import { showSnackbarError } from './snackbar.action';
 export const getRanking = (dispatch, id) => {
   const data = { id };
   return userRest.rank(data)
-    .then(response => {
-      const { ranks = [] } = response;
-      dispatch(dispatchAction(userAction.get_rank, ranks));
-    })
     .catch(err => {
       showSnackbarError(dispatch, err);
     })
@@ -27,10 +23,13 @@ export const changeStateUser = (dispatch, data) => {
   }
 }
 
-export const updateAllRankUser = (dispatch, ranks) => {
-  dispatch(dispatchAction(userAction.get_rank, ranks));
+export const updateRankGlobal = (dispatch, ranks) => {
+  dispatch(dispatchAction(userAction.get_rank_global, ranks));
 }
 
+export const updateRankFriend = (dispatch, ranks) => {
+  dispatch(dispatchAction(userAction.get_rank_friend, ranks));
+}
 
 export const searchUser = (dispatch, id, string) => {
   const data = { string, id };

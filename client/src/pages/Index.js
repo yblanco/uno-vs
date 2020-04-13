@@ -17,7 +17,7 @@ import Friends from '../components/Buttons/Friends';
 
 import Ranking from '../components/Ranking/Ranking';
 
-import { getRanking, updateAllRankUser, changeStateUser } from '../actions/user.action';
+import { getRanking, updateRankGlobal, updateRankFriend, changeStateUser } from '../actions/user.action';
 
 
 export default translate('index')(({ t }) => {
@@ -29,19 +29,25 @@ export default translate('index')(({ t }) => {
   const { global:all, friends } = rank;
 
   useEffect(() => {
-    const updateAllRank = (data) => updateAllRankUser(dispatch, data);
+    const updateRank = (data) => updateRankGlobal(dispatch, data);
     const changeState = (data) => changeStateUser(dispatch, data);
-    connect(events.update_all_rank, updateAllRank);
+    connect(events.update_ranks, updateRank);
     connect(events.change_state, changeState);
     return () => {
-      disconnect(events.update_all_rank, updateAllRank);
+      disconnect(events.update_ranks, updateRank);
       disconnect(events.change_state, changeState);
     }
   }, [dispatch]);
 
   useEffect(() => {
     getRanking(dispatch, id);
-  }, [dispatch, authenticated]);
+    const updateRank = (data) => updateRankFriend(dispatch, data);
+    const rank_event = `${events.update_friend_ranks}_${id}`;
+    connect(rank_event, updateRank);
+    return () => {
+      disconnect(rank_event, updateRank);
+    }
+  }, [dispatch, id]);
 
 
   return (

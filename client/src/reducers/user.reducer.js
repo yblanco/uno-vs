@@ -15,9 +15,13 @@ const changeUserState = (users, idUser, state = true) => {
 export default (state = user, action = {}) => {
   let users = [];
   switch (action.type) {
-    case userAction.get_rank:
+    case userAction.get_rank_global:
       return {
-        ...state, rank: { friends: state.rank.friends, global: action.data },
+        ...state, rank: { global: action.data },
+      };
+    case userAction.get_rank_friends:
+      return {
+        ...state, rank: { friends: action.data },
       };
     case userAction.on_user:
       users = changeUserState(state.rank.global, action.data)

@@ -9,28 +9,23 @@ module.exports = {
       const { id } = decode;
       const { emitEvent, events } = socket;
       const { users } = models;
-      // await users.rank(limit)
-      //   .then(rank => {
-      //     const isUserRanked = rank.filter(item => item.id === id).length > 0;
-      //     if(isUserRanked){
-      //       return rank;
-      //     }
-      //     return users.userRank(id)
-      //       .then(position => {
-      //         const userRank = {
-      //           ...decode,
-      //           ...position,
-      //           iat: undefined,
-      //           exp: undefined,
-      //         }
-      //         return rank.concat(userRank);
-      //       })
-      //   })
-      //   .then(ranks => emitEvent(events.update_all_rank, ranks)
-      //     .then(() => {
-      //       response = jwt.encodeRequest({ ranks });
-      //       success = true;
-      //     }));
+      const rank_event = `${events.update_friend_ranks}_${id}`;
+      await users.rank(limit)
+        .then(rank => users.rankFriends(limit, id)
+          .then(rankFriend => emitEvent(rank_event, rankFriend)
+            .then(() =>{
+              if(rank.filter(item => item.id === id).length > 0){
+                return rank;
+              }
+              return users.userRank(id)
+                .then(userRank => {
+                  return rank.concat(userRank)
+                })
+            })).then(ranks => emitEvent(events.update_ranks, ranks)
+            .then(() => {
+              response = jwt.encodeRequest({ id });
+              success = true;
+            })));
     } catch(err) {
       return next(err);
     }
