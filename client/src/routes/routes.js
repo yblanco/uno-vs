@@ -9,7 +9,9 @@ import Game from '../pages/Game';
 import Play from '../pages/Play';
 import Join from '../pages/Join';
 import JoinLink from '../pages/JoinLink';
+import Social from '../pages/Social';
 import Friends from '../pages/Friends';
+
 
 
 
@@ -55,11 +57,16 @@ const routes = {
     component: JoinLink,
     private: true,
   },
+  social: {
+    link: '/social',
+    component: Social,
+    private: true
+  },
   friends: {
     link: '/friends',
     component: Friends,
     private: true,
-  }
+  },
 };
 
 export default new Routes(routes);

@@ -35,7 +35,7 @@ export default () => {
   return (
     <Columns className='is-vcentered'>
       <Columns.Column size={12}>
-        <TitleInner route='index' user={authenticated} />
+        <TitleInner route='social' user={authenticated} />
       </Columns.Column>
       <Columns.Column>
         <FriendsList

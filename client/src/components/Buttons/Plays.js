@@ -7,7 +7,8 @@ import { translate } from 'react-translate';
 import newGame from './new.png';
 import joinGame from './join.png';
 import friends from './friends.png';
-
+import social from './social.png';
+import message from './message.png';
 
 import './plays.css';
 
@@ -23,6 +24,15 @@ const plays = {
   friends: {
     icon: friends,
     label: false,
+  },
+  social: {
+    icon: social,
+    label: false,
+  },
+  message: {
+    icon: message,
+    label: false,
+    class: 'not-allowed',
   }
 }
 

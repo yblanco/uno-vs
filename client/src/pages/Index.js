@@ -1,8 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Columns } from 'react-bulma-components';
 
-import { translate } from 'react-translate';
-
 import { Link } from 'react-router-dom';
 import routes from '../routes';
 
@@ -13,14 +11,14 @@ import { Store } from '../reducers';
 import UserInfo from '../components/User/UserInfo';
 import New from '../components/Buttons/New';
 import Join from '../components/Buttons/Join';
-import Friends from '../components/Buttons/Friends';
+import Social from '../components/Buttons/Social';
 
 import Ranking from '../components/Ranking/Ranking';
 
 import { getRanking, updateRankGlobal, updateRankFriend, changeStateUser } from '../actions/user.action';
 
 
-export default translate('index')(({ t }) => {
+export default () => {
   const { state, dispatch } = useContext(Store);
   const { auth, user } = state;
   const { authenticated } = auth;
@@ -65,8 +63,8 @@ export default translate('index')(({ t }) => {
         </Link>
       </Columns.Column>
       <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
-        <Link to={routes.getLink('friends')}>
-          <Friends />
+        <Link to={routes.getLink('social')}>
+          <Social />
         </Link>
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }} tablet={{ size: 12 }} desktop={{ size: 6 }} >
@@ -74,4 +72,4 @@ export default translate('index')(({ t }) => {
       </Columns.Column>
     </Columns>
   );
-});
+};
