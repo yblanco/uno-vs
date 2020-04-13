@@ -10,3 +10,21 @@ h1.title-form {
   height: 0.1em;
   margin-top: 0.25em;
 }
+
+span.badget.tag {
+  border-radius: 1em !important;
+  
+}
+
+span.badget.tag.fixed {
+  margin-left: 1em;
+}
+
+span.badget.tag.float {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.is-parent-badget  {
+  position: relative;
+}

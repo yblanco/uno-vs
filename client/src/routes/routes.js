@@ -10,7 +10,6 @@ import Play from '../pages/Play';
 import Join from '../pages/Join';
 import JoinLink from '../pages/JoinLink';
 import Social from '../pages/Social';
-import Friends from '../pages/Friends';
 
 
 
@@ -61,11 +60,6 @@ const routes = {
     link: '/social',
     component: Social,
     private: true
-  },
-  friends: {
-    link: '/friends',
-    component: Friends,
-    private: true,
   },
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Columns, Tabs, Tag } from 'react-bulma-components';
+import { Columns, Tabs } from 'react-bulma-components';
 import { translate } from 'react-translate';
 
 import TitleForm from '../utils/TitleForm';
@@ -7,7 +7,8 @@ import TitleForm from '../utils/TitleForm';
 import FriendsSearch from './FriendsSearch';
 import FriendsShow from './FriendsShow';
 import FriendsInfo from './FriendsInfo';
-
+import BadgetFloat from '../utils/BadgetFloat';
+import Messages from '../Buttons/Messages';
 
 import './friends.css';
 
@@ -37,6 +38,10 @@ export default translate('friends')(({ t, user, friends, search, onSearch, onAdd
           {t('friends')}
         </TitleForm>
       </Columns.Column>
+      <Columns.Column size={2} offset={10} style={{ opacity: 0.5 }} className='is-parent-badget'>
+        <Messages />
+        <BadgetFloat cant={1}/>
+      </Columns.Column>
       <Columns.Column size={12} className='friend-list-content'>
         <Tabs type='toggle' fullwidth={true} align='centered' className='has-background-grey-dark friends-tab'>
           {
@@ -48,7 +53,7 @@ export default translate('friends')(({ t, user, friends, search, onSearch, onAdd
               >
                 {t(tab)}
                 {
-                  tab === tabs[2] && requestsNum > 0 && (<Tag color='info'>{requestsNum}</Tag> )
+                  tab === tabs[2] && <BadgetFloat cant={requestsNum} float={false} />
                 }
               </Tabs.Tab>
             ))

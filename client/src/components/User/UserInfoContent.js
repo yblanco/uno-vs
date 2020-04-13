@@ -15,16 +15,16 @@ export default ({ user }) => (
       </Columns.Column>
     </Columns>
     <Columns className='is-mobile is-vcentered has-text-white is-size-7'>
-      <Columns.Column size={2}>
+      <Columns.Column mobile={{ size: 2, offset: 2 }} tablet={{ size: 2 }} desktop={{ size: 1, offset: 4 }}>
         <Icons type='friends' size={16} />
       </Columns.Column>
-      <Columns.Column size={2}>
+      <Columns.Column mobile={{ size: 2 }} tablet={{ size: 2 }} desktop={{ size: 1 }}>
         <Numbers number={(user.friends || []).length} pad={3} />
       </Columns.Column>
-      <Columns.Column size={2}>
+      <Columns.Column mobile={{ size: 2 }} tablet={{ size: 2 }} desktop={{ size: 1 }}>
         <Icons type='cup' size={16} />
       </Columns.Column>
-      <Columns.Column size={6}>
+      <Columns.Column mobile={{ size: 6 }} tablet={{ size: 6 }} desktop={{ size: 1, offset: 4 }}>
         0/0
       </Columns.Column>
     </Columns>

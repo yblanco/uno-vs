@@ -15,6 +15,8 @@ import Social from '../components/Buttons/Social';
 
 import Ranking from '../components/Ranking/Ranking';
 
+import BadgetFloat from '../components/utils/BadgetFloat';
+
 import { getRanking, updateRankGlobal, updateRankFriend, changeStateUser } from '../actions/user.action';
 
 
@@ -22,8 +24,9 @@ export default () => {
   const { state, dispatch } = useContext(Store);
   const { auth, user } = state;
   const { authenticated } = auth;
-  const { id } = authenticated;
+  const { id, friends_request:requests } = authenticated;
   const { rank_global:all, rank_friends: friends } = user;
+
 
   useEffect(() => {
     const updateRank = (data) => updateRankGlobal(dispatch, data);
@@ -62,10 +65,11 @@ export default () => {
           <Join />
         </Link>
       </Columns.Column>
-      <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} >
+      <Columns.Column mobile={{ size: 4 }} tablet={{ size: 4 }} desktop={{ size: 2 }} className='is-parent-badget'>
         <Link to={routes.getLink('social')}>
           <Social />
         </Link>
+        <BadgetFloat cant={requests.length} />
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }} tablet={{ size: 12 }} desktop={{ size: 6 }} >
         <Ranking all={all} friends={friends} auth={id} />

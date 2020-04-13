@@ -51,6 +51,7 @@
   },
   "friends": {
     "friends": "Amigos",
+    "social": "Social",
     "search": "Buscar",
     "request": "Solicitudes",
     "no_friends": "No tienes amigos",
