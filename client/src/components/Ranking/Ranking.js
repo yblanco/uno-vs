@@ -27,7 +27,7 @@ export default translate('ranking')(({ t, all, friends, auth }) => {
         <Columns.Column
           mobile={{ size: 4 }}
           tablet={{ size: 5 }}
-          desktop={{ size: 7 }}
+          desktop={{ size: 5 }}
         >
           <Heading size={4} className='has-text-white'>
             {t('ranking')}
@@ -36,7 +36,7 @@ export default translate('ranking')(({ t, all, friends, auth }) => {
         <Columns.Column
           mobile={{ size: 6 }}
           tablet={{ size: 4 }}
-          desktop={{ size: 3 }}
+          desktop={{ size: 5 }}
         >
         <Switch
           first={type1}
