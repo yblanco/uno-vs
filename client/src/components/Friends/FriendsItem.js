@@ -10,9 +10,9 @@ import './friends.css';
 export default ({ t, user, auth, onAdd }) => {
   const { id } = user;
   const { requested_friends, friends_request, friends_confirmed } = auth;
-  const isRequested = requested_friends.find(item => item === id) || false;
-  const hasRequest = friends_request.find(item => item === id) || false;
-  const isFriend = friends_confirmed.find(item => item === id) || false;
+  const isRequested = requested_friends.find(({ id:idfriend }) => idfriend === id) || false;
+  const hasRequest = friends_request.find(({ id:idfriend }) => idfriend === id) || false;
+  const isFriend = friends_confirmed.find(({ id:idfriend }) => idfriend === id) || false;
 
   let onClickAdd = () => onAdd(id);
   let addIcon = 'addfriend';

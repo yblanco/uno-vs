@@ -4,31 +4,25 @@ import { translate } from 'react-translate';
 
 import TitleForm from '../utils/TitleForm';
 
-import FriendsSearch from './FriendsSearch';
 import FriendsShow from './FriendsShow';
 import FriendsInfo from './FriendsInfo';
 import BadgetFloat from '../utils/BadgetFloat';
-import Messages from '../Buttons/Messages';
-
+import Icons from '../Icons';
 import './friends.css';
 
 
 export default translate('friends')(({ t, user, friends, search, onSearch, onAdd, onReject }) => {
-  const tabs = ['friends', 'search', 'request'];
+  const tabs = ['friends', 'request'];
   const [active, setActive] = useState(tabs[0]);
   const { friends_request:requests } = user;
   const requestsNum = requests.length;
-
   let child = '';
   switch (active) {
     case tabs[1]:
-      child = (<FriendsSearch onSearch={onSearch} search={search} user={user} onAdd={onAdd}  />)
-      break;
-    case tabs[2]:
-      child = (<FriendsShow friends={friends} user={user} onAdd={onAdd} onReject={onReject} />);
+      child = (<FriendsShow friends={friends} user={user} onAdd={onAdd} onReject={onReject}  />);
       break;
     default:
-      child = (<FriendsInfo friends={friends} user={user} />);
+      child = (<FriendsInfo friends={friends} user={user} search={search} onSearch={onSearch} onAdd={onAdd} />);
   }
 
   return (
@@ -37,10 +31,6 @@ export default translate('friends')(({ t, user, friends, search, onSearch, onAdd
         <TitleForm>
           {t('friends')}
         </TitleForm>
-      </Columns.Column>
-      <Columns.Column size={2} offset={10} style={{ opacity: 0.5 }} className='is-parent-badget'>
-        <Messages />
-        <BadgetFloat cant={1}/>
       </Columns.Column>
       <Columns.Column size={12} className='friend-list-content'>
         <Tabs type='toggle' fullwidth={true} align='centered' className='has-background-grey-dark friends-tab'>
@@ -53,7 +43,7 @@ export default translate('friends')(({ t, user, friends, search, onSearch, onAdd
               >
                 {t(tab)}
                 {
-                  tab === tabs[2] && <BadgetFloat cant={requestsNum} float={false} />
+                  tab === tabs[1] && <BadgetFloat cant={requestsNum} float={false} />
                 }
               </Tabs.Tab>
             ))

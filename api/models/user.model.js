@@ -3,6 +3,19 @@ const { noUser } = require('../constants');
 
 const { Schema } = mongoose;
 
+const friends = new Schema({
+  id:  {
+    type: String,
+    required: true,
+    index: true,
+  },
+  date: {
+    type: Date,
+    require: true,
+    default: Date.now,
+  },
+})
+
 const schema = new Schema({
   name: {
     type: String,
@@ -66,22 +79,22 @@ const schema = new Schema({
     default: true,
   },
   friends_confirmed: {
-    type: [],
+    type: [friends],
     required: true,
     default: [],
   },
   friends_blocked: {
-    type: [],
+    type: [friends],
     required: true,
     default: [],
   },
   friends_request: {
-    type: [],
+    type: [friends],
     required: true,
     default: [],
   },
   requested_friends: {
-    type: [],
+    type: [friends],
     required: true,
     default: [],
   }
@@ -150,7 +163,8 @@ schema.statics.add = function add(name, mail, picture, id, from, ip) {
 
 schema.statics.getAllFriends = (user) => {
   const { friends_confirmed, friends_request, requested_friends, friends_blocked } = user;
-  return friends_confirmed.concat(friends_request).concat(requested_friends).concat(friends_blocked);
+  return friends_confirmed.concat(friends_request).concat(requested_friends).concat(friends_blocked)
+    .map(friend => friend.id);
 }
 
 schema.statics.get = function get(id) {
@@ -306,8 +320,8 @@ schema.statics.search = function search(id, name) {
   return this.find({
     id: { $ne: id },
     name: RegExp(name, ['i']),
-    friends_confirmed: { $ne: id },
-    friends_blocked: { $ne: id },
+    "friends_confirmed.id": { $ne: id },
+    "friends_blocked.id": { $ne: id },
   })
 }
 
@@ -317,34 +331,36 @@ schema.statics.getMeAndThey = (users, me, they) => ({
 })
 
 schema.statics.sendRequest = function sendRequest(user, friend) {
-  return this.updateOne({ id: user }, { $push: { requested_friends: friend }})
-    .then(() => this.updateOne({ id: friend }, { $push: { friends_request: user }}))
+  return this.updateOne({ id: user }, { $push: { requested_friends: { id: friend} }})
+    .then(() => this.updateOne({ id: friend }, { $push: { friends_request: { id: user } }}))
       .then(() =>  this.getManyWithFriends([user, friend]))
         .then(users => this.getMeAndThey(users, user, friend));
 }
 
 schema.statics.confirmFriend = function confirmFriend(user, friend) {
-  return this.updateOne({ id: user }, { $pull: { friends_request: friend }, $push: { friends_confirmed: friend }})
-    .then(() => this.updateOne({ id: friend }, { $pull: { requested_friends: user }, $push: { friends_confirmed: user }}))
+  return this.updateOne({ id: user }, { $pull: { friends_request: { id: friend } }, $push: { friends_confirmed: { id: friend } }})
+    .then(() => this.updateOne({ id: friend }, { $pull: { requested_friends: { id: user } }, $push: { friends_confirmed: { id: user } }}))
       .then(() =>  this.getManyWithFriends([user, friend]))
         .then(users => this.getMeAndThey(users, user, friend));
 }
 
 schema.statics.cancelRequest = function cancelRequest(user, friend) {
-  return this.updateOne({ id: user }, { $pull: { requested_friends: friend }})
-    .then(() => this.updateOne({ id: friend }, { $pull: { friends_request: user }}))
+  return this.updateOne({ id: user }, { $pull: { requested_friends: { id: friend} }})
+    .then(() => this.updateOne({ id: friend }, { $pull: { friends_request: { id: user } }}))
       .then(() =>  this.getManyWithFriends([user, friend]))
         .then(users => this.getMeAndThey(users, user, friend));
 }
+
+schema.statics.existIn = (friends, user) => (friends.find(({ id }) => id === user) || false);
 
 schema.statics.addFriend = function addFriend(user, friend) {
   return this.getMany([user, friend])
     .then(users => {
       const { me, they } = this.getMeAndThey(users, user, friend);
-      const isBlocked = they.friends_blocked.find(item => item === user) || false;
-      const isFriend = they.friends_confirmed.find(item => item === user) || false;
-      const isRequested = they.friends_request.find(item => item === user) || false;
-      const hasRequest = they.requested_friends.find(item => item === user) || false;
+      const isBlocked = this.existIn(they.friends_blocked, user);
+      const isFriend = this.existIn(they.friends_confirmed, user);
+      const isRequested = this.existIn(they.friends_request, user);
+      const hasRequest = this.existIn(they.requested_friends, user);
       if(user === friend) {
         throw new Error('You cannot send request to yourself')
       } else if(isBlocked) {

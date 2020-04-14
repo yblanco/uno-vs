@@ -5,32 +5,50 @@ import { translate } from 'react-translate';
 import './friends.css';
 
 import FriendsItems from './FriendsItems';
+import Button from '../utils/Button';
+import Icons from '../Icons';
 
 
-export default translate('friends')(({ t, friends, user }) => {
+
+export default translate('friends')(({ t, friends, user, search, onSearch, onAdd }) => {
+  const [string, setString] = useState('');
   const { friends_confirmed } = user;
-  const [search, setSearch] = useState('');
-  const hasfriends = friends.length > 0;
+  const isSearching = string.length > 0;
+  console.log()
+
   const listFriends = friends
-    .filter(friend => friends_confirmed.find(item => item === friend.id))
-    .filter(friend => friend.name.toLowerCase().search(search.toLowerCase()) >= 0);
+    .filter(({ id:friendId }) => friends_confirmed.find(({ id: itemId}) => itemId === friendId))
+    .filter(({ name }) => name.toLowerCase().search(string.toLowerCase()) >= 0)
+    .concat(search);
+
   const onChange = (e) => {
     const { target } = e;
     const { value } = target;
-    setSearch(value);
+    setString(value);
   }
+
+  const onClick = () => {
+    if(isSearching) {
+      onSearch(string);
+    }
+  }
+
   return (
     <Columns className='is-mobile '>
-      <Columns.Column mobile={{ size: 12 }}>
+      <Columns.Column mobile={{ size: 10 }}>
           <Form.Input
-            disabled={!hasfriends}
             placeholder={t('search')}
-            value={search}
+            value={string}
             onChange={onChange}
           />
       </Columns.Column>
+      <Columns.Column mobile={{ size: 2 }} desktop={{ size: 1 }} tablet={{ size: 2 }}>
+        <Button color='info' onClick={onClick} className='btn-friends' disabled={!isSearching}  >
+          <Icons type='search' size={24} />
+        </Button>
+      </Columns.Column>
       <Columns.Column size={12} className='friends'>
-        <FriendsItems users={listFriends} user={user} onAdd={() => {}} >
+        <FriendsItems users={listFriends} user={user}  onAdd={onAdd}  >
           {t('no_friends')}
         </FriendsItems>
       </Columns.Column>

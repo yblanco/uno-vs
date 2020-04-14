@@ -12,11 +12,11 @@
 }
 
 .friends-list {
-  height: 42vh;
+  height: 52vh;
 }
 
 .friends-list .friends {
-  height: 32vh;
+  height: 42vh;
   overflow-y: scroll;
 }
 

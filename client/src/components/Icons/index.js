@@ -26,6 +26,7 @@ import unblockfriend from './unblockfriend.png';
 import addfriend from './addfriend.png';
 import acceptfriend from './acceptfriend.png';
 import cancelfriend from './cancelfriend.png';
+import message from './message.png';
 
 
 
@@ -59,6 +60,7 @@ const stats = {
   cancelfriend,
   cup,
   search,
+  message,
   en,
   es,
 };

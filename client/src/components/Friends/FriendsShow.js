@@ -10,7 +10,7 @@ import Icons from '../Icons';
 export default translate('friends')(({ t, user, friends, onAdd, onReject }) => {
   const { friends_request } = user;
   const requests = friends
-    .filter(friend => friends_request.find(item => item === friend.id))
+    .filter(friend => friends_request.find(( {id:idFriend }) => idFriend === friend.id))
   return (
     <Columns className='is-mobile user-request'>
       {
@@ -21,7 +21,13 @@ export default translate('friends')(({ t, user, friends, onAdd, onReject }) => {
           </Columns.Column>
         )
         : requests.map(request => (
-          <Columns.Column mobile={{ size: 6 }} className='has-text-centered has-background-grey-dark'>
+          <Columns.Column
+            mobile={{ size: 6 }}
+            tablet={{ size: 4 }}
+            desktop={{ size: 3 }}
+            key={request.id}
+            className='has-text-centered has-background-grey-dark'
+          >
             <UserImage user={request} size={32} />
             <UserName user={request} auth={user} />
             <Columns className='is-mobile has-background-grey user-request-button'>
