@@ -16,4 +16,6 @@ module.exports = {
     pass: process.env.DBPASS,
   },
   user_limit: parseInt(process.env.USER_LIMIT || 25, 10),
+  maxPlayers: parseInt(process.env.MAX_PLAYER || 4, 10),
+  minBet: parseInt(process.env.MIN_BET || 250, 10),
 }

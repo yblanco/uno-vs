@@ -6,6 +6,9 @@ export const snackbar = {
 
 export const app = {
   lang: 'en',
+  max_players: 0,
+  min_bet: 0,
+  perPage: 0,
 };
 
 export const auth = {

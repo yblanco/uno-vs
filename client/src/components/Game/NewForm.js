@@ -3,7 +3,7 @@ import { Columns, Content } from 'react-bulma-components';
 
 import { translate } from 'react-translate';
 
-import { minBet, maxPlayers, stats } from '../../constants/app.constant';
+import {  stats } from '../../constants/app.constant';
 
 import Icons from '../Icons';
 import TitleForm from '../utils/TitleForm';
@@ -17,10 +17,10 @@ import ButtonType from './ButtonType';
 
 import './game.css';
 
-export default translate('game')(({ t, user, onSave = () => {} }) => {
+export default translate('game')(({ t, user, maxPlayers, minBet, onSave = () => {} }) => {
   const types = ['private', 'world'];
   const [type, setType] = useState(types[0]);
-  const [players, setPlayers] = useState(4);
+  const [players, setPlayers] = useState(maxPlayers);
   const [bet, setBet] = useState(minBet);
   const [requesting, setRequesting] = useState(false);
   const [add, setAdd] = useState(true);

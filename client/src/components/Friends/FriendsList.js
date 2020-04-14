@@ -7,7 +7,6 @@ import TitleForm from '../utils/TitleForm';
 import FriendsShow from './FriendsShow';
 import FriendsInfo from './FriendsInfo';
 import BadgetFloat from '../utils/BadgetFloat';
-import Icons from '../Icons';
 import './friends.css';
 
 

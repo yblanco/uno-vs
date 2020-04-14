@@ -5,6 +5,7 @@ export const snackbarAction = {
 
 export const appAction = {
   change_language: 'app-change_language',
+  set_settings: 'app-set_settings',
 }
 
 export const authAction = {

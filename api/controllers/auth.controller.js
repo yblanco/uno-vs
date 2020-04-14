@@ -5,13 +5,19 @@ module.exports = {
     try{
       const { constants = {}, jwt } = req;
       const { environments = {} } = constants;
-      const { facebook_app_id:facebook = false, google_app_id:google = false } = environments;
+      const {
+        facebook_app_id:facebook = false,
+        google_app_id:google = false,
+        maxPlayers,
+        minBet,
+      } = environments;
+      const data = { google, facebook, maxPlayers, minBet };
       if(facebook === false) {
         throw new Error('Facebook configuration is missing');
       } else if(google === false) {
         throw new Error('Google configuration is missing');
       }
-      response = jwt.encodeRequest({ google, facebook });
+      response = jwt.encodeRequest(data);
       success = true;
     } catch(err) {
       return next(err);

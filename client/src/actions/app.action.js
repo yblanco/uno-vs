@@ -20,3 +20,7 @@ export const setLang = (dispatch, lang) => {
   setLangStorage(lang);
   dispatch(dispatchAction(appAction.change_language, lang));
 };
+
+export const setAppSetting = (dispatch, setting) => {
+  dispatch(dispatchAction(appAction.set_settings, setting));
+}

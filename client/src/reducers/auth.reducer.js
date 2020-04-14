@@ -1,6 +1,7 @@
 import { authAction } from '../constants/action.constant';
 import { auth } from '../constants/states.constant';
 
+
 export default (state = auth, action = {}) => {
   switch (action.type) {
     case authAction.set_app_id:

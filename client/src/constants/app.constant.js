@@ -4,7 +4,5 @@ export const stats = {
   diamonds: { pad: 2, type: 'success' },
 }
 
-export const maxPlayers = 4;
-export const minBet = 250;
 export const expiresIn = '3m';
 export const perPage = 10;

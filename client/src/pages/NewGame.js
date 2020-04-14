@@ -14,7 +14,7 @@ import { createGame } from '../actions/game.action';
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { auth, game } = state;
+  const { auth, game, app } = state;
   const { authenticated } = auth;
   const { current } = game;
 
@@ -25,14 +25,13 @@ export default () => {
   if(current !== false) {
     return <Redirect to={routes.getLink('game')} />
   }
-
   return (
     <Columns className='is-mobile'>
       <Columns.Column size={12}>
         <TitleInner route='index' user={authenticated} />
       </Columns.Column>
       <Columns.Column>
-        <NewForm user={authenticated} onSave={onSave} />
+        <NewForm user={authenticated} onSave={onSave} maxPlayers={app.max_players} minBet={app.min_bet} />
       </Columns.Column>
     </Columns>
   );

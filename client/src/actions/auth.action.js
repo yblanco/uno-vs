@@ -4,6 +4,8 @@ import authRest from '../apis/auth.api';
 
 import { showSnackbarError, showSnackbarSuccess } from './snackbar.action';
 import { setCode } from './game.action';
+import { setAppSetting } from './app.action';
+
 
 import { KEY_STORAGE } from '../constants/env.constant';
 
@@ -25,7 +27,7 @@ const login = (dispatch, response) => {
   const user = { name, picture, id, money, diamonds, online, encoded, level, friends_confirmed, friends_request, requested_friends, friends_blocked, friends };
   setLogged(user);
   setCode(dispatch, code);
-  updateAuth(dispatch, user);  
+  updateAuth(dispatch, user);
   showSnackbarSuccess(dispatch, name);
 }
 
@@ -33,6 +35,7 @@ export const getAppId = (dispatch) => {
   return authRest.getAppId()
     .then(response => {
       dispatch(dispatchAction(authAction.set_app_id, response));
+      setAppSetting(dispatch, response);
       return true;
     })
     .catch(err => {

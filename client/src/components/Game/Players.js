@@ -5,9 +5,7 @@ import { translate } from 'react-translate';
 
 import UserImage from '../User/UserImage';
 
-import { maxPlayers } from '../../constants/app.constant';
-
-export default translate('game')(({ t, game }) => {
+export default translate('game')(({ t, game, maxPlayers }) => {
   const { user, players = [], cant = maxPlayers } = game;
   const users = players
     .concat(Array(cant-players.length)

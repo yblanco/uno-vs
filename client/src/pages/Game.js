@@ -18,7 +18,7 @@ import { getGame, cancelGame, changeInfo, startGame } from '../actions/game.acti
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { auth, game } = state;
+  const { auth, game, app } = state;
   const { authenticated } = auth;
   const { id } = authenticated;
   const { info, current } = game;
@@ -72,7 +72,7 @@ export default () => {
         <InfoGame game={info} onCancel={onCancel} />
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }} tablet={{ size: 8, offset: 2 }}>
-        <Players game={info} />
+        <Players game={info} maxPlayers={app.max_players} />
       </Columns.Column>
       <Columns.Column size={12}>
         <OptionsGame info={info} auth={id} onCancel={onCancel} onStart={onStart} />
