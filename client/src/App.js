@@ -16,7 +16,7 @@ import Header from './components/layout/Header';
 import { hideSnackbar } from './actions/snackbar.action';
 
 import { setLang, getLangStorage } from './actions/app.action';
-import { loggedOut, updateAuth } from './actions/auth.action';
+import { loggedOut, updateAuth, setBells } from './actions/auth.action';
 import { setCode } from './actions/game.action';
 
 import en from './i18n/en.json';
@@ -30,7 +30,7 @@ const App = () => {
   const { state, dispatch } = useContext(Store);
   const { snackbar, app, auth } = state;
   const { lang } = app;
-  const { authenticated } = auth;
+  const { authenticated, bells } = auth;
 
   const { location } = window;
   const { search = '' } = location;
@@ -54,12 +54,16 @@ const App = () => {
   useEffect(() => {
     const { id = '' } = authenticated;
     const code_event = `${events.set_code}_${id}`;
+    const bell_event = `${events.set_bells}_${id}`;
     const eventCode = ({ code }) => setCode(dispatch, code);
     const eventAuth = (user) => updateAuth(dispatch, user)
+    const eventBell = (newBells) => setBells(dispatch, newBells);
     connect(code_event, eventCode);
+    connect(bell_event, eventBell);
     connect(id, eventAuth);
     return () => {
       disconnect(code_event, eventCode);
+      disconnect(bell_event, eventBell);
       disconnect(id, eventAuth);
     }
   }, [dispatch, authenticated]);
@@ -78,6 +82,7 @@ const App = () => {
         <Header
           auth={authenticated}
           lang={lang}
+          bell={bells.length}
           setLang={(value) => setLang(dispatch, value)}
           loggedOut={() => loggedOut(dispatch, listener.id) }
         />

@@ -5,32 +5,51 @@ import { translate } from 'react-translate';
 
 import Lang from './Lang';
 import Icons from '../Icons';
+import BadgetFloat from '../utils/BadgetFloat';
+
 
 import './header.css';
 
-export default translate('header')(({ t, lang, setLang, auth, loggedOut }) => {
+export default translate('header')(({ t, lang, setLang, auth, bell=0, loggedOut }) => {
   const options = [
     { value: 'en', label: <Lang lang='en' /> },
     { value: 'es', label: <Lang lang='es' /> },
   ];
   const value = options.find(item => item.value === lang);
-  const offsetMobile = auth === false ? 7 : 5;
-  const offsetTablet = auth === false ? 7 : 6;
-  const offsetDesktop = auth === false ? 7 : 6;
+  const offsetMobile = auth === false ? 7 : null;
+  const offsetTablet = auth === false ? 7 : null;
+  const offsetDesktop = auth === false ? 7 : null;
 
   return (
     <Columns className='is-mobile header is-vcentered'>
       {
         auth !== false && (
-          <Columns.Column
-            mobile={{ size: 2 }}
-            tablet={{ size: 1 }}
-            desktop={{ size: 1 }}
-            className='pointer'
-            onClick={loggedOut}
-          >
-            <Icons type='logout' size={32} />
-          </Columns.Column>
+          [
+            (
+              <Columns.Column
+                mobile={{ size: 2 }}
+                tablet={{ size: 1 }}
+                desktop={{ size: 1 }}
+                className='pointer'
+                onClick={loggedOut}
+                key='logout-btn'
+              >
+                <Icons type='logout' size={32} />
+              </Columns.Column>
+            ),
+            (
+              <Columns.Column
+                mobile={{ size: 2, offset: 3 }}
+                tablet={{ size: 1, offset: 3 }}
+                desktop={{ size: 1, offset: 3 }}
+                className='pointer is-parent-badget'
+                key='bell-icon'
+              >
+                <Icons type='bell' size={32} />
+                <BadgetFloat cant={bell} />
+              </Columns.Column>
+            ),
+          ]
         )
       }
       <Columns.Column

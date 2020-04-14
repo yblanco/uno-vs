@@ -17,6 +17,7 @@ export const auth = {
   login: false,
   authenticated: false,
   rank: 0,
+  bells: [],
 };
 
 export const user = {

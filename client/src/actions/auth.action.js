@@ -92,3 +92,7 @@ export const updateAuth = (dispatch, auth) => {
 export const setRankUser = (dispatch, rank) => {
   dispatch(dispatchAction(authAction.set_rank, rank));
 }
+
+export const setBells = (dispatch, bells) => {
+  dispatch(dispatchAction(authAction.set_bell, bells));
+}

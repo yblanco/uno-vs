@@ -27,6 +27,7 @@ import addfriend from './addfriend.png';
 import acceptfriend from './acceptfriend.png';
 import cancelfriend from './cancelfriend.png';
 import message from './message.png';
+import bell from './bell.png';
 
 
 
@@ -59,6 +60,7 @@ const stats = {
   acceptfriend,
   cancelfriend,
   cup,
+  bell,
   search,
   message,
   en,
