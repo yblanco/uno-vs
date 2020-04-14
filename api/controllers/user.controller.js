@@ -9,25 +9,19 @@ module.exports = {
       const { id } = decode;
       const { emitEvent, events } = socket;
       const { users } = models;
-      const rank_event = `${events.update_friend_ranks}_${id}`;
+      const rank_event_all = events.update_ranks;
+      const rank_event_friends = `${events.update_friend_ranks}_${id}`;
+      const rank_event_user = `${events.update_user_ranks}_${id}`;
       await users.rank(limit)
-        .then(rank => users.rankFriends(limit, id)
-          .then(rankFriend => emitEvent(rank_event, rankFriend)
-            .then(() =>{
-              console.log(rankFriend)
-
-              if(rank.filter(item => item.id === id).length > 0){
-                return rank;
-              }
-              return users.userRank(id)
-                .then(userRank => {
-                  return rank.concat(userRank)
-                })
-            })).then(ranks => emitEvent(events.update_ranks, ranks)
-            .then(() => {
-              response = jwt.encodeRequest({ id });
-              success = true;
-            })));
+        .then(all => users.friendsRank(limit, id)
+          .then(friends => users.userRank(id)
+            .then((rank) => emitEvent(rank_event_all, all)
+              .then(() => emitEvent(rank_event_friends, friends)
+                .then(() => emitEvent(rank_event_user, rank)
+                  .then(() => {
+                    response = jwt.encodeRequest({ id });
+                    success = true;
+                  }))))));
     } catch(err) {
       return next(err);
     }

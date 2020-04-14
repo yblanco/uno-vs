@@ -66,13 +66,15 @@ module.exports = {
       const { models, socket, jwt, decode  } = req;
       const { id } = decode;
       const { emitEvent, events } = socket;
-      const { games } = models;
+      const { games, users } = models;
       await games.start(id)
         .then((game) => emitEvent(game.code, game)
-          .then(() => {
-            response = jwt.encodeRequest(game);
-            success = true;
-          }))
+          .then(() => users.getMany(game.players.map(player => player.id))
+            .then((users) => Promise.all(users.map(user => emitEvent(user.id, user)))
+              .then(() => {
+                response = jwt.encodeRequest(game);
+                success = true;
+              }))));
     } catch(err) {
       return next(err);
     }
@@ -123,15 +125,27 @@ module.exports = {
       const { models, jwt, decode, socket } = req;
       const { id } = decode;
       const { emitEvent, events } = socket;
-      const { games } = models;
+      const { games, users } = models;
       const code_event = `${events.set_code}_${id}`;
       await games.left(id)
         .then((game)  => (emitEvent(code_event, { code: false }))
           .then(() => emitEvent(game.code, game)
             .then(() => {
-              response = jwt.encodeRequest(game);
-              success = true;
-            })));
+              const { winner = false } = game;
+              if(winner !== false) {
+                return users.get(winner.id)
+                  .then(user => (emitEvent(user.id, user)
+                    .then(() => game)));
+              }
+              return game;
+            })))
+              .then(game => {
+                console.log("========================")
+                console.log(game)
+                console.log("*")
+                response = jwt.encodeRequest(game);
+                success = true;
+              });
     } catch(err) {
       return next(err);
     }

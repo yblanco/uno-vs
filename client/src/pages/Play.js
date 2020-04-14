@@ -67,14 +67,17 @@ export default () => {
         ))
       }
       </ul>
-      <div className='has-background-danger pointer' onClick={onLeft} >
-        Abandonar Partida
-      </div>
       {
-        finish && (
+        finish
+        ? (
           <div>
             Finalizó - Ganó: {winner.name || 'nop'} |
             <Link className='has-background-success' to={routes.getLink('index')}>IR A INICIO</Link>
+          </div>
+        )
+        : (
+          <div className='has-background-danger pointer' onClick={onLeft} >
+            Abandonar Partida
           </div>
         )
       }

@@ -87,5 +87,8 @@ export const loggedOut = (dispatch, id) => {
 
 export const updateAuth = (dispatch, auth) => {
   dispatch(dispatchAction(authAction.set_authenticated, auth));
+}
 
+export const setRankUser = (dispatch, rank) => {
+  dispatch(dispatchAction(authAction.set_rank, rank));
 }

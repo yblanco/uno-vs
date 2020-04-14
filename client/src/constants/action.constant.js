@@ -11,6 +11,7 @@ export const appAction = {
 export const authAction = {
   set_app_id: 'auth-set_app_id',
   set_authenticated: 'auth-set_authenticated',
+  set_rank: 'auth-set_rank',
 }
 
 export const userAction = {

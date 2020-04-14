@@ -258,19 +258,23 @@ schema.statics.left = function left(id) {
     .then(({ left, players, code }) => {
       const isPlayer = players.find(item => item.id === id) !== undefined;
       const hasLeft = left.find(item => item === id) !== undefined;
-      if(isPlayer && !hasLeft) {
+      if(!isPlayer) {
+        throw new Error('No is player')
+      } else if(isPlayer && !hasLeft) {
         return this.leftGame(code, id);
-      } else{
+      } else {
         return this.getByCode(code);
       }
     }).then((code) => (this.getByCode(code)
         .then(game => {
           const { players, left } = game;
           const playerInGame = players.length - left.length;
-          if(playerInGame > 1) {
-            return game;
+          const winner = players.filter(player => !left.includes(player.id));
+          const { id: win } = winner.pop() || {}
+          if(winner.length === 0) {
+            return this.finishGame(code, win);
           }
-          return this.finishGame(code, id);
+          return game;
         })));
 }
 

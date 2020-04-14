@@ -12,6 +12,10 @@ export default (state = auth, action = {}) => {
       return {
         ...state, login: true, authenticated: action.data,
       }
+    case authAction.set_rank:
+      return {
+        ...state, rank: action.data,
+      }
     default:
       return state;
   }

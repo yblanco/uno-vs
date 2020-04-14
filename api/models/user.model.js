@@ -259,12 +259,12 @@ schema.statics.rank = function rank(limit) {
   .then(ranks => (ranks.map(this.parseResult)))
 }
 
-schema.statics.rankFriends = function rank(limit, id) {
+schema.statics.friendsRank = function rank(limit, id) {
   return this.get(id)
     .then(user => {
       const { friends_confirmed:friends = [] } = user;
       return this.aggregate([
-        { $match: { ...this.queryUserStatus(), id: { $in: friends.concat(id) } }},
+        { $match: { ...this.queryUserStatus(), id: { $in: friends.map(({ id:friend }) => friend).concat(id) } }},
         { $addFields: this.queryRank() },
         { $sort: { rank: -1, date: 1 } },
         { $limit: limit }
@@ -277,17 +277,8 @@ schema.statics.userRank = function rank(id) {
   return this.aggregate([
     { $match: this.queryUser(id)},
     { $addFields: this.queryRank() },
-  ]).then(userRank => {
-    const user = userRank.pop() || {};
-    const { rank = 0, id = false } = user;
-    let userFinal = null;
-    if(id === false) {
-      return this.countUser()
-        .then(position => ({ rank, position }))
-    }
-    return this.getRank(rank)
-      .then(position => ({ rank, position }));
-  }).then(rank => this.get(id).then(user => ({...user, ...rank })))
+  ]).then(userRank => userRank.pop() || {})
+    .then(rank => this.getRank(rank));
 }
 
 schema.statics.getRank = function getRank(rank) {

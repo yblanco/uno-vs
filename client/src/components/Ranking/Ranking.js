@@ -9,7 +9,7 @@ import Switch from '../utils/Switch';
 
 import './ranking.css';
 
-export default translate('ranking')(({ t, all, friends, auth }) => {
+export default translate('ranking')(({ t, all, friends, auth, rank }) => {
   const type1 = { value: 'world', text: t('world') };
   const type2 = { value: 'friends', text: t('friends') };
   const [type, setType] = useState(type1);
@@ -47,7 +47,7 @@ export default translate('ranking')(({ t, all, friends, auth }) => {
         />
         </Columns.Column>
       </Columns>
-      <RankingList ranks={list} auth={auth} />
+      <RankingList ranks={list} auth={auth} rank={rank} />
     </Content>
   );
 });

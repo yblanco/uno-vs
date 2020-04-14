@@ -16,6 +16,7 @@ export const auth = {
   google_id: false,
   login: false,
   authenticated: false,
+  rank: 0,
 };
 
 export const user = {
