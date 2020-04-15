@@ -1,8 +1,8 @@
 import React  from 'react';
-import Plays from './Plays';
+import Button from './Button';
 
 export default ({ t, onClick }) => {
   return (
-    <Plays type='friends' onClick={onClick} />
+    <Button type='friends' onClick={onClick} />
   );
 };

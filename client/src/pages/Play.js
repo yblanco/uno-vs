@@ -9,6 +9,8 @@ import { connect, disconnect } from '../socket';
 
 import { Store } from '../reducers';
 
+import LeftPlay from '../components/Play/LeftPlay';
+
 import { leftGame, changeInfo } from '../actions/game.action';
 
 export default () => {
@@ -43,44 +45,52 @@ export default () => {
   if(current === false) {
     return (<Redirect to={routes.getLink('new_game')} />);
   }
+
   return (
-    <Columns className='is-vcentered'>
-      Hola, {name} <img src={picture} width={15} alt={name} />
-      <br />
-      Código: {current}
-      <br/ >
-      Apuesta c/u: {bet}
-      <br/>
-      Premio: {reward}
-      <br/>
-      Jugadores: {cant}
-      <hr />
-      <br />
-      <ul>
-      {
-        players.map(player => (
-          <li key={player.id}>
-            <img src={player.picture} width={15} alt={player.name} /> {player.name} | {player.money} | {
-              left.find(item => item === player.id) !== undefined ? 'Abandonó' : 'En juego'
-            }
-          </li>
-        ))
-      }
-      </ul>
-      {
-        finish
-        ? (
-          <div>
-            Finalizó - Ganó: {winner.name || 'nop'} |
-            <Link className='has-background-success' to={routes.getLink('index')}>IR A INICIO</Link>
-          </div>
-        )
-        : (
-          <div className='has-background-danger pointer' onClick={onLeft} >
-            Abandonar Partida
-          </div>
-        )
-      }
+    <Columns className='is-vcentered is-mobile'>
+      <Columns.Column size={12}>
+        <LeftPlay onLeft={onLeft} />
+      </Columns.Column>
     </Columns>
-  );
+  )
+  // return (
+  //   <Columns className='is-vcentered'>
+  //     Hola, {name} <img src={picture} width={15} alt={name} />
+  //     <br />
+  //     Código: {current}
+  //     <br/ >
+  //     Apuesta c/u: {bet}
+  //     <br/>
+  //     Premio: {reward}
+  //     <br/>
+  //     Jugadores: {cant}
+  //     <hr />
+  //     <br />
+  //     <ul>
+  //     {
+  //       players.map(player => (
+  //         <li key={player.id}>
+  //           <img src={player.picture} width={15} alt={player.name} /> {player.name} | {player.money} | {
+  //             left.find(item => item === player.id) !== undefined ? 'Abandonó' : 'En juego'
+  //           }
+  //         </li>
+  //       ))
+  //     }
+  //     </ul>
+  //     {
+  //       finish
+  //       ? (
+  //         <div>
+  //           Finalizó - Ganó: {winner.name || 'nop'} |
+  //           <Link className='has-background-success' to={routes.getLink('index')}>IR A INICIO</Link>
+  //         </div>
+  //       )
+  //       : (
+  //         <div className='has-background-danger pointer' onClick={onLeft} >
+  //           Abandonar Partida
+  //         </div>
+  //       )
+  //     }
+  //   </Columns>
+  // );
 };

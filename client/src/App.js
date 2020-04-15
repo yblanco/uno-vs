@@ -7,7 +7,7 @@ import { TranslatorProvider } from 'react-translate';
 import events, { connect, disconnect, listener } from './socket';
 
 import { Store } from './reducers';
-import { Routes } from './routes';
+import routes, { Routes } from './routes';
 
 import Snackbar from './components/layout/Snackbar';
 import Footer from './components/layout/Footer';
@@ -33,7 +33,7 @@ const App = () => {
   const { authenticated, bells } = auth;
 
   const { location } = window;
-  const { search = '' } = location;
+  const { search = '', pathname } = location;
   const params = new URLSearchParams(search);
   const language = params.get('lang');
   const { [lang]:translations } = translate;
@@ -79,13 +79,17 @@ const App = () => {
     <div className='app home'>
       <TranslatorProvider translations={translations}>
         <Snackbar info={snackbar} hideSnackbar={() => hideSnackbar(dispatch)} />
-        <Header
-          auth={authenticated}
-          lang={lang}
-          bell={bells.length}
-          setLang={(value) => setLang(dispatch, value)}
-          loggedOut={() => loggedOut(dispatch, listener.id) }
-        />
+        {
+          pathname !== routes.getLink('play') && (
+            <Header
+              auth={authenticated}
+              lang={lang}
+              bell={bells.length}
+              setLang={(value) => setLang(dispatch, value)}
+              loggedOut={() => loggedOut(dispatch, listener.id) }
+            />
+          )
+        }
         <Container fluid>
           <Content>
             <Routes auth={authenticated} />
