@@ -7,18 +7,18 @@ import PlayerIcons from './PlayerIcons';
 
 import './play.css';
 
-export default ({ player, show = true, color='me', me = false }) => {
-  const { name = '', cards = 7 } = player;
+export default ({ player, color='me', me = false }) => {
+  const { name = '', cards = 7, hide = false, disabled = false } = player;
   const [firstName] = name.split(' ');
 
   return (
     <Columns centered className={`player-game-info color-${color} is-vcentered`}>
       {
-        show && [
+        !hide && [
           (
             <Columns.Column size={12} key='image'>
-              <UserImage user={player} />
-              { !me && (<BadgetPlayer cards={cards} />)}
+              <UserImage user={player} icon={disabled} />
+              { !me && !disabled && (<BadgetPlayer cards={cards} />)}
             </Columns.Column>
           ),
           (

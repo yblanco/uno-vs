@@ -53,10 +53,18 @@ export default () => {
 
   return (
     <Columns className='is-vcentered'>
-      <Columns.Column mobile={{ size: 12 }}>
+      <Columns.Column
+        mobile={{ size: 12 }}
+        tablet={{ size: 2 }}
+        desktop={{ size: 1 }}
+      >
         <PlayLeft onLeft={onLeft} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 12 }}>
+      <Columns.Column
+        mobile={{ size: 12 }}
+        tablet={{ size: 10 }}
+        desktop={{ size: 11 }}
+      >
         <PlayInfo user={authenticated} game={info} />
       </Columns.Column>
       <Columns.Column mobile={{ size: 12 }}>

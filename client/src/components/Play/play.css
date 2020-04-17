@@ -28,6 +28,7 @@
 
 .board-game .board-game-board {
   height: 30vh;
+  display: flex;
 }
 
 .board-game .player-name {
@@ -84,4 +85,58 @@
 .board-game .player-game-info .card-play {
   position: absolute;
   top: -1em;
+}
+
+.board-game-board.column {
+  padding: 0;
+}
+
+.board-game-me.column {
+  position: relative;
+  height: 25vh;
+  font-size: 0.75em;
+}
+
+.play-card {
+  width: 5em;
+  height: 8em;
+  border-radius: 0.1em;
+  border: 0.1em solid white;
+  box-shadow: -0.25em 0em 0.1em rgba(0,0,0,0.25);
+  position: relative;
+  margin: auto;
+}
+
+.play-card.me {
+  position: absolute;
+}
+
+.play-card-content {
+  position: absolute;
+  background: white;
+  width: 100%;
+  height: 70%;
+  top: 15%;
+  border-top-left-radius: 3em;
+  border-bottom-right-radius: 3em;
+  padding: 40% 30%;
+  line-height: 2em;
+  text-align: center;
+
+}
+
+.play-card.neutral {
+  background: #191c49;
+}
+.play-card.yellow {
+  background: yellow;
+}
+.play-card.blue {
+  background: blue;
+}
+.play-card.green {
+  background: green;
+}
+.play-card.red {
+  background: red;
 }

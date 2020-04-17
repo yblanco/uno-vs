@@ -5,11 +5,7 @@ import { translate } from 'react-translate';
 // import { stats } from '../../constants/app.constant';
 
 //
-// import Icons from '../Icons';
-// import UserStats from '../User/UserStats';
-// import InfoGame from '../Game/InfoGame';
-// import Modal from '../utils/Modal';
-// import Numbers from '../utils/Numbers';
+import Card from './Card';
 import PlayerInfo from './PlayerInfo';
 
 
@@ -23,9 +19,7 @@ export default translate('play')(({ t, user, game, maxPlayers }) => {
   const me = players.find(({ id:player }) => player === id);
   const [player1, player2, player3] = players
     .filter(({ id: player }) => player !== id)
-    .concat(Array(fill).fill({}));
-  const show = total > 2;
-
+    .concat(Array(fill).fill({ disabled: true, hide: total === 2, picture: 'empty' }));
   return (
     <Columns className='is-mobile is-vcentered board-game' centered >
       <Columns.Column size={4} offset={4} className='has-tex-centered'>
@@ -33,19 +27,31 @@ export default translate('play')(({ t, user, game, maxPlayers }) => {
       </Columns.Column>
       <Columns.Column size={4} className='has-tex-centered' />
       <Columns.Column size={4} className='has-text-centered'>
-        <PlayerInfo player={player2} show={show} color='second' />
+        <PlayerInfo player={player2} color='second' />
       </Columns.Column>
       <Columns.Column size={4} className='has-text-centered board-game-board'>
-        MESA
+        <Card />
       </Columns.Column>
       <Columns.Column size={4} className='has-text-centered'>
-        <PlayerInfo player={player3} show={show} color='third' />
+        <PlayerInfo player={player3} color='third' />
       </Columns.Column>
-      <Columns.Column size={4}>
+      <Columns.Column size={5}>
         <PlayerInfo player={me}  me />
       </Columns.Column>
-      <Columns.Column size={6}>
-        Cartas
+      <Columns.Column size={6} className='board-game-me'>
+        {
+          [
+            { color: 'red', card: 'seven' },
+            { color: 'green', card: 'zero' },
+            { color: 'neutral', card: 'draw-two' },
+            { color: 'blue', card: 'reverse' },
+            { color: 'yellow', card: 'draw-four' },
+            { color: 'blue', card: 'skip' },
+            { color: 'neutral', card: 'wild' },
+          ].map(({ color, card }, i) => (
+            <Card color={color} card={card} me style={{ left: `${i*1.55}em` }} />
+          ))
+        }
       </Columns.Column>
     </Columns>
   );
