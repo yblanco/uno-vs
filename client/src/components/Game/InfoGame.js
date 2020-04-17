@@ -6,7 +6,7 @@ import { translate } from 'react-translate';
 import Icons from '../Icons';
 import CodeShow from './CodeShow';
 
-export default translate('game')(({ t, game, onCancel }) => {
+export default translate('game')(({ t, game, share = true }) => {
   const { code = '', bet = 0, cant = 0, private:isPrivate, players = [] } = game;
   return (
     <Columns className='is-mobile is-vcentered has-background-grey-light has-text-weight-bold'>
@@ -19,10 +19,10 @@ export default translate('game')(({ t, game, onCancel }) => {
       <Columns.Column mobile={{ size: 2 }} tablet={{ size: 1 }} desktop={{ size: 1 }}>
         <Icons type='people' size={32} />
       </Columns.Column>
-      <Columns.Column mobile={{ size: 3 }} tablet={{ size: 2 }} desktop={{ size: 2 }}>
+      <Columns.Column mobile={{ size: 2 }} tablet={{ size: 2 }} desktop={{ size: 2 }}>
         {players.length}/{cant}
       </Columns.Column>
-      <Columns.Column mobile={{ size: 2 }} tablet={{ size: 1 }} desktop={{ size: 1 }}>
+      <Columns.Column mobile={{ size: 3 }} tablet={{ size: 1 }} desktop={{ size: 1 }}>
         <Icons type={isPrivate ? 'private' : 'world'} size={32} />
       </Columns.Column>
       <Columns.Column
@@ -30,7 +30,7 @@ export default translate('game')(({ t, game, onCancel }) => {
         tablet={{ size: 5 }}
         desktop={{ size: 5 }}
       >
-        <CodeShow code={code} />
+        <CodeShow code={code} share={share} />
       </Columns.Column>
     </Columns>
   );

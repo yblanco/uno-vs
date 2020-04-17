@@ -58,5 +58,9 @@
     "no_friends_found": "No se encontró coincidencia",
     "search_friend": "Busqueda por nombre",
     "no_request": "No tiene solicitudes"
+  },
+  "play": {
+    "leave": "¿Desea abandonar la partida?",
+    "yes": "Sí"
   }
 }

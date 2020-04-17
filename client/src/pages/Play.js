@@ -9,17 +9,22 @@ import { connect, disconnect } from '../socket';
 
 import { Store } from '../reducers';
 
-import LeftPlay from '../components/Play/LeftPlay';
+import PlayLeft from '../components/Play/PlayLeft';
+import PlayInfo from '../components/Play/PlayInfo';
+import Players from '../components/Play/Players';
+
 
 import { leftGame, changeInfo } from '../actions/game.action';
 
 export default () => {
   const { state, dispatch } = useContext(Store);
   const [finish, setFinish] = useState(false);
-  const { auth, game } = state;
+  const { auth, game, app } = state;
+  const { max_players:maxPlayers } = app;
   const { authenticated } = auth;
-  const { name, id, picture } = authenticated;
   const { info, current = false } = game;
+
+  const { id }  = authenticated;
   const { bet, cant, players = [], left = [], reward, state:stateGame, winner } = info;
 
   const onLeft = () => {
@@ -47,9 +52,15 @@ export default () => {
   }
 
   return (
-    <Columns className='is-vcentered is-mobile'>
-      <Columns.Column size={12}>
-        <LeftPlay onLeft={onLeft} />
+    <Columns className='is-vcentered'>
+      <Columns.Column mobile={{ size: 12 }}>
+        <PlayLeft onLeft={onLeft} />
+      </Columns.Column>
+      <Columns.Column mobile={{ size: 12 }}>
+        <PlayInfo user={authenticated} game={info} />
+      </Columns.Column>
+      <Columns.Column mobile={{ size: 12 }}>
+        <Players game={info} user={authenticated} maxPlayers={maxPlayers} />
       </Columns.Column>
     </Columns>
   )

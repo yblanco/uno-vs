@@ -28,6 +28,11 @@ import acceptfriend from './acceptfriend.png';
 import cancelfriend from './cancelfriend.png';
 import message from './message.png';
 import bell from './bell.png';
+import info from './info.png';
+import chat from './chat.png';
+import favchat from './favchat.png';
+import stop from './stop.png';
+import card from './card.png';
 
 
 
@@ -39,6 +44,7 @@ const stats = {
   level,
   diamonds,
   money,
+  reward: money,
   people,
   private: privateIcon,
   world,
@@ -63,6 +69,11 @@ const stats = {
   bell,
   search,
   message,
+  info,
+  chat,
+  card,
+  favchat,
+  stop,
   en,
   es,
 };

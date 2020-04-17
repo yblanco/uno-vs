@@ -7,7 +7,7 @@ import Icons from '../Icons';
 const ModalComponent = ({
   children,
   icon,
-  size = 'medium',
+  size = 48,
   onClick = () => {},
   onClickName = '',
   ...props
@@ -20,7 +20,7 @@ const ModalComponent = ({
   //   ));
   return (
     <span>
-      <Icons className="pointer" onClick={open} size={size} type="error" size={48}  />
+      <Icons className="pointer" onClick={open} type={icon} size={size}  />
       <Modal show={show} onClose={close} {...props.modal}>
         <Content style={{ zIndex: 1 }}>
           <Section className='has-background-white'>

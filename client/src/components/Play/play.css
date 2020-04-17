@@ -1,0 +1,87 @@
+:root {
+    --first-color: #229bea;
+    --second-color: #ffdc53;
+    --third-color: #21d165;
+    --me-color: #ff9600;
+}
+
+.user-point .user-info figure, .user-point .user-warning figure {
+  margin-right: 1em !important;
+}
+
+.modal-container hr{
+  margin-top: 0 !important;
+}
+
+.board-game {
+  margin-top: 0.5em;
+}
+
+.board-game .player-game-info.columns > .column {
+  padding: 0.25em;
+}
+
+.board-game .player-game-info.columns > .column .icons-play .column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.board-game .board-game-board {
+  height: 30vh;
+}
+
+.board-game .player-name {
+  border-radius: 1em;
+  box-shadow: 0.25em 0.25em 0.25em rgba(0,0,0,0.5);
+}
+
+.board-game .player-name, .board-game .player-game-info .badget  {
+  z-index: 10;
+}
+
+.board-game .player-game-info .badget {
+  box-shadow: -1px -1px 1px rgba(0,0,0,0.5);
+}
+
+.board-game .player-game-info.color-first .player-name, .board-game .player-game-info.color-first .badget {
+  background: var(--first-color);
+}
+
+.board-game .player-game-info.color-second .player-name, .board-game .player-game-info.color-second .badget {
+  background: var(--second-color);
+}
+
+.board-game .player-game-info.color-third .player-name, .board-game .player-game-info.color-third .badget {
+  background: var(--third-color);
+}
+
+.board-game .player-game-info.color-me .player-name, .board-game .player-game-info.color-me .badget {
+  background: var(--me-color);
+}
+
+.board-game .player-game-info .image.profile-pic img {
+  border-width: 0.25em;
+  border-style: solid;
+  box-shadow: 0.05em 0.05em 0.1em rgba(255,255,255,0.5);
+}
+
+.board-game .player-game-info.color-first .image.profile-pic img {
+  border-color: var(--first-color);
+}
+
+.board-game .player-game-info.color-second .image.profile-pic img {
+  border-color: var(--second-color);
+}
+
+.board-game .player-game-info.color-third .image.profile-pic img {
+  border-color: var(--third-color);
+}
+
+.board-game .player-game-info.color-me .image.profile-pic img {
+  border-color: var(--me-color);
+}
+
+.board-game .player-game-info .card-play {
+  position: absolute;
+  top: -1em;
+}

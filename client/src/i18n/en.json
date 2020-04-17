@@ -58,5 +58,9 @@
     "no_friends_found": "No match found",
     "search_friend": "Search by name",
     "no_request": "No requests found"
+  },
+  "play": {
+    "leave": "Do you want to leave?",
+    "yes": "Yes"
   }
 }

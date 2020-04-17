@@ -7,7 +7,7 @@ import { TranslatorProvider } from 'react-translate';
 import events, { connect, disconnect, listener } from './socket';
 
 import { Store } from './reducers';
-import routes, { Routes } from './routes';
+import { Routes } from './routes';
 
 import Snackbar from './components/layout/Snackbar';
 import Footer from './components/layout/Footer';
@@ -28,12 +28,14 @@ const translate = { en, es };
 
 const App = () => {
   const { state, dispatch } = useContext(Store);
-  const { snackbar, app, auth } = state;
+  const { snackbar, app, auth, game } = state;
   const { lang } = app;
   const { authenticated, bells } = auth;
+  const { info } = game;
+  const { state:stateGame = 'playing' } = info;
 
   const { location } = window;
-  const { search = '', pathname } = location;
+  const { search = '' } = location;
   const params = new URLSearchParams(search);
   const language = params.get('lang');
   const { [lang]:translations } = translate;
@@ -73,14 +75,12 @@ const App = () => {
     setLang(dispatch, langStorage || lang);
   }, [dispatch, language, lang]);
 
-
-
   return (
     <div className='app home'>
       <TranslatorProvider translations={translations}>
         <Snackbar info={snackbar} hideSnackbar={() => hideSnackbar(dispatch)} />
         {
-          pathname !== routes.getLink('play') && (
+          stateGame !== 'playing' && (
             <Header
               auth={authenticated}
               lang={lang}
