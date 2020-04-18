@@ -48,8 +48,11 @@ export default translate('play')(({ t, user, game, maxPlayers }) => {
             { color: 'yellow', card: 'draw-four' },
             { color: 'blue', card: 'skip' },
             { color: 'neutral', card: 'wild' },
+            { color: 'red', card: 'seven' },
+            { color: 'green', card: 'zero' },
+            { color: 'red', card: 'five' },
           ].map(({ color, card }, i) => (
-            <Card color={color} card={card} me style={{ left: `${i*1}em` }} />
+            <Card color={color} card={card} me style={{ left: `${i*1.25}em` }} />
           ))
         }
       </Columns.Column>
