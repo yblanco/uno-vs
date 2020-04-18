@@ -35,7 +35,7 @@ export default translate('play')(({ t, user, game, maxPlayers }) => {
       <Columns.Column size={4} className='has-text-centered'>
         <PlayerInfo player={player3} color='third' />
       </Columns.Column>
-      <Columns.Column size={5}>
+      <Columns.Column size={4}>
         <PlayerInfo player={me}  me />
       </Columns.Column>
       <Columns.Column size={6} className='board-game-me'>
@@ -49,9 +49,11 @@ export default translate('play')(({ t, user, game, maxPlayers }) => {
             { color: 'blue', card: 'skip' },
             { color: 'neutral', card: 'wild' },
           ].map(({ color, card }, i) => (
-            <Card color={color} card={card} me style={{ left: `${i*1.55}em` }} />
+            <Card color={color} card={card} me style={{ left: `${i*1}em` }} />
           ))
         }
+      </Columns.Column>
+      <Columns.Column size={2} className='board-game-me'>
       </Columns.Column>
     </Columns>
   );

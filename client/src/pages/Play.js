@@ -52,16 +52,16 @@ export default () => {
   }
 
   return (
-    <Columns className='is-vcentered'>
+    <Columns className='is-vcentered is-mobile'>
       <Columns.Column
-        mobile={{ size: 12 }}
+        mobile={{ size: 3 }}
         tablet={{ size: 2 }}
         desktop={{ size: 1 }}
       >
         <PlayLeft onLeft={onLeft} />
       </Columns.Column>
       <Columns.Column
-        mobile={{ size: 12 }}
+        mobile={{ size: 9 }}
         tablet={{ size: 10 }}
         desktop={{ size: 11 }}
       >

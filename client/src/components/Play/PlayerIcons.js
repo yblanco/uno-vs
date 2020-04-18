@@ -9,13 +9,13 @@ export default () => {
 
   return (
     <Columns className='is-mobile is-vcentered icons-play'>
-      <Columns.Column size={3}>
+      <Columns.Column size={3} offset={1}>
         <Icons type='chat' size={24} className='pointer' />
       </Columns.Column>
       <Columns.Column size={3}>
         <Icons type='favchat' size={24} className='pointer' />
       </Columns.Column>
-      <Columns.Column size={3} offset={3}>
+      <Columns.Column size={3} offset={2}>
         <Icons type='stop' size={24} className='pointer' />
       </Columns.Column>
     </Columns>
