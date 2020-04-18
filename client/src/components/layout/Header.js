@@ -17,8 +17,8 @@ export default translate('header')(({ t, lang, setLang, auth, bell=0, loggedOut 
   ];
   const value = options.find(item => item.value === lang);
   const offsetMobile = auth === false ? 7 : null;
-  const offsetTablet = auth === false ? 7 : null;
-  const offsetDesktop = auth === false ? 7 : null;
+  const offsetTablet = auth === false ? 7 : 5;
+  const offsetDesktop = auth === false ? 7 : 5;
 
   return (
     <Columns className='is-mobile header is-vcentered'>
@@ -40,8 +40,8 @@ export default translate('header')(({ t, lang, setLang, auth, bell=0, loggedOut 
             (
               <Columns.Column
                 mobile={{ size: 2, offset: 3 }}
-                tablet={{ size: 1, offset: 3 }}
-                desktop={{ size: 1, offset: 3 }}
+                tablet={{ size: 1, offset: offsetTablet }}
+                desktop={{ size: 1, offset: offsetDesktop }}
                 className='pointer is-parent-badget'
                 key='bell-icon'
               >
@@ -54,8 +54,8 @@ export default translate('header')(({ t, lang, setLang, auth, bell=0, loggedOut 
       }
       <Columns.Column
         mobile={{size: 5, offset: offsetMobile}}
-        tablet={{size: 5, offset: offsetTablet}}
-        desktop={{size: 5, offset: offsetDesktop}}
+        tablet={{size: 5 }}
+        desktop={{size: 5 }}
       >
         <Select
           classNamePrefix='lang'

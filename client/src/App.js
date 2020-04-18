@@ -32,7 +32,7 @@ const App = () => {
   const { lang } = app;
   const { authenticated, bells } = auth;
   const { info } = game;
-  const { state:stateGame = 'playing' } = info;
+  const { state:stateGame = '' } = info;
 
   const { location } = window;
   const { search = '' } = location;
