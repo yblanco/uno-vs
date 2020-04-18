@@ -20,26 +20,28 @@ export default ({ t, user, game, maxPlayers }) => {
     .concat(Array(fill).fill({ disabled: true, hide: total === 2, picture: 'empty' }));
   return (
     <Columns className='is-mobile is-vcentered board-game' centered >
-      <Columns.Column size={4} className='has-tex-centered' >
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2, offset: 3 }} className='has-tex-centered' >
         <Deck />
       </Columns.Column>
-      <Columns.Column size={4} className='has-tex-centered'>
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }} className='has-tex-centered'>
         <PlayerInfo player={player1} color='first' />
       </Columns.Column>
-      <Columns.Column size={4} className='has-tex-centered' />
-      <Columns.Column size={4} className='has-text-centered'>
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 5 }} className='has-tex-centered' />
+
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }} className='has-text-centered'>
         <PlayerInfo player={player2} color='second' />
       </Columns.Column>
-      <Columns.Column size={4} className='has-text-centered board-game-board'>
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 8 }} className='has-text-centered board-game-board'>
         <Card />
       </Columns.Column>
-      <Columns.Column size={4} className='has-text-centered'>
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }} className='has-text-centered'>
         <PlayerInfo player={player3} color='third' />
       </Columns.Column>
-      <Columns.Column size={4}>
+
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }}>
         <PlayerInfo player={me}  me />
       </Columns.Column>
-      <Columns.Column size={8} className='board-game-me'>
+      <Columns.Column mobile={{ size: 8 }} desktop={{ size: 10 }} className='board-game-me'>
         <PlayerCards />
       </Columns.Column>
       <Uno />

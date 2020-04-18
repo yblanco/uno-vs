@@ -6,10 +6,12 @@ import Icons from '../Icons';
 
 const ModalComponent = ({
   children,
-  icon,
+  icon = false,
   size = 48,
   onClick = () => {},
   onClickName = '',
+  text = '',
+  className='',
   ...props
 }) => {
   const [show, setShow] = useState(false);
@@ -20,10 +22,14 @@ const ModalComponent = ({
   //   ));
   return (
     <span>
-      <Icons className="pointer" onClick={open} type={icon} size={size}  />
+      {
+        icon !== false
+        ? (<Icons className="pointer" onClick={open} type={icon} size={size}  />)
+        : <Content onClick={open} >{text}</Content>
+      }
       <Modal show={show} onClose={close} {...props.modal}>
         <Content style={{ zIndex: 1 }}>
-          <Section className='has-background-white'>
+          <Section className={`has-background-white ${className}`}>
             {children}
           </Section>
         </Content>
