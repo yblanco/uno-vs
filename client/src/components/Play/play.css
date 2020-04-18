@@ -82,7 +82,7 @@
   border-color: var(--me-color);
 }
 
-.board-game .player-game-info .card-play {
+.board-game .player-game-info .card-play, .board-game .card-play  {
   position: absolute;
   top: -1em;
 }
@@ -91,10 +91,14 @@
   padding: 0;
 }
 
-.board-game-me.column {
+.board-game-me.column:first-child {
   position: relative;
-  height: 25vh;
+  height: 16vh;
   font-size: 0.75em;
+}
+
+.board-game-me-content.columns, .board-game-me-content.columns .column  {
+  padding: 0;
 }
 
 .play-card {
@@ -139,4 +143,10 @@
 }
 .play-card.red {
   background: red;
+}
+
+.play-uno-scream {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

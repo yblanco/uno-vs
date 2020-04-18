@@ -9,7 +9,7 @@ import './play.css';
 
 export default ({ cards }) => {
   return (
-    <Container className='is-parent-badget'>
+    <Container>
       <BadgetFloat cant={cards} key='badget' />
       <CardsBlock cards={cards} />
     </Container>
