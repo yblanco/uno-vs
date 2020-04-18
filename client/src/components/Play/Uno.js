@@ -7,7 +7,7 @@ import './play.css';
 
 export default ({ t }) => {
   return (
-    <Content className='pointer play-uno-scream'>
+    <Content className='pointer play-uno-scream has-background-danger'>
       <Icons type='uno' size={96}/>
     </Content>
   );
