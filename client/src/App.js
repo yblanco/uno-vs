@@ -12,6 +12,8 @@ import { Routes } from './routes';
 import Snackbar from './components/layout/Snackbar';
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
+import Icons from './components/Icons';
+
 
 import { hideSnackbar } from './actions/snackbar.action';
 
@@ -78,6 +80,7 @@ const App = () => {
   return (
     <div className='app home'>
       <TranslatorProvider translations={translations}>
+        <Icons type='beta' size={96} className='beta-icon' />
         <Snackbar info={snackbar} hideSnackbar={() => hideSnackbar(dispatch)} />
         {
           stateGame !== 'playing' && (

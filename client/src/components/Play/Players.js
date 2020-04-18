@@ -38,7 +38,7 @@ export default ({ t, user, game, maxPlayers }) => {
         <PlayerInfo player={player3} color='third' />
       </Columns.Column>
 
-      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }}>
+      <Columns.Column mobile={{ size: 4 }} desktop={{ size: 2 }} className='me-player-info'>
         <PlayerInfo player={me}  me />
       </Columns.Column>
       <Columns.Column mobile={{ size: 8 }} desktop={{ size: 10 }} className='board-game-me'>

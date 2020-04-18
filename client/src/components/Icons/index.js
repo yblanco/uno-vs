@@ -34,6 +34,8 @@ import favchat from './favchat.png';
 import stop from './stop.png';
 import card from './card.png';
 import uno from './uno.png';
+import beta from './beta.png';
+
 
 
 
@@ -79,6 +81,7 @@ const stats = {
   en,
   es,
   uno,
+  beta,
 };
 
 export default ({ type, size=16, ...others }) => (

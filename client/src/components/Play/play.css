@@ -101,6 +101,10 @@
   padding: 0;
 }
 
+.board-game .me-player-info {
+  padding-top: 4em;
+}
+
 .play-card {
   width: 5em;
   height: 8em;
@@ -113,7 +117,20 @@
 
 .play-card.me {
   position: absolute;
+  top: -2.5em;
 }
+
+.board-game-me-more {
+  position: relative;
+}
+
+.board-game-me-more .pointer {
+  font-size: 0.7em;
+  position: absolute;
+  top: -2.5em;
+  right: 0;
+}
+
 
 .play-card-content {
   position: absolute;

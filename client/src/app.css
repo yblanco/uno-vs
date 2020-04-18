@@ -60,3 +60,8 @@ figure {
   color: black;
   border-color: black;
 }
+
+.beta-icon{
+  position: absolute;
+  opacity: 0.5;
+}

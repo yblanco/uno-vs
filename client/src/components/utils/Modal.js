@@ -24,8 +24,8 @@ const ModalComponent = ({
     <span>
       {
         icon !== false
-        ? (<Icons className="pointer" onClick={open} type={icon} size={size}  />)
-        : <Content onClick={open} >{text}</Content>
+        ? (<Icons className='pointer' onClick={open} type={icon} size={size}  />)
+        : <Content className='pointer' onClick={open} >{text}</Content>
       }
       <Modal show={show} onClose={close} {...props.modal}>
         <Content style={{ zIndex: 1 }}>

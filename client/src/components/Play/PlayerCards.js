@@ -23,22 +23,26 @@ export default translate('play')(({ t }) => {
   const left = (cards.length > 10 ? 10 : cards.length)/1.25;
   return (
     <Columns className='is-vcentered is-mobile board-game-me-content' centered >
-      <Columns.Column mobile={{ size:11, offset:1 }} desktop={{ size: 5, offset: 3}}className='board-game-me'>
+      <Columns.Column
+        mobile={{ size:11, offset:1 }}
+        desktop={{ size: 5, offset: 3}}
+        className='board-game-me'
+      >
         {
           cards.map(({ color, card }, i) => (
-            <Card color={color} card={card} me style={{ left: `${i*left}%` }} />
+            <Card key={`${i}-${color}-${card}`} color={color} card={card} me style={{ left: `${i*left}%` }} />
           ))
         }
       </Columns.Column>
       <Columns.Column
         mobile={{ size: 6, offset: 6 }}
         desktop={{ size:4 }}
-        className='board-game-me has-text-right pointer has-text-weight-bold has-text-left-desktop'
+        className='board-game-me-more has-text-right pointer has-text-weight-bold has-text-left-desktop'
       >
         <Modal text='Ver mas'>
           {
             cards.map(({ color, card }, i) => (
-              <Card color={color} card={card} />
+              <Card key={`modal-${i}-${color}-${card}`}  color={color} card={card} />
             ))
           }
         </Modal>
