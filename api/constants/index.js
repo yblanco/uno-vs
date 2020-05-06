@@ -10,5 +10,8 @@ module.exports = {
   expiresSession: '3d',
   expiresIn: '3m',
   noUser: ' User doesnt exist',
-  states: ['waiting', 'playing', 'finished', 'canceled']
+  states: ['waiting', 'playing', 'finished', 'canceled'],
+  decks: ['normal'],
+  cards: ['number', 'draw', 'skip', 'reverse', 'wild'],
+  colors: ['neutral', 'green', 'yellow', 'red', 'blue']
 }

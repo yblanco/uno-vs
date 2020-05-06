@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "migrate:create": "migrate create -d mongodb://localhost/uno_vs",
+    "migrate:up": "migrate up -d mongodb://localhost/uno_vs --autosync",
+    "migrate:down": "migrate down -d mongodb://localhost/uno_vs"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -13,6 +16,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "migrate-mongoose": "^4.0.0",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.2",

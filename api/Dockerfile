@@ -17,4 +17,4 @@ RUN touch .env
 RUN npm install --production
 
 #Ejecutar servidor
-CMD pm2-runtime start ecosystem.config.js
+CMD npm run migrate -- -d mongodb://${DBHOST}:${DBPORT}/${DBNAME} up --autosync; pm2-runtime start ecosystem.config.js
