@@ -2,6 +2,7 @@ FROM keymetrics/pm2:12-stretch
 
 ENV PATH_LOG_ROOT "/var/log"
 ENV PATH_LOG "$PATH_LOG_ROOT/app"
+ENV DBNAME "uno_vs"
 
 # Creating folder for logs
 RUN mkdir -p $PATH_LOG

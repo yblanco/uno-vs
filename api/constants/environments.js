@@ -12,6 +12,7 @@ module.exports = {
   db: {
     host: process.env.DBHOST || 'localhost',
     port: process.env.DBPORT || '27017',
+    name: process.env.DBNAME || 'uno_vs',
     user: process.env.DBUSER,
     pass: process.env.DBPASS,
   },

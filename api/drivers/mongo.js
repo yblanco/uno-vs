@@ -3,9 +3,7 @@ const logger = require('../libs/logger');
 const { environments } = require('../constants');
 
 const { env, db, debug } = environments;
-const {
-  host, port, user = false, pass = false, name = 'uno_vs'
-} = db;
+const { host, port, name, user = false, pass = false } = db;
 
 class MongoDatabase {
   constructor() {
