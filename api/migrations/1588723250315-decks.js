@@ -1,6 +1,5 @@
 const Decks = require('../models/deck.model');
 
-
 const { cards, colors, decks } = require('../constants');
 const [normal] = decks;
 const [number, draw, skip, reverse, wild] = cards;

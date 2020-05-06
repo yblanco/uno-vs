@@ -6,7 +6,8 @@
     "start": "nodemon ./bin/www",
     "migrate:create": "migrate create -d mongodb://localhost/uno_vs",
     "migrate:up": "migrate up -d mongodb://localhost/uno_vs --autosync",
-    "migrate:down": "migrate down -d mongodb://localhost/uno_vs"
+    "migrate:down": "migrate down -d mongodb://localhost/uno_vs",
+    "migrate": "migrate up --autosync"
   },
   "dependencies": {
     "axios": "^0.19.2",
