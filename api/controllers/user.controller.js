@@ -5,7 +5,7 @@ module.exports = {
     try{
       const { constants = {}, models, socket, jwt, decode  } = req;
       const { environments = {} } = constants;
-      const { user_limit:limit = 1 } = environments;
+      const { rank_limit:limit = 1 } = environments;
       const { id } = decode;
       const { emitEvent, events } = socket;
       const { users } = models;
