@@ -87,6 +87,8 @@ services:
       - nginx-network
     depends_on:
       - client
+      - api
+      - websocket
 
 volumes:
   uno-data:
