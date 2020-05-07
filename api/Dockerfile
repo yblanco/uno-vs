@@ -18,4 +18,4 @@ RUN touch .env
 RUN npm install --production
 
 #Ejecutar servidor
-CMD npm run migrate -- -d mongodb://${DBUSER}:${DBPASS}@${DBHOST}:${DBPORT}/${DBNAME}; pm2-runtime start ecosystem.config.js
+CMD npm run migrate -- -d mongodb://${DBUSER}:${DBPASS}@${DBHOST}:${DBPORT}/${DBNAME}?authSource=admin; pm2-runtime start ecosystem.config.js
