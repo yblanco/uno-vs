@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '1024mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
