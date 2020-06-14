@@ -233,6 +233,7 @@ schema.statics.check = function check(id, ip, socket) {
 schema.statics.logout = function logout(socket) {
   return this.model('logs').logOut(socket)
     .then(userState => {
+      console.log(userState)
       const { id, online } = userState;
       return this.updateUser(id, online)
         .then(() => userState)

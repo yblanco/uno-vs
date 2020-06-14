@@ -70,14 +70,13 @@ module.exports = {
     try{
       const { models, jwt, socket, params } = req;
       const { socketId } = params;
-      const { emitEvent, events } = socket;
+      const { logoutUser } = socket;
       const { users } = models;
-      await users.logout(socketId)
-        .then(user => emitEvent(events.change_state, user)
-          .then(() => {
-            response = jwt.encodeUser({ user });
-            success = true;
-          }));
+      await logoutUser(socketId)
+        .then((user) => {
+          response = jwt.encodeUser({ user });
+          success = true;
+        });
     } catch(err) {
       return next(err);
     }

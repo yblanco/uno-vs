@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     logger.notice(`Disconnected ${id} from ${address} [Referer: ${origin}]`);
-    api.offline(id);
+    io.sockets.emit('user_disconnect', id);
   });
 });
 
