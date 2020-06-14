@@ -2,31 +2,26 @@ const socketIo = require('socket.io');
 const logger = require('./logger');
 const Api = require('./api');
 
+const api = new Api();
 const io = socketIo();
-const socket = {};
 
-io.on('connection', (connect) => {
-  const { id, handshake = {} } = connect;
+io.on('connection', (socket) => {
+  const { id, handshake = {} } = socket;
   const { address = {}, headers = {}  } = handshake;
-  const { origin } = headers;
+  const { origin = 'unknown' } = headers;
+
   logger.notice(`Connected ${id} from ${address} [Referer: ${origin}]`);
-  connect.on('disconnect', () => {
-    const api = new Api();
+
+  socket.on('emit-event', (message) => {
+    const { event, data } = message;
+    logger.info(`Received and broadcast result call for event ${event} with data: ${JSON.stringify(data)}`);
+    io.sockets.emit(event, data);
+  });
+
+  socket.on('disconnect', () => {
     logger.notice(`Disconnected ${id} from ${address} [Referer: ${origin}]`);
     api.offline(id);
   });
 });
 
-socket.event = (event, data) => new Promise((resolve, reject) => {
-  try {
-    logger.debug(`Event '${event}': ${JSON.stringify(data)}`);
-    io.sockets.emit(event, data);
-    resolve(true);
-  } catch (err) {
-    reject(err);
-  }
-});
-
-socket.io = io;
-
-module.exports = socket;
+module.exports = io;

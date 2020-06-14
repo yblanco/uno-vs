@@ -25,6 +25,7 @@ services:
       - PORT=80
     volumes:
       - /srv/ssl/websocket/verify:/app/public/.well-known/acme-challenge/
+      - /var/log/uno-websocket:/var/log/app
     networks:
       - nginx-network
     restart: always
@@ -48,6 +49,7 @@ services:
       - RANK_LIMIT=$RANK_LIMIT
     volumes:
       - /srv/ssl/api/verify:/app/public/.well-known/acme-challenge/
+      - /var/log/uno-server:/var/log/app
     networks:
       - nginx-network
       - back-network

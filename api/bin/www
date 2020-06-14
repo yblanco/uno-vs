@@ -67,11 +67,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      logger.error(1, `${bind} requires elevated privileges`);
+      logger.error(1, new Error(`${bind} requires elevated privileges`));
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      logger.error(2, `${bind} is already in use`);
+      logger.error(2, new Error(`${bind} is already in use`));
       process.exit(1);
       break;
     default:

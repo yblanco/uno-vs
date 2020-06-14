@@ -25,16 +25,18 @@ app.set('trust proxy', true)
 app.use((req, res, next) => {
   const { environments = {} } = constants;
   const { secret_request:secret = false } = environments;
-  if(secret === false) {
-    throw new Error('Server not configured');
-  }
   req.constants = constants;
   req.logger = logger;
   req.models = models.mongoose.models;
   req.jwt = new JWT(secret);
   req.socket = socket;
   res.response = (success, data) => res.json({ success, data });
-  next();
+  if(secret === false) {
+    return next(new Error('Server not configured'));
+  } else if (!req.socket.io.connected) {
+    return next(new Error('Socket is not conected'));
+  }
+  return next();
 });
 app.use(requestIp.mw())
 app.use(cors());
@@ -71,7 +73,7 @@ app.use((err, req, res, next) => {
   };
   const error = err.status || 500
   res.status(error);
-  req.logger.error(error, err.toString())
+  req.logger.error(`HTTP ERROR ${error}`, err)
   res.response(false, data);
 });
 

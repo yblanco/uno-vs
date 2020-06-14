@@ -33,7 +33,7 @@ class MongoDatabase {
 
   events() {
     this.mongoose.connection.on('error', (err) => {
-      logger.error(`Error connecting ${this.retry} to MongoDb @ ${this.dbURI}: ${err.message}`);
+      logger.error('MONGO 1', new Error(`Error connecting ${this.retry} to MongoDb @ ${this.dbURI}: ${err.message}`));
       this.mongoose.disconnect();
     });
     this.mongoose.connection.on('connecting', () => {
@@ -56,7 +56,7 @@ class MongoDatabase {
       this.retry += 1;
       this.mongoose.connect(this.dbURI, this.dbOption)
         .catch((err) => {
-          logger.error(`Error on start mongo connection: ${err.message}`);
+          logger.error('MONGO 2', new Error(`Error on start mongo connection: ${err.message}`));
           this.instance = false;
           this.timeout = setTimeout(this.connect.bind(this), this.reconnectInterval);
         });

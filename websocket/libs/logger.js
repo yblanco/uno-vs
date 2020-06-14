@@ -3,27 +3,27 @@ const fs = require('fs');
 const { createLogger, format, transports } = require('winston');
 
 const { environments, app } = require('../constants');
-const { max_day_log:maxday, path_log:pathFolder, env } = environments;
+const { max_day_log:maxday, path_log:pathFolder, env, debug } = environments;
 
 require('winston-daily-rotate-file');
 
-class Logger{
-  constructor(route, name, env, max) {
-    const folder = path.join(route, name);
+class Logger {
+  constructor(route, name, envName, max) {
+    const folder = path.join(route);
     const levelsLog = ['error', 'info', 'debug', 'warn'];
 
     if (!fs.existsSync(folder)) {
       fs.mkdirSync(folder);
     }
     this.name = name.toLowerCase();
-    this.env = env.toLowerCase();
+    this.env = envName.toLowerCase();
     this.log_data = null;
     this.route = folder;
     this.max_file = max;
     this.logger = createLogger({
       transports: [
-        new transports.Console({ level: 'silly',}),
-        ...levelsLog.map(level => this.rotateLog(level)),
+        new transports.Console({ level: 'silly' }),
+        ...levelsLog.map((level) => this.rotateLog(level)),
       ],
       format: format.combine(
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -48,11 +48,15 @@ class Logger{
       filename: path.join(this.route, '%DATE%', `${level}.log`),
       datePattern: 'YYYY-MM-DD',
       maxFiles: `${this.max_file}d`,
-    })
+    });
   }
 
-  async error(error=0, message='Unknown error') {
-    this.logger.log('error', `${error} - ${message}`);
+  async error(error = 'Not Defined', err = new Error('Unknown error')) {
+    console.log("HOLA")
+    this.logger.log('error', `${error} - ${err.message}`);
+    if (debug) {
+      this.debug(err.stack);
+    }
   }
 
   async warning(message) {
@@ -70,7 +74,6 @@ class Logger{
   async debug(message) {
     this.logger.log('debug', message);
   }
-
 }
 
 module.exports = new Logger(pathFolder, app.name, env, maxday);

@@ -1,5 +1,8 @@
 const axios = require('axios');
+const { environments } = require('../constants');
 const logger = require('./logger.js');
+
+const { timeout } = environments;
 
 module.exports = class {
   constructor(host, name, check = '') {
@@ -10,7 +13,7 @@ module.exports = class {
     this.instance = axios.create({
       baseURL: this.host,
       headers: { 'Content-Type': 'application/json' },
-      timeout: 5000,
+      timeout,
     });
     this.dataSend = {};
   }
@@ -31,7 +34,7 @@ module.exports = class {
     return this.sendData(this.checkRoute, 'get')
       .then(() => (true))
       .catch((err) => {
-        this.logger.error(`Unable to connect to ${this.name}: ${err.message}`);
+        this.logger.error('REST 1', new Error(`Unable to connect to ${this.name}: ${err.message}`));
         return false;
       });
   }
@@ -59,18 +62,18 @@ module.exports = class {
 
   sendDataThen(response) {
     const { data: result, status } = this.constructor.dataResponse(response);
-    const { data, success, error = false } = result;
-    if (status !== 200 || !success || error !== false) {
-      throw new Error(error !== false ? error : data);
+    const { data, success } = result;
+    if (status !== 200 || !success) {
+      throw new Error(data);
     }
     return data;
   }
 
   static sendDataCatch(err) {
-    const { message, response:res = {}, errno } = err;
+    const { message, response: res = {}, errno } = err;
     const { data: response = {} } = res;
     const { data = {} } = response;
-    const { message:error = undefined } = data;
+    const { message: error = undefined } = data;
     if (errno === 'ECONNREFUSED') {
       throw new Error(`${this.name} unavailable`);
     }

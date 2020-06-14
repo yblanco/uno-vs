@@ -1,4 +1,6 @@
 const Rest = require('./rest');
+const logger = require('./logger');
+
 const { environments } = require('../constants');
 const { api } = environments;
 
@@ -9,9 +11,9 @@ module.exports = class Server extends Rest {
 
   offline(id, attemp = 0) {
     return this.sendData(`auth/logout/${id}`, 'get').then(success => {
-      console.log("SUCCESS", success)
+      logger.info(`Success on logout API ${success}`);
     }).catch(err => {
-      console.log("ERROR", err)
+      logger.error('Logout on API', err);
     });
   }
 };

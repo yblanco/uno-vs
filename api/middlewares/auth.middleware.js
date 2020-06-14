@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
     .catch(err => {
       const error = new Error('Unathorized');
       error.status = 403;
-      logger.error(`Decode failed on ${originalUrl} for string ${info}`);
+      logger.error('AUTH MIDDLEWARE', err);
       throw error;
     });
   }

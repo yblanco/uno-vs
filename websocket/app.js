@@ -39,7 +39,7 @@ app.use(morgan((tokens, req, res) => [
   tokens['response-time'](req, res), 'ms',
 ].join(' '), { stream: logger.stream }));
 
-app.io = socket.io;
+app.io = socket;
 
 app.use('/', routes);
 
@@ -57,7 +57,7 @@ app.use((err, req, res, next) => {
   };
   const error = err.status || 500
   res.status(error);
-  req.logger.error(error, err.toString())
+  req.logger.error(`HTTP ERROR ${error}`, err)
   res.response(false, data);
 });
 
