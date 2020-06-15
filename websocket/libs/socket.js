@@ -1,8 +1,6 @@
 const socketIo = require('socket.io');
 const logger = require('./logger');
-const Api = require('./api');
 
-const api = new Api();
 const io = socketIo();
 
 io.on('connection', (socket) => {
