@@ -11,10 +11,6 @@ import Join from '../pages/Join';
 import JoinLink from '../pages/JoinLink';
 import Social from '../pages/Social';
 
-
-
-
-
 const routes = {
   notFound: {
     link: '*',

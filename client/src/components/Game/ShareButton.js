@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   FacebookShareButton, FacebookIcon,
@@ -7,12 +7,18 @@ import {
   WhatsappShareButton, WhatsappIcon,
 } from "react-share";
 
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+
 import { translate } from 'react-translate';
+
+import Icons from '../Icons';
 
 import routes from '../../routes';
 
 
 export default translate('game')(({ t, type, code }) => {
+  const [copy,setCopy] = useState(false);
   const { location } = window;
   const { protocol = 'https:', host = 'uno-vs.com/' } = location;
   const size=24;
@@ -39,11 +45,17 @@ export default translate('game')(({ t, type, code }) => {
           <TelegramIcon size={24} round={true} />
         </TelegramShareButton>
       );
-    default:
+    case 'whatsapp':
       return (
         <WhatsappShareButton url={url} title={quote} >
           <WhatsappIcon size={size} round={round} />
         </WhatsappShareButton>
       );
+    default:
+      return (
+        <CopyToClipboard text={`${quote} ${url}`} className={`pointer ${copy && 'off'}`} onCopy={()=>setCopy(true)}>
+          <Icons type='copy' size={24}   style={{ display: 'inline-block' }}  />
+        </CopyToClipboard>
+      )
   }
 });

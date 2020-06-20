@@ -35,11 +35,7 @@ import stop from './stop.png';
 import card from './card.png';
 import uno from './uno.png';
 import beta from './beta.png';
-
-
-
-
-
+import copy   from './copy.png';
 
 import en from './en.png';
 import es from './es.png';
@@ -82,6 +78,7 @@ const stats = {
   es,
   uno,
   beta,
+  copy,
 };
 
 export default ({ type, size=16, ...others }) => (

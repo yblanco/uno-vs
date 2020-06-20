@@ -11,13 +11,16 @@ export default translate('game')(({ t, code, share = true }) => {
       <Columns.Column size={2}  className='has-text-weight-bold'>
         {t('code')}:
       </Columns.Column>
-      <Columns.Column size={3} className='has-text-weight-light'>
+      <Columns.Column size={3} className='has-text-weight-light has-text-centered'>
         {code.toUpperCase()}
+      </Columns.Column>
+      <Columns.Column size={1}>
+        <ShareButton type='copy' code={code} />
       </Columns.Column>
       {
         share && (
           ['facebook', 'twitter', 'telegram', 'whatsapp'].map((rrss, index) => (
-            <Columns.Column key={rrss} size={1} offset={index === 0 ? 2 : null}>
+            <Columns.Column key={rrss} size={1} offset={index === 0 ? 1 : null} >
               <ShareButton type={rrss} code={code} />
             </Columns.Column>
           ))
