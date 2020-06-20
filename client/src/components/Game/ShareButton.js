@@ -53,7 +53,7 @@ export default translate('game')(({ t, type, code }) => {
       );
     default:
       return (
-        <CopyToClipboard text={`${quote} ${url}`} className={`pointer ${copy && 'off'}`} onCopy={()=>setCopy(true)}>
+        <CopyToClipboard text={url} className={`pointer ${copy && 'off'}`} onCopy={()=>setCopy(true)}>
           <Icons type='copy' size={24}   style={{ display: 'inline-block' }}  />
         </CopyToClipboard>
       )
