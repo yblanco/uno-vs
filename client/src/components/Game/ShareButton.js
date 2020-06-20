@@ -7,17 +7,19 @@ import {
   WhatsappShareButton, WhatsappIcon,
 } from "react-share";
 
+import { translate } from 'react-translate';
+
 import routes from '../../routes';
 
 
-export default ({ type, code }) => {
+export default translate('game')(({ t, type, code }) => {
   const { location } = window;
   const { protocol = 'https:', host = 'uno-vs.com/' } = location;
   const size=24;
   const round = true;
   const link = routes.getLink('join_link', { code })
   const url = `${protocol}//${host}${link}`;
-  const quote = `Hey, lets to play Uno Versus`;
+  const quote = t('quote_share');
   switch (type) {
     case 'facebook':
       return (
@@ -44,4 +46,4 @@ export default ({ type, code }) => {
         </WhatsappShareButton>
       );
   }
-};
+});

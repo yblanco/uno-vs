@@ -47,7 +47,8 @@
     "cancel": "Cancel",
     "join_game": "Join to game",
     "wait_start": "Wait for start",
-    "no_game_found": "No games found"
+    "no_game_found": "No games found",
+    "quote_share": "Hey, lets to play Uno Versus"
   },
   "friends": {
     "friends": "Friends",
